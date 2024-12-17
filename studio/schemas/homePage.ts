@@ -1,5 +1,5 @@
 import {UserIcon} from '@sanity/icons'
-import {selectMediaTypeObject, imageObject, videoObject} from '../objects'
+import {selectMediaTypeObject, imageObject, videoObject, seoObject} from '../objects'
 
 export default {
   title: 'Home Page',
@@ -13,15 +13,20 @@ export default {
       type: 'string',
       description: 'This is an internal reference title.',
     },
+    seoObject,
     {
-      title: 'Hero Section',
-      name: 'heroSection',
+      title: 'Hero Media',
+      name: 'heroMedia',
       type: 'object',
       fields: [
+        selectMediaTypeObject,
         {
-          title: 'Hero Video',
-          name: 'heroVideo',
-          type: 'mux.video',
+          ...imageObject,
+          hidden: ({parent}: any) => parent?.mediaType !== 'image',
+        },
+        {
+          ...videoObject,
+          hidden: ({parent}: any) => parent?.mediaType !== 'video',
         },
       ],
     },

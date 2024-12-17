@@ -11,16 +11,6 @@ export default {
       initialValue: 'Site Settings',
     },
     {
-      title: 'SEO title',
-      name: 'seoTitle',
-      type: 'string',
-    },
-    {
-      title: 'SEO description',
-      name: 'seoDescription',
-      type: 'string',
-    },
-    {
       title: 'Email',
       name: 'email',
       type: 'string',
@@ -35,6 +25,11 @@ export default {
       name: 'address',
       type: 'text',
       rows: 3,
+    },
+    {
+      title: 'Google Maps Link',
+      name: 'googleMapsLink',
+      type: 'url',
     },
     {
       title: 'Acknowledgement of Country',
@@ -56,6 +51,11 @@ export default {
       title: 'Footer tagline',
       name: 'footerTagline',
       type: 'string',
+    },
+    {
+      title: 'Est. Year',
+      name: 'estYear',
+      type: 'number',
     },
   ],
 }

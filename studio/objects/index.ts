@@ -11,6 +11,25 @@ const selectMediaTypeObject = {
   },
 }
 
+const seoObject = {
+  title: 'SEO',
+  name: 'seo',
+  type: 'object',
+  fields: [
+    {
+      name: 'title',
+      type: 'string',
+      title: 'SEO Title',
+    },
+    {
+      name: 'description',
+      type: 'text',
+      title: 'Meta Description',
+      rows: 3,
+    },
+  ],
+}
+
 const imageObject = {
   title: 'Image',
   name: 'image',
@@ -166,4 +185,12 @@ const multiColumnMedia = {
   hidden: ({parent}: {parent: any}) => parent?.component !== 'multiColumnMedia',
 }
 
-export {selectMediaTypeObject, imageObject, videoObject, fullMedia, isolatedMedia, multiColumnMedia}
+export {
+  selectMediaTypeObject,
+  imageObject,
+  videoObject,
+  fullMedia,
+  isolatedMedia,
+  multiColumnMedia,
+  seoObject,
+}

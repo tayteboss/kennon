@@ -1,64 +1,73 @@
-import styled from 'styled-components';
-import client from '../../client';
-import { ProjectType, TransitionsType } from '../../shared/types/types';
-import { motion } from 'framer-motion';
-import { NextSeo } from 'next-seo';
+import styled from "styled-components";
+import client from "../../client";
+import { TransitionsType, WorkType } from "../../shared/types/types";
+import { motion } from "framer-motion";
+import { NextSeo } from "next-seo";
 
 type Props = {
-	data: ProjectType;
-	pageTransitionVariants: TransitionsType;
+  data: WorkType;
+  pageTransitionVariants: TransitionsType;
 };
 
 const PageWrapper = styled(motion.div)``;
 
 const Page = (props: Props) => {
-	const { data, pageTransitionVariants } = props;
+  const { data, pageTransitionVariants } = props;
 
-	return (
-		<PageWrapper
-			variants={pageTransitionVariants}
-			initial="hidden"
-			animate="visible"
-			exit="hidden"
-		>
-			<NextSeo
-				title={`TO BE FILLLED IN`}
-				description={`TO BE FILLED IN`}
-			/>
-		</PageWrapper>
-	);
+  console.log("data", data);
+
+  return (
+    <PageWrapper
+      variants={pageTransitionVariants}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+    >
+      <NextSeo title={`TO BE FILLLED IN`} description={`TO BE FILLED IN`} />
+    </PageWrapper>
+  );
 };
 
 export async function getStaticPaths() {
-	const projectsQuery = `
-		*[_type == 'project'] [0...100] {
+  const publicWorkQuery = `
+		*[_type == 'publicWork'] [0...100] {
+			slug
+		}
+	`;
+  const privateWorkQuery = `
+		*[_type == 'privateWork'] [0...100] {
 			slug
 		}
 	`;
 
-	const allProjects = await client.fetch(projectsQuery);
+  const allPublicWork = await client.fetch(publicWorkQuery);
+  const allPrivateWork = await client.fetch(privateWorkQuery);
 
-	return {
-		paths: allProjects.map((item: any) => {
-			return `/work/${item?.slug?.current}`;
-		}),
-		fallback: true
-	};
+  const allWork = [...allPublicWork, ...allPrivateWork];
+
+  return {
+    paths: allWork.map((item: any) => {
+      return `/work/${item?.slug?.current}`;
+    }),
+    fallback: true,
+  };
 }
 
 export async function getStaticProps({ params }: any) {
-	const projectQuery = `
-		*[_type == 'project' && slug.current == "${params.slug[0]}"][0] {
+  console.log("params", params);
+
+  const workQuery = `
+		*[_type in ['privateWork', 'publicWork'] && slug.current == "${params.slug[0]}"][0] {
 			...,
 		}
 	`;
-	const data = await client.fetch(projectQuery);
+  const data = await client.fetch(workQuery);
 
-	return {
-		props: {
-			data
-		}
-	};
+  return {
+    props: {
+      data,
+    },
+  };
 }
 
 export default Page;
