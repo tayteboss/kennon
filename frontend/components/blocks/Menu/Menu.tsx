@@ -13,7 +13,7 @@ const MenuWrapper = styled(motion.div)`
   width: 100%;
   height: 100dvh;
   z-index: 90;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(5px);
 `;
 
@@ -67,7 +67,7 @@ const Menu = (props: Props) => {
           exit="hidden"
         >
           <Inner>
-            <MenuNavigation />
+            <MenuNavigation setMenuIsActive={setMenuIsActive} />
             <MenuStudioDetails
               phone={siteSettings?.phone}
               email={siteSettings?.email}

@@ -28,8 +28,6 @@ const Layout = (props: Props) => {
     }
   }, [menuIsActive]);
 
-  console.log("siteSettings", siteSettings);
-
   return (
     <>
       <Header menuIsActive={menuIsActive} setMenuIsActive={setMenuIsActive} />

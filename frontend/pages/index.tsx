@@ -41,7 +41,7 @@ const Page = (props: Props) => {
         title={data?.seo?.title || ""}
         description={data?.seo?.description || ""}
       />
-      <HomeHero />
+      <HomeHero data={data?.heroMedia} />
       <HomeWorks />
       <HomeFeaturedWorks />
       <HomeStudio />

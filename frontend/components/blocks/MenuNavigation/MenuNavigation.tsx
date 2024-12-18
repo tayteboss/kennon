@@ -116,19 +116,27 @@ const childVariants = {
   },
 };
 
-const MenuNavigation = () => {
+type Props = {
+  setMenuIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const MenuNavigation = (props: Props) => {
+  const { setMenuIsActive } = props;
+
   const [showWorkTypes, setShowWorkTypes] = useState(false);
 
   const activeLink = useActiveLink();
 
   const handlePrivateClick = () => {
     setShowWorkTypes(false);
+    setMenuIsActive(false);
 
     // UTIL FN
   };
 
   const handlePublicClick = () => {
     setShowWorkTypes(false);
+    setMenuIsActive(false);
 
     // UTIL FN
   };
@@ -136,7 +144,11 @@ const MenuNavigation = () => {
   return (
     <MenuNavigationWrapper onMouseLeave={() => setShowWorkTypes(false)}>
       <Link href="/">
-        <LinkTag $isActive={activeLink === "Home"} $fadeOut={showWorkTypes}>
+        <LinkTag
+          $isActive={activeLink === "Home"}
+          $fadeOut={showWorkTypes}
+          onClick={() => setMenuIsActive(false)}
+        >
           Home
         </LinkTag>
       </Link>
@@ -170,7 +182,11 @@ const MenuNavigation = () => {
         )}
       </AnimatePresence>
       <Link href="/studio">
-        <LinkTag $isActive={activeLink === "Studio"} $fadeOut={showWorkTypes}>
+        <LinkTag
+          $isActive={activeLink === "Studio"}
+          $fadeOut={showWorkTypes}
+          onClick={() => setMenuIsActive(false)}
+        >
           Studio
         </LinkTag>
       </Link>
@@ -178,17 +194,26 @@ const MenuNavigation = () => {
         <LinkTag
           $isActive={activeLink === "Sensitive"}
           $fadeOut={showWorkTypes}
+          onClick={() => setMenuIsActive(false)}
         >
           Being Sensitive
         </LinkTag>
       </Link>
       <Link href="/press">
-        <LinkTag $isActive={activeLink === "Press"} $fadeOut={showWorkTypes}>
+        <LinkTag
+          $isActive={activeLink === "Press"}
+          $fadeOut={showWorkTypes}
+          onClick={() => setMenuIsActive(false)}
+        >
           Press
         </LinkTag>
       </Link>
       <Link href="/contact">
-        <LinkTag $isActive={activeLink === "Contact"} $fadeOut={showWorkTypes}>
+        <LinkTag
+          $isActive={activeLink === "Contact"}
+          $fadeOut={showWorkTypes}
+          onClick={() => setMenuIsActive(false)}
+        >
           Contact
         </LinkTag>
       </Link>

@@ -67,13 +67,7 @@ export type SEOType = {
 export type HomePageType = {
   referenceTitle: string;
   seo: SEOType;
-  heroSection: {
-    heroVideo: {
-      asset: {
-        playbackId: string;
-      };
-    };
-  };
+  heroMedia: MediaType;
   featuredWork: Array<{
     _ref: string;
   }>;
