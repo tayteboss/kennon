@@ -21,10 +21,14 @@ const Layout = (props: Props) => {
   const lenis = useLenis(({ scroll }) => {});
 
   useEffect(() => {
+    if (!lenis) return;
+
     if (menuIsActive) {
       document.documentElement.classList.add("no-scroll");
+      lenis.stop();
     } else {
       document.documentElement.classList.remove("no-scroll");
+      lenis.start();
     }
   }, [menuIsActive]);
 

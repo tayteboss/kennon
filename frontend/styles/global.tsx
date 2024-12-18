@@ -188,6 +188,20 @@ export const GlobalStyles = createGlobalStyle`
 		}
 	}
 
+	.view-element-image-blur-in
+	{
+		transform: scale(1.02);
+		filter: blur(5px);
+
+		transition: all 2000ms ease;
+
+		&--in-view
+		{
+			transform: scale(1);
+			filter: none;
+		}
+	}
+
 	.embla {
 		overflow: hidden;
 	}

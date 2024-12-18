@@ -46,7 +46,7 @@ const Page = (props: Props) => {
         privateWorkImage={siteSettings?.privateWorkImage}
         publicWorkImage={siteSettings?.publicWorkImage}
       />
-      <HomeFeaturedWorks />
+      <HomeFeaturedWorks data={data?.featuredWork} />
       <HomeStudio />
     </PageWrapper>
   );

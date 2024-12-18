@@ -68,9 +68,7 @@ export type HomePageType = {
   referenceTitle: string;
   seo: SEOType;
   heroMedia: MediaType;
-  featuredWork: Array<{
-    _ref: string;
-  }>;
+  featuredWork: WorkType[];
   studioSection: {
     studioSubheading: string;
     studioHeading: string;
@@ -184,13 +182,17 @@ export type MultiColumnMediaType = {
 };
 
 export type WorkType = {
+  _type: "publicWork" | "privateWork";
   slug: SlugType;
+  title: string;
   landscapeThumbnailImage: {
     asset: {
       url: string;
       alt: string;
     };
   };
+  location: string;
+  yearCompleted: string;
   portraitThumbnailImage: {
     asset: {
       url: string;

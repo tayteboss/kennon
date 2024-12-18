@@ -45,7 +45,18 @@ export const homePageQueryString = `
 				${mediaString}
 			},
 			featuredWork[]->{
-					...
+					_type,
+					slug,
+					landscapeThumbnailImage {
+						asset->{
+							...,
+							url,
+							alt
+						}
+					},
+					location,
+					title,
+					yearCompleted
 			},
 			studioSection {
 					...,
