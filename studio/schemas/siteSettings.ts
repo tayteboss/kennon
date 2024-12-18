@@ -32,6 +32,16 @@ export default {
       type: 'url',
     },
     {
+      title: 'Private Work Image',
+      name: 'privateWorkImage',
+      type: 'image',
+    },
+    {
+      title: 'Public Work Image',
+      name: 'publicWorkImage',
+      type: 'image',
+    },
+    {
       title: 'Acknowledgement of Country',
       name: 'aoc',
       type: 'text',

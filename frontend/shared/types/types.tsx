@@ -47,6 +47,16 @@ export type SiteSettingsType = {
   };
   footerTagline: string;
   estYear: number;
+  privateWorkImage: {
+    asset: {
+      url: string;
+    };
+  };
+  publicWorkImage: {
+    asset: {
+      url: string;
+    };
+  };
 };
 
 export type SEOType = {

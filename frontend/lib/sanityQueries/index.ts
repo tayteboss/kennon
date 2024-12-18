@@ -20,6 +20,16 @@ export const mediaString = `
 export const siteSettingsQueryString = `
 *[_type == "siteSettings"][0] {
 	...,
+	privateWorkImage {
+		asset-> {
+			url
+		}
+	},
+	publicWorkImage {
+		asset-> {
+			url
+		}
+	},
 }`;
 
 export const homePageQueryString = `
