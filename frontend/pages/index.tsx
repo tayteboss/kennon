@@ -11,6 +11,10 @@ import {
   homePageQueryString,
   siteSettingsQueryString,
 } from "../lib/sanityQueries";
+import HomeFeaturedWorks from "../components/blocks/HomeFeaturedWorks";
+import HomeHero from "../components/blocks/HomeHero";
+import HomeStudio from "../components/blocks/HomeStudio";
+import HomeWorks from "../components/blocks/HomeWorks";
 
 const PageWrapper = styled(motion.div)``;
 
@@ -37,7 +41,10 @@ const Page = (props: Props) => {
         title={data?.seo?.title || ""}
         description={data?.seo?.description || ""}
       />
-      Home
+      <HomeHero />
+      <HomeWorks />
+      <HomeFeaturedWorks />
+      <HomeStudio />
     </PageWrapper>
   );
 };

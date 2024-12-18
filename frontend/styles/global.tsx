@@ -6,6 +6,11 @@ export const GlobalStyles = createGlobalStyle`
 	:root {
 		--colour-white: ${theme.colours.white};
 		--colour-black: ${theme.colours.black};
+		--colour-dark-grey: ${theme.colours.darkGrey};
+		--colour-mid-grey: ${theme.colours.midGrey};
+		--colour-light-grey: ${theme.colours.lightGrey};
+		--colour-cream: ${theme.colours.cream};
+		--colour-light-cream: ${theme.colours.lightCream};
 		--font-arizona-flare-light: ${theme.fonts.arizonaFlareLight};
 		--font-helvetica-neue-medium: ${theme.fonts.helveticaNeueMedium};
 		--font-helvetica-neue-roman: ${theme.fonts.helveticaNeueRoman};

@@ -53,7 +53,9 @@ const PrivateTrigger = styled(motion.button)`
   }
 
   &:hover {
-    opacity: 0.5;
+    & > div {
+      opacity: 0.5;
+    }
   }
 `;
 
