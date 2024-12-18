@@ -30,6 +30,11 @@ export const siteSettingsQueryString = `
 			url
 		}
 	},
+	showreel {
+		asset-> {
+			playbackId
+		}
+	}
 }`;
 
 export const homePageQueryString = `

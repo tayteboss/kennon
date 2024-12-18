@@ -5,7 +5,12 @@ import NavbarLinks from "../../blocks/NavbarLinks";
 import MenuTrigger from "../../blocks/MenuTrigger";
 
 const HeaderWrapper = styled.header`
-  padding: ${pxToRem(20)} ${pxToRem(16)};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: ${pxToRem(24)};
   display: flex;
   align-items: center;
   justify-content: space-between;

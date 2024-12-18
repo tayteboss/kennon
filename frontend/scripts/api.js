@@ -22,6 +22,11 @@ const getSiteData = async () => {
                 url
             }
         },
+        showreel {
+            asset-> {
+                playbackId
+            }
+        }
     }
   `;
 
