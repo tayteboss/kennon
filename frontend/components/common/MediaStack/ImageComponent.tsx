@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const ImageComponentWrapper = styled.div`
   position: relative;
-  background-color: rgba(0, 0, 0, 0.1);
   overflow: hidden;
 
   mux-player,

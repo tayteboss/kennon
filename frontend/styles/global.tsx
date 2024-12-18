@@ -92,7 +92,9 @@ export const GlobalStyles = createGlobalStyle`
 	h1,
 	.type-h1 {
 		font-size: ${pxToRem(34)};
-		line-height: ${pxToRem(39)};
+		line-height: ${pxToRem(37)};
+		letter-spacing: -0.03em;
+		font-weight: 200;
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
 			font-size: ${pxToRem(26)};
@@ -110,6 +112,7 @@ export const GlobalStyles = createGlobalStyle`
 	.type-h5,
 	h6,
 	.type-h6 {
+		font-weight: 200;
 		font-size: ${pxToRem(16)};
 		line-height: ${pxToRem(21)};
 	}
@@ -134,6 +137,8 @@ export const GlobalStyles = createGlobalStyle`
 
 	.type-heading-small {
 		font-size: ${pxToRem(14)};
+		line-height: ${pxToRem(18)};
+		text-transform: uppercase;
 	}
 
 	.type-heading-xsmall {

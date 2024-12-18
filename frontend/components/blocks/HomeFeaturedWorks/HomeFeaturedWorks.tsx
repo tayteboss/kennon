@@ -20,8 +20,6 @@ const HomeFeaturedWorks = (props: Props) => {
 
   const hasData = data && data.length > 0;
 
-  console.log("data", data);
-
   return (
     <HomeFeaturedWorksWrapper>
       {hasData &&
