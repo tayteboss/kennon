@@ -42,7 +42,10 @@ const Page = (props: Props) => {
         description={data?.seo?.description || ""}
       />
       <HomeHero data={data?.heroMedia} />
-      <HomeWorks />
+      <HomeWorks
+        privateWorkImage={siteSettings?.privateWorkImage}
+        publicWorkImage={siteSettings?.publicWorkImage}
+      />
       <HomeFeaturedWorks />
       <HomeStudio />
     </PageWrapper>
