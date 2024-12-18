@@ -8,6 +8,10 @@ const NavbarLinksWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex: 1;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    display: none;
+  }
 `;
 
 const DefaultLinks = styled(motion.div)`

@@ -11,9 +11,17 @@ const MenuStudioDetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    display: none;
+  }
 `;
 
-const LinkTag = styled.div``;
+const LinkTag = styled.div`
+  @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
+    text-align: center;
+  }
+`;
 
 type Props = {
   phone: SiteSettingsType["phone"];

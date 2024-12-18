@@ -4,7 +4,6 @@ import { SiteSettingsType } from "../../../shared/types/types";
 import MenuNavigation from "../MenuNavigation";
 import MenuAoc from "../../elements/MenuAoc";
 import MenuStudioDetails from "../MenuStudioDetails";
-import pxToRem from "../../../utils/pxToRem";
 import MenuShowreel from "../MenuShowreel";
 
 const MenuWrapper = styled(motion.div)`
@@ -22,9 +21,14 @@ const Inner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: calc(var(--header-h) + 24px) 24px 24px 24px;
+  padding: calc(var(--header-h) + 8px) 24px 24px 24px;
   height: 100%;
   position: relative;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    padding: calc(var(--header-h) + 8px) 16px 16px 16px;
+    align-items: center;
+  }
 `;
 
 const wrapperVariants = {

@@ -17,6 +17,10 @@ const LinkTag = styled.div<{ $isActive: boolean; $fadeOut: boolean }>`
 
   transition: all var(--transition-speed-default) var(--transition-ease);
 
+  @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
+    text-align: center;
+  }
+
   &:hover {
     opacity: 0.5;
   }
@@ -25,16 +29,28 @@ const LinkTag = styled.div<{ $isActive: boolean; $fadeOut: boolean }>`
 const WorkTrigger = styled.button<{ $fadeOut: boolean }>`
   text-align: right;
   opacity: ${(props) => (props.$fadeOut ? 0.5 : 1)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
+    text-align: center;
+  }
 `;
 
 const WorkTypesList = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
+    align-items: center;
+  }
 `;
 
 const PrivateTrigger = styled(motion.button)`
   text-align: right;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
+    text-align: center;
+  }
 
   &:hover {
     opacity: 0.5;
@@ -43,6 +59,10 @@ const PrivateTrigger = styled(motion.button)`
 
 const PublicTrigger = styled(motion.button)`
   text-align: right;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
+    text-align: center;
+  }
 
   &:hover {
     & > div {

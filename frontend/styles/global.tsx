@@ -124,6 +124,7 @@ export const GlobalStyles = createGlobalStyle`
 
 	.type-small {
 		font-size: ${pxToRem(12)};
+		line-height: ${pxToRem(16)};
 	}
 
 	.type-heading-small {

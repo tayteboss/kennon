@@ -10,6 +10,10 @@ const MenuShowreelWrapper = styled.div`
   z-index: 1;
   width: 25%;
 
+  @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
+    display: none;
+  }
+
   mux-player {
     width: 100%;
     height: 100%;

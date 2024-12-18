@@ -16,6 +16,10 @@ const HeaderWrapper = styled.header`
   justify-content: space-between;
   mix-blend-mode: difference;
 
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    padding: ${pxToRem(16)};
+  }
+
   a {
     color: var(--colour-white);
     flex: 1;
