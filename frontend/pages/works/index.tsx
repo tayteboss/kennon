@@ -14,6 +14,8 @@ import {
 } from "../../lib/sanityQueries";
 import pxToRem from "../../utils/pxToRem";
 import PageBuilder from "../../components/common/PageBuilder";
+import { useState } from "react";
+import HeroTitle from "../../components/blocks/HeroTitle";
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
@@ -33,6 +35,8 @@ const Page = (props: Props) => {
   const { data, publicWorkList, privateWorkList, pageTransitionVariants } =
     props;
 
+  const [listView, setListView] = useState("landscape");
+
   console.log("data", data);
   console.log("publicWorkList", publicWorkList);
   console.log("privateWorkList", privateWorkList);
@@ -48,7 +52,7 @@ const Page = (props: Props) => {
         title={data?.seo?.title || ""}
         description={data?.seo?.description || ""}
       />
-      <PageBuilder data={publicWorkList} />
+      <HeroTitle title={data?.heroTitle} />
     </PageWrapper>
   );
 };
