@@ -55,7 +55,10 @@ const HomeWorkCard = (props: Props) => {
   };
 
   return (
-    <HomeWorkCardWrapper onClick={() => handleClick()}>
+    <HomeWorkCardWrapper
+      onClick={() => handleClick()}
+      className="cursor-arrow-link"
+    >
       {image?.asset?.url && (
         <Image
           src={image.asset.url}

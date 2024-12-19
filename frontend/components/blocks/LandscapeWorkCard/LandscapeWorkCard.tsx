@@ -43,7 +43,10 @@ const LandscapeWorkCard = (props: Props) => {
   });
 
   return (
-    <Link className="work-landscape-card" href={`/work/${slug.current}`}>
+    <Link
+      className="work-landscape-card cursor-arrow-link"
+      href={`/work/${slug.current}`}
+    >
       <LandscapeWorkCardWrapper ref={ref}>
         {image?.asset?.url && (
           <ImageWrapper

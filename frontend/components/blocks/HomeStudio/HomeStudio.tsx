@@ -5,6 +5,7 @@ import SectionHeading from "../SectionHeading";
 import pxToRem from "../../../utils/pxToRem";
 import MediaStack from "../../common/MediaStack";
 import LayoutGrid from "../../layout/LayoutGrid";
+import Link from "next/link";
 
 const HomeStudioWrapper = styled.section`
   padding-top: ${pxToRem(8)};
@@ -13,15 +14,21 @@ const HomeStudioWrapper = styled.section`
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     margin-bottom: ${pxToRem(80)};
   }
+
+  a {
+    grid-column: 2 / -2;
+
+    @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+      grid-column: 1 / -1;
+    }
+  }
 `;
 
 const ImageWrapper = styled.div`
   padding: ${pxToRem(40)} 0;
-  grid-column: 2 / -2;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     padding: ${pxToRem(24)} 0;
-    grid-column: 1 / -1;
   }
 
   .media-wrapper {
@@ -48,9 +55,11 @@ const HomeStudio = (props: Props) => {
           heading={data?.studioHeading}
         />
         <LayoutGrid>
-          <ImageWrapper>
-            <MediaStack data={data?.studioMedia} />
-          </ImageWrapper>
+          <Link href="/studio">
+            <ImageWrapper className="cursor-arrow-link">
+              <MediaStack data={data?.studioMedia} />
+            </ImageWrapper>
+          </Link>
         </LayoutGrid>
       </LayoutWrapper>
     </HomeStudioWrapper>
