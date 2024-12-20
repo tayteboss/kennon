@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { NextSeo } from "next-seo";
 import {
   ContactPageType,
+  PressCardType,
   SiteSettingsType,
   StudioPageType,
   TransitionsType,
@@ -9,12 +10,19 @@ import {
 import { motion } from "framer-motion";
 import client from "../client";
 import {
+  contactPageQueryString,
+  pressPageQueryString,
   siteSettingsQueryString,
   studioPageQueryString,
 } from "../lib/sanityQueries";
 import pxToRem from "../utils/pxToRem";
 import HeroTitle from "../components/blocks/HeroTitle";
 import StudioHeroMedia from "../components/blocks/StudioHeroMedia";
+import StudioContact from "../components/blocks/StudioContact";
+import StudioInformation from "../components/blocks/StudioInformation";
+import StudioPress from "../components/blocks/StudioPress";
+import StudioSensitive from "../components/blocks/StudioSensitive";
+import StudioTeam from "../components/blocks/StudioTeam";
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
@@ -28,11 +36,19 @@ const PageWrapper = styled(motion.div)`
 type Props = {
   data: StudioPageType;
   siteSettings: SiteSettingsType;
+  contactPageData: ContactPageType;
   pageTransitionVariants: TransitionsType;
+  firstThreePressCards: PressCardType[];
 };
 
 const Page = (props: Props) => {
-  const { data, siteSettings, pageTransitionVariants } = props;
+  const {
+    data,
+    siteSettings,
+    contactPageData,
+    firstThreePressCards,
+    pageTransitionVariants,
+  } = props;
 
   console.log("data", data);
   console.log("siteSettings", siteSettings);
@@ -50,18 +66,35 @@ const Page = (props: Props) => {
       />
       <HeroTitle title={data?.heroTitle} useSmallGrid />
       <StudioHeroMedia data={data?.heroMedia} />
+      <StudioInformation data={data?.studioSection} />
+      <StudioSensitive data={data?.beingSensitiveSection} />
+      <StudioTeam data={data?.teamSection} />
+      <StudioPress
+        data={data?.pressSection}
+        pressCards={firstThreePressCards}
+      />
+      <StudioContact
+        siteSettings={siteSettings}
+        contactPageData={contactPageData}
+      />
     </PageWrapper>
   );
 };
 
 export async function getStaticProps() {
   const data = await client.fetch(studioPageQueryString);
+  const contactPageData = await client.fetch(contactPageQueryString);
   const siteSettings = await client.fetch(siteSettingsQueryString);
+  const pressData = await client.fetch(pressPageQueryString);
+
+  const firstThreePressCards = pressData?.pressCards.slice(0, 3);
 
   return {
     props: {
       data,
       siteSettings,
+      contactPageData,
+      firstThreePressCards,
     },
   };
 }

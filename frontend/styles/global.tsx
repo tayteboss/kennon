@@ -160,6 +160,10 @@ export const GlobalStyles = createGlobalStyle`
 		}
 	}
 
+	.studio-section {
+		margin-bottom: ${pxToRem(120)};
+	}
+
 	mux-player {
 		--media-object-fit: contain;
 		--media-object-position: center;

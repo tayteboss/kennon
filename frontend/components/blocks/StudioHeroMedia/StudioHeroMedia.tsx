@@ -4,6 +4,8 @@ import MediaStack from "../../common/MediaStack";
 import pxToRem from "../../../utils/pxToRem";
 
 const StudioHeroMediaWrapper = styled.section`
+  margin-bottom: ${pxToRem(120)};
+
   .media-wrapper {
     height: ${pxToRem(400)};
 
@@ -34,6 +36,7 @@ const StudioHeroMedia = (props: Props) => {
     <StudioHeroMediaWrapper>
       <Inner>
         <MediaStack data={data} />
+        TRY PARALLAX IDEA
       </Inner>
     </StudioHeroMediaWrapper>
   );
