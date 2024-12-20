@@ -4,6 +4,7 @@ import Footer from "../common/Footer";
 import { ReactNode, useEffect, useState } from "react";
 import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 import Menu from "../blocks/Menu";
+import { useRouter } from "next/router";
 
 const siteSettings = require("../../json/siteSettings.json");
 
@@ -20,6 +21,11 @@ const Layout = (props: Props) => {
   const [menuIsActive, setMenuIsActive] = useState(false);
 
   const lenis = useLenis(({ scroll }) => {});
+  const router = useRouter();
+
+  useEffect(() => {
+    setMenuIsActive(false);
+  }, [router.asPath]);
 
   useEffect(() => {
     if (!lenis) return;

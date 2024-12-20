@@ -94,6 +94,9 @@ export const pressPageQueryString = `
 export const contactPageQueryString = `
 	*[_type == "contactPage"][0] {
 		...,
+		media {
+			${mediaString}
+		}
 	}
 `;
 

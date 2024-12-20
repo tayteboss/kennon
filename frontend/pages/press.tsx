@@ -36,8 +36,6 @@ type Props = {
 const Page = (props: Props) => {
   const { data, pageTransitionVariants } = props;
 
-  console.log("data", data);
-
   const hasPressCards = data?.pressCards?.length > 0;
 
   return (

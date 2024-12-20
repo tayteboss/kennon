@@ -11,8 +11,18 @@ import {
   contactPageQueryString,
   siteSettingsQueryString,
 } from "../lib/sanityQueries";
+import HeroTitle from "../components/blocks/HeroTitle";
+import ContactCard from "../components/blocks/ContactCard";
+import pxToRem from "../utils/pxToRem";
 
-const PageWrapper = styled(motion.div)``;
+const PageWrapper = styled(motion.div)`
+  padding-top: var(--header-h);
+  margin-bottom: ${pxToRem(240)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    margin-bottom: ${pxToRem(120)};
+  }
+`;
 
 type Props = {
   data: ContactPageType;
@@ -37,7 +47,15 @@ const Page = (props: Props) => {
         title={data?.seo?.title || ""}
         description={data?.seo?.description || ""}
       />
-      Contact
+      <HeroTitle title={data?.heroTitle} />
+      <ContactCard
+        phone={siteSettings?.phone}
+        email={siteSettings?.email}
+        address={siteSettings?.address}
+        googleMapsLink={siteSettings?.googleMapsLink}
+        instagramUrl={siteSettings?.instagramUrl}
+        media={data?.media}
+      />
     </PageWrapper>
   );
 };

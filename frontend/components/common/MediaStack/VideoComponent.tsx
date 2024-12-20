@@ -97,7 +97,7 @@ const VideoComponent = (props: Props) => {
             muted
             playsInline={true}
             poster={`${posterUrl}`}
-            minResolution="1440p"
+            minResolution="2160p"
           />
         </Inner>
       )}

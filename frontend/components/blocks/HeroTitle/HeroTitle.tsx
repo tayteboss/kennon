@@ -16,6 +16,8 @@ const Title = styled.h1`
   text-align: center;
   font-family: var(--font-arizona-flare-light);
   font-weight: 200;
+  max-width: ${pxToRem(1200)};
+  margin: 0 auto;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     grid-column: 1 / -1;
