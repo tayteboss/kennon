@@ -11,7 +11,7 @@ const PortraitWorkCardWrapper = styled.div<{ $comingSoon: boolean }>`
 
   &:hover {
     img {
-      filter: ${(props) => props.$comingSoon && "blur(10px) brightness(1.2)"};
+      filter: ${(props) => props.$comingSoon && "blur(20px) brightness(1.2)"};
     }
 
     .work-portrait-card__comingsoon {

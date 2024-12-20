@@ -5,13 +5,29 @@ import { useInView } from "react-intersection-observer";
 import Link from "next/link";
 import LandscapeCardTitle from "../../elements/LandscapeCardTitle";
 
-const LandscapeWorkCardWrapper = styled.div`
+const LandscapeWorkCardWrapper = styled.div<{ $comingSoon: boolean }>`
   overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
+
+  &:hover {
+    img {
+      filter: ${(props) => props.$comingSoon && "blur(20px)"};
+    }
+
+    .work-portrait-card__comingsoon {
+      opacity: 1;
+    }
+  }
+
+  img {
+    transform: ${(props) => props.$comingSoon && "scale(1.1)"};
+
+    transition: filter var(--transition-speed-slow) var(--transition-ease);
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -46,10 +62,11 @@ const LandscapeWorkCard = (props: Props) => {
 
   return (
     <Link
-      className="work-landscape-card cursor-arrow-link"
+      className={`work-landscape-card ${comingSoon ? "cursor-arrow-text-link" : "cursor-arrow-link"}`}
+      data-title="Coming soon"
       href={`/work/${slug.current}`}
     >
-      <LandscapeWorkCardWrapper ref={ref}>
+      <LandscapeWorkCardWrapper ref={ref} $comingSoon={comingSoon}>
         {image?.asset?.url && (
           <ImageWrapper
             className={`view-element-image-blur-in ${

@@ -99,8 +99,6 @@ const Page = (props: Props) => {
   }, [workType, privateWorkList, publicWorkList]);
 
   useEffect(() => {
-    console.log("checkWorkType", checkWorkType);
-
     const sessionWorkType = sessionStorage.getItem("kennon-work-type");
     if (sessionWorkType === "private" || sessionWorkType === "public") {
       setWorkType(sessionWorkType);
@@ -119,7 +117,6 @@ const Page = (props: Props) => {
         description={data?.seo?.description || ""}
       />
       <HeroTitle title={data?.heroTitle} />
-      {/* AnimatePresence with a key that changes when listView or workType changes */}
       <AnimatePresence mode="wait">
         {listView === "landscape" && (
           <LandscapeWorksList
