@@ -184,6 +184,7 @@ export type MultiColumnMediaType = {
 export type WorkType = {
   _type: "publicWork" | "privateWork";
   slug: SlugType;
+  comingSoon: boolean;
   title: string;
   landscapeThumbnailImage: {
     asset: {
@@ -223,4 +224,5 @@ export type WorkType = {
       };
     };
   }>;
+  allImages: string[];
 };

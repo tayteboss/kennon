@@ -1,20 +1,29 @@
 import styled from "styled-components";
-import { HomePageType } from "../../../shared/types/types";
+import { WorkType } from "../../../shared/types/types";
 import LandscapeWorkCard from "../LandscapeWorkCard";
+import { motion, Variants } from "framer-motion";
 
-const HomeFeaturedWorksWrapper = styled.section``;
+const LandscapeWorksListWrapper = styled(motion.section)`
+  position: relative;
+`;
 
 type Props = {
-  data: HomePageType["featuredWork"];
+  data: WorkType[];
+  wrapperVariants: Variants;
 };
 
-const HomeFeaturedWorks = (props: Props) => {
-  const { data } = props;
+const LandscapeWorksList = (props: Props) => {
+  const { data, wrapperVariants } = props;
 
   const hasData = data && data.length > 0;
 
   return (
-    <HomeFeaturedWorksWrapper>
+    <LandscapeWorksListWrapper
+      variants={wrapperVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       {hasData &&
         data.map((item, i) => (
           <LandscapeWorkCard
@@ -28,8 +37,8 @@ const HomeFeaturedWorks = (props: Props) => {
             comingSoon={item?.comingSoon}
           />
         ))}
-    </HomeFeaturedWorksWrapper>
+    </LandscapeWorksListWrapper>
   );
 };
 
-export default HomeFeaturedWorks;
+export default LandscapeWorksList;

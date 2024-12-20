@@ -119,8 +119,8 @@ const Cursor = ({ cursorRefresh }: Props) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [cursorText, setCursorText] = useState("");
   const [isOnDevice, setIsOnDevice] = useState(false);
-  const position = useMousePosition();
   const router = useRouter();
+  const position = useMousePosition();
 
   let mouseXPosition = position.x;
   let mouseYPosition = position.y;

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import useActiveLink from "../../../hooks/useActiveLink";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { setWorkType } from "../../../utils/setWorkType";
+import { useRouter } from "next/navigation";
 
 const MenuNavigationWrapper = styled.div`
   align-self: flex-end;
@@ -126,19 +128,20 @@ const MenuNavigation = (props: Props) => {
   const [showWorkTypes, setShowWorkTypes] = useState(false);
 
   const activeLink = useActiveLink();
+  const router = useRouter();
 
   const handlePrivateClick = () => {
     setShowWorkTypes(false);
     setMenuIsActive(false);
-
-    // UTIL FN
+    setWorkType("private");
+    router.push("/works");
   };
 
   const handlePublicClick = () => {
     setShowWorkTypes(false);
     setMenuIsActive(false);
-
-    // UTIL FN
+    setWorkType("public");
+    router.push("/works");
   };
 
   return (

@@ -145,6 +145,21 @@ export const GlobalStyles = createGlobalStyle`
 		font-size: ${pxToRem(11)};
 	}
 
+	.work-landscape-card {
+		display: block;
+		height: 100lvh;
+		width: 100%;
+		position: relative;
+	}
+
+	.work-portrait-card {
+		grid-column: span 4;
+
+		@media ${theme.mediaBreakpoints.tabletPortrait} {
+			grid-column: span 3;
+		}
+	}
+
 	mux-player {
 		--media-object-fit: contain;
 		--media-object-position: center;

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { SiteSettingsType } from "../../../shared/types/types";
 import Image from "next/image";
+import { setWorkType } from "../../../utils/setWorkType";
+import { useRouter } from "next/navigation";
 
 const HomeWorkCardWrapper = styled.button`
   grid-column: span 6;
@@ -46,12 +48,15 @@ type Props = {
 const HomeWorkCard = (props: Props) => {
   const { title, image } = props;
 
+  const router = useRouter();
+
   const handleClick = () => {
     if (title === "Private work") {
-      // UTIL FN
+      setWorkType("private");
     } else {
-      // UTIL FN
+      setWorkType("public");
     }
+    router.push("/works");
   };
 
   return (

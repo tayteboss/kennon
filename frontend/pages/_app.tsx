@@ -49,6 +49,8 @@ const App = (props: Props) => {
       Cookies.set("visited", "true", { expires: 1, path: "" });
     }, 5000);
 
+    sessionStorage.setItem("kennon-work-type", "private");
+
     return () => {
       clearTimeout(timer);
     };
@@ -67,8 +69,7 @@ const App = (props: Props) => {
               {...pageProps}
               key={router.asPath}
               pageTransitionVariants={pageTransitionVariants}
-              setAppCursorRefresh={setAppCursorRefresh}
-              appCursorRefresh={appCursorRefresh}
+              cursorRefresh={() => setAppCursorRefresh(appCursorRefresh + 1)}
             />
           </AnimatePresence>
         </Layout>

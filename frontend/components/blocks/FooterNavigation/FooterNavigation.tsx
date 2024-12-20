@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import styled from "styled-components";
 import { SiteSettingsType } from "../../../shared/types/types";
+import { setWorkType } from "../../../utils/setWorkType";
+import { useRouter } from "next/navigation";
 
 const FooterNavigationWrapper = styled.div`
   grid-column: 1 / 2;
@@ -54,12 +56,16 @@ type Props = {
 const FooterNavigation = (props: Props) => {
   const { instagramUrl } = props;
 
+  const router = useRouter();
+
   const handlePrivateClick = () => {
-    // UTIL FN
+    setWorkType("private");
+    router.push("/works");
   };
 
   const handlePublicClick = () => {
-    // UTIL FN
+    setWorkType("public");
+    router.push("/works");
   };
 
   return (

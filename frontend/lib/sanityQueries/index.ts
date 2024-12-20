@@ -105,6 +105,7 @@ export const sensitivePageQueryString = `
 
 const workListString = `
 	...,
+	comingSoon,
 	landscapeThumbnailImage {
 			asset->{
 					url,

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import client from "../../client";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   TransitionsType,
   WorkPageType,
@@ -13,9 +13,13 @@ import {
   workPageQueryString,
 } from "../../lib/sanityQueries";
 import pxToRem from "../../utils/pxToRem";
-import PageBuilder from "../../components/common/PageBuilder";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeroTitle from "../../components/blocks/HeroTitle";
+import LandscapeWorksList from "../../components/blocks/LandscapeWorksList";
+import PortraitWorksList from "../../components/blocks/PortraitWorksList";
+import ListWorksList from "../../components/blocks/ListWorksList";
+import WorkViewToolbar from "../../components/elements/WorkViewToolbar";
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
@@ -24,22 +28,78 @@ const PageWrapper = styled(motion.div)`
   background: var(--colour-white);
 `;
 
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
+    },
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
+    },
+  },
+};
+
 type Props = {
   data: WorkPageType;
   publicWorkList: WorkType[];
   privateWorkList: WorkType[];
   pageTransitionVariants: TransitionsType;
+  cursorRefresh: any;
 };
 
 const Page = (props: Props) => {
-  const { data, publicWorkList, privateWorkList, pageTransitionVariants } =
-    props;
+  const {
+    data,
+    publicWorkList,
+    privateWorkList,
+    pageTransitionVariants,
+    cursorRefresh,
+  } = props;
 
-  const [listView, setListView] = useState("landscape");
+  const [listView, setListView] = useState<"landscape" | "portrait" | "list">(
+    "landscape"
+  );
+  const [workType, setWorkType] = useState<"private" | "public">("private");
+  const [workData, setWorkData] = useState<WorkType[]>(privateWorkList);
 
-  console.log("data", data);
-  console.log("publicWorkList", publicWorkList);
-  console.log("privateWorkList", privateWorkList);
+  const lenis = useLenis(({ scroll }) => {});
+
+  useEffect(() => {
+    if (!lenis) return;
+    lenis.scrollTo(0, { duration: 2, immediate: false });
+
+    setTimeout(() => {
+      cursorRefresh();
+    }, 500);
+  }, [listView, workType, lenis]);
+
+  useEffect(() => {
+    if (workType === "private") {
+      setWorkData(privateWorkList);
+    } else {
+      setWorkData(publicWorkList);
+    }
+  }, [workType, privateWorkList, publicWorkList]);
+
+  useEffect(() => {
+    const sessionWorkType = sessionStorage.getItem("kennon-work-type");
+    if (sessionWorkType === "private" || sessionWorkType === "public") {
+      setWorkType(sessionWorkType);
+    }
+  }, []);
 
   return (
     <PageWrapper
@@ -53,14 +113,102 @@ const Page = (props: Props) => {
         description={data?.seo?.description || ""}
       />
       <HeroTitle title={data?.heroTitle} />
+      {/* AnimatePresence with a key that changes when listView or workType changes */}
+      <AnimatePresence mode="wait">
+        {listView === "landscape" && (
+          <LandscapeWorksList
+            data={workData}
+            wrapperVariants={wrapperVariants}
+            key={`landscape-${workType}`}
+          />
+        )}
+        {listView === "portrait" && (
+          <PortraitWorksList
+            data={workData}
+            wrapperVariants={wrapperVariants}
+            key={`portrait-${workType}`}
+          />
+        )}
+        {listView === "list" && (
+          <ListWorksList
+            data={workData}
+            wrapperVariants={wrapperVariants}
+            key={`list-${workType}`}
+          />
+        )}
+      </AnimatePresence>
+      <WorkViewToolbar
+        listView={listView}
+        workType={workType}
+        setListView={setListView}
+        setWorkType={setWorkType}
+      />
     </PageWrapper>
   );
 };
 
 export async function getStaticProps() {
   const data = await client.fetch(workPageQueryString);
-  const publicWorkList = await client.fetch(publicWorkQueryString);
-  const privateWorkList = await client.fetch(privateWorkQueryString);
+  let publicWorkList = await client.fetch(publicWorkQueryString);
+  let privateWorkList = await client.fetch(privateWorkQueryString);
+
+  const extractImages = (item: any): any => {
+    const allImages: string[] = [];
+
+    // Landscape thumbnail
+    if (item.landscapeThumbnailImage?.asset?.url) {
+      allImages.push(item.landscapeThumbnailImage.asset.url);
+    }
+
+    // Portrait thumbnail
+    if (item.portraitThumbnailImage?.asset?.url) {
+      allImages.push(item.portraitThumbnailImage.asset.url);
+    }
+
+    // Loop through pageBuilder components
+    if (Array.isArray(item.pageBuilder)) {
+      for (const pb of item.pageBuilder) {
+        // fullMedia images
+        if (
+          pb.fullMedia?.media?.image?.asset?.url &&
+          !allImages.includes(pb.fullMedia.media.image.asset.url)
+        ) {
+          allImages.push(pb.fullMedia.media.image.asset.url);
+        }
+
+        // isolatedMedia images
+        if (
+          pb.isolatedMedia?.media?.image?.asset?.url &&
+          !allImages.includes(pb.isolatedMedia.media.image.asset.url)
+        ) {
+          allImages.push(pb.isolatedMedia.media.image.asset.url);
+        }
+
+        // multiColumnMedia images
+        if (Array.isArray(pb.multiColumnMedia?.columns)) {
+          for (const col of pb.multiColumnMedia.columns) {
+            if (
+              col?.image?.asset?.url &&
+              !allImages.includes(col.image.asset.url)
+            ) {
+              allImages.push(col.image.asset.url);
+            }
+          }
+        }
+      }
+    }
+
+    return {
+      ...item,
+      allImages: Array.from(new Set(allImages)),
+    };
+  };
+
+  // Process public work list
+  publicWorkList = publicWorkList.map((item: any) => extractImages(item));
+
+  // Process private work list
+  privateWorkList = privateWorkList.map((item: any) => extractImages(item));
 
   return {
     props: {

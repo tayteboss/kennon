@@ -9,6 +9,7 @@ type Props = {
 const Wrapper = styled.div`
   margin: 0 auto;
   padding: 0 ${pxToRem(24)};
+  width: 100%;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     padding: 0 ${pxToRem(16)};

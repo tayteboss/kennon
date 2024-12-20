@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import useActiveLink from "../../../hooks/useActiveLink";
+import { setWorkType } from "../../../utils/setWorkType";
+import { useRouter } from "next/navigation";
 
 const NavbarLinksWrapper = styled.div`
   display: flex;
@@ -108,17 +110,18 @@ const NavbarLinks = () => {
   const [showWorkTypes, setShowWorkTypes] = useState(false);
 
   const activeLink = useActiveLink();
+  const router = useRouter();
 
   const handlePrivateClick = () => {
     setShowWorkTypes(false);
-
-    // UTIL FN
+    setWorkType("private");
+    router.push("/works");
   };
 
   const handlePublicClick = () => {
     setShowWorkTypes(false);
-
-    // UTIL FN
+    setWorkType("public");
+    router.push("/works");
   };
 
   return (

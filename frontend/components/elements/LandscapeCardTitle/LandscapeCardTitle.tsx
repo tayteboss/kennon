@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import pxToRem from "../../../utils/pxToRem";
 import { WorkType } from "../../../shared/types/types";
+import formatType from "../../../utils/formatType";
 
 const LandscapeCardTitleWrapper = styled.div`
   position: sticky;
@@ -22,25 +23,18 @@ type Props = {
   location: WorkType["location"];
   yearCompleted: WorkType["yearCompleted"];
   type: WorkType["_type"];
+  comingSoon: WorkType["comingSoon"];
 };
 
 const LandscapeCardTitle = (props: Props) => {
-  const { title, location, yearCompleted, type } = props;
-
-  const formatType = (type: WorkType["_type"]) => {
-    if (type === "publicWork") {
-      return "Public";
-    } else if (type === "privateWork") {
-      return "Private";
-    }
-  };
+  const { title, location, yearCompleted, type, comingSoon } = props;
 
   return (
-    <LandscapeCardTitleWrapper>
+    <LandscapeCardTitleWrapper className="landscape-card-title">
       <Text>{title || ""}</Text>
       <Text>{location || ""}</Text>
       <Text>
-        {formatType(type) || ""} — {yearCompleted || ""}
+        {formatType(type) || ""} — {comingSoon ? "Coming soon" : yearCompleted}
       </Text>
     </LandscapeCardTitleWrapper>
   );

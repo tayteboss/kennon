@@ -3,40 +3,38 @@ import { WorkType } from "../../../shared/types/types";
 import Image from "next/image";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
-import LandscapeCardTitle from "../../elements/LandscapeCardTitle";
 
-const LandscapeWorkCardWrapper = styled.div`
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-`;
-
-const ImageWrapper = styled.div`
-  height: 100%;
+const PortraitWorkCardWrapper = styled.div`
   width: 100%;
   position: relative;
   overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
+`;
+
+const ImageWrapper = styled.div`
+  padding-top: 133.33%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  img {
+    transition: all 3000ms var(--transition-ease);
+  }
+
+  &:hover {
+    img {
+      transform: scale(1.03);
+    }
+  }
 `;
 
 type Props = {
   title: WorkType["title"];
   image: WorkType["landscapeThumbnailImage"];
-  location: WorkType["location"];
   slug: WorkType["slug"];
-  yearCompleted: WorkType["yearCompleted"];
-  type: WorkType["_type"];
-  comingSoon: WorkType["comingSoon"];
 };
 
-const LandscapeWorkCard = (props: Props) => {
-  const { title, image, location, slug, yearCompleted, type, comingSoon } =
-    props;
+const PortraitWorkCard = (props: Props) => {
+  const { title, image, slug } = props;
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -46,10 +44,10 @@ const LandscapeWorkCard = (props: Props) => {
 
   return (
     <Link
-      className="work-landscape-card cursor-arrow-link"
+      className="cursor-arrow-link work-portrait-card"
       href={`/work/${slug.current}`}
     >
-      <LandscapeWorkCardWrapper ref={ref}>
+      <PortraitWorkCardWrapper ref={ref}>
         {image?.asset?.url && (
           <ImageWrapper
             className={`view-element-image-blur-in ${
@@ -66,16 +64,9 @@ const LandscapeWorkCard = (props: Props) => {
             />
           </ImageWrapper>
         )}
-      </LandscapeWorkCardWrapper>
-      <LandscapeCardTitle
-        title={title}
-        location={location}
-        yearCompleted={yearCompleted}
-        comingSoon={comingSoon}
-        type={type}
-      />
+      </PortraitWorkCardWrapper>
     </Link>
   );
 };
 
-export default LandscapeWorkCard;
+export default PortraitWorkCard;
