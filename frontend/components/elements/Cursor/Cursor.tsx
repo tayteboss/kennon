@@ -38,12 +38,9 @@ const CursorRing = styled(motion.div)<StyledProps>`
   /* height: ${(props) => (props.$isHoveringArrowLink ? "24px" : "12px")};
   width: ${(props) => (props.$isHoveringArrowLink ? "24px" : "12px")}; */
   top: -30px;
-  left: -12px;
+  left: -70px;
   height: 24px;
-  width: 24px;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  border-radius: 4px;
+  width: 140px;
   pointer-events: none;
   text-align: center;
   z-index: 2;
@@ -53,19 +50,9 @@ const CursorRing = styled(motion.div)<StyledProps>`
   opacity: ${(props) => (props.$isActive ? 1 : 0)};
 
   transition:
-    height 300ms ease,
-    width 300ms ease,
-    background 200ms ease,
     top 300ms ease,
     left 300ms ease,
-    border-radius 300ms ease,
     opacity 300ms ease;
-`;
-
-const Text = styled(motion.div)`
-  font-size: ${pxToRem(14)};
-  line-height: 1;
-  color: var(--colour-black);
 `;
 
 const TextOuterWrapper = styled.div`
@@ -76,10 +63,15 @@ const TextOuterWrapper = styled.div`
 const TextWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   white-space: nowrap;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(10px);
   padding: ${pxToRem(4)} ${pxToRem(8)};
+  border-radius: 4px;
+  height: 24px;
+  line-height: 0.2em;
+  padding-bottom: 1px;
 `;
 
 const IconWrapper = styled(motion.div)`
@@ -88,6 +80,9 @@ const IconWrapper = styled(motion.div)`
   align-items: center;
   height: ${pxToRem(24)};
   width: ${pxToRem(24)};
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 4px;
 
   svg {
     path {
@@ -115,9 +110,9 @@ const wrapperVariants = {
 
 const Cursor = ({ cursorRefresh }: Props) => {
   const [isHoveringArrowLink, setIsHoveringArrowLink] = useState(false);
-  const [isHoveringSeeWorkLink, setIsHoveringSeeWorkLink] = useState(false);
-  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [isHoveringTextLink, setIsHoveringTextLink] = useState(false);
   const [cursorText, setCursorText] = useState("");
+  const [isMouseDown, setIsMouseDown] = useState(false);
   const [isOnDevice, setIsOnDevice] = useState(false);
   const router = useRouter();
   const position = useMousePosition();
@@ -141,15 +136,14 @@ const Cursor = ({ cursorRefresh }: Props) => {
 
   const clearCursor = () => {
     setIsHoveringArrowLink(false);
-    setIsHoveringSeeWorkLink(false);
     setIsOnDevice(false);
     setCursorText("");
   };
 
   useEffect(() => {
     const cursorArrowLinks = document.querySelectorAll(".cursor-arrow-link");
-    const cursorSeeWorkLinks = document.querySelectorAll(
-      ".cursor-see-work-link"
+    const cursorTextLinks = document.querySelectorAll(
+      ".cursor-arrow-text-link"
     );
 
     cursorArrowLinks.forEach((link) => {
@@ -164,24 +158,21 @@ const Cursor = ({ cursorRefresh }: Props) => {
       });
     });
 
-    cursorSeeWorkLinks.forEach((link) => {
+    cursorTextLinks.forEach((link) => {
       link.addEventListener("mouseenter", () => {
-        setIsHoveringSeeWorkLink(true);
-        setCursorText("See work");
-
-        setIsHoveringArrowLink(false);
+        setIsHoveringTextLink(true);
+        const linkTitle = link.getAttribute("data-title");
+        if (linkTitle) {
+          setCursorText(linkTitle);
+        }
       });
       link.addEventListener("mouseleave", () => {
-        setIsHoveringSeeWorkLink(false);
+        setIsHoveringTextLink(false);
         setCursorText("");
-
-        setIsHoveringArrowLink(false);
       });
       link.addEventListener("mouseup", () => {
-        setIsHoveringSeeWorkLink(false);
+        setIsHoveringTextLink(false);
         setCursorText("");
-
-        setIsHoveringArrowLink(false);
       });
     });
 
@@ -211,8 +202,7 @@ const Cursor = ({ cursorRefresh }: Props) => {
     <>
       <CursorWrapper $isOnDevice={isOnDevice} className="cursor-wrapper">
         <CursorRing
-          $isActive={isHoveringArrowLink || isHoveringSeeWorkLink}
-          $isHoveringArrowLink={isHoveringArrowLink}
+          $isActive={isHoveringArrowLink || isHoveringTextLink}
           variants={variantsWrapper}
           animate="visible"
           layout
@@ -229,7 +219,7 @@ const Cursor = ({ cursorRefresh }: Props) => {
                 <LinkArrow />
               </IconWrapper>
             )}
-            {isHoveringSeeWorkLink && (
+            {isHoveringTextLink && (
               <TextOuterWrapper key={2}>
                 <TextWrapper>{cursorText}</TextWrapper>
                 <IconWrapper>

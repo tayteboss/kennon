@@ -11,10 +11,11 @@ const Main = styled.main``;
 
 type Props = {
   children: ReactNode;
+  workTypeRefresh: any;
 };
 
 const Layout = (props: Props) => {
-  const { children } = props;
+  const { children, workTypeRefresh } = props;
 
   const [menuIsActive, setMenuIsActive] = useState(false);
 
@@ -34,7 +35,11 @@ const Layout = (props: Props) => {
 
   return (
     <>
-      <Header menuIsActive={menuIsActive} setMenuIsActive={setMenuIsActive} />
+      <Header
+        menuIsActive={menuIsActive}
+        setMenuIsActive={setMenuIsActive}
+        workTypeRefresh={workTypeRefresh}
+      />
       <Menu
         menuIsActive={menuIsActive}
         setMenuIsActive={setMenuIsActive}

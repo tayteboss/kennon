@@ -106,7 +106,13 @@ const wrapperVariants = {
   },
 };
 
-const NavbarLinks = () => {
+type Props = {
+  workTypeRefresh: any;
+};
+
+const NavbarLinks = (props: Props) => {
+  const { workTypeRefresh } = props;
+
   const [showWorkTypes, setShowWorkTypes] = useState(false);
 
   const activeLink = useActiveLink();
@@ -116,12 +122,14 @@ const NavbarLinks = () => {
     setShowWorkTypes(false);
     setWorkType("private");
     router.push("/works");
+    workTypeRefresh();
   };
 
   const handlePublicClick = () => {
     setShowWorkTypes(false);
     setWorkType("public");
     router.push("/works");
+    workTypeRefresh();
   };
 
   return (

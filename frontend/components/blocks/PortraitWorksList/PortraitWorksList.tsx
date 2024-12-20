@@ -42,6 +42,7 @@ const PortraitWorksList = (props: Props) => {
                 title={item?.title}
                 image={item?.portraitThumbnailImage}
                 slug={item?.slug}
+                comingSoon={item?.comingSoon}
               />
             ))}
         </LayoutGrid>

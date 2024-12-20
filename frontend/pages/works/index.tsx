@@ -19,7 +19,8 @@ import LandscapeWorksList from "../../components/blocks/LandscapeWorksList";
 import PortraitWorksList from "../../components/blocks/PortraitWorksList";
 import ListWorksList from "../../components/blocks/ListWorksList";
 import WorkViewToolbar from "../../components/elements/WorkViewToolbar";
-import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
+import { useLenis } from "@studio-freight/react-lenis";
+import { useRouter } from "next/router";
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
@@ -58,6 +59,7 @@ type Props = {
   privateWorkList: WorkType[];
   pageTransitionVariants: TransitionsType;
   cursorRefresh: any;
+  checkWorkType: any;
 };
 
 const Page = (props: Props) => {
@@ -67,6 +69,7 @@ const Page = (props: Props) => {
     privateWorkList,
     pageTransitionVariants,
     cursorRefresh,
+    checkWorkType,
   } = props;
 
   const [listView, setListView] = useState<"landscape" | "portrait" | "list">(
@@ -76,6 +79,7 @@ const Page = (props: Props) => {
   const [workData, setWorkData] = useState<WorkType[]>(privateWorkList);
 
   const lenis = useLenis(({ scroll }) => {});
+  const router = useRouter();
 
   useEffect(() => {
     if (!lenis) return;
@@ -95,11 +99,13 @@ const Page = (props: Props) => {
   }, [workType, privateWorkList, publicWorkList]);
 
   useEffect(() => {
+    console.log("checkWorkType", checkWorkType);
+
     const sessionWorkType = sessionStorage.getItem("kennon-work-type");
     if (sessionWorkType === "private" || sessionWorkType === "public") {
       setWorkType(sessionWorkType);
     }
-  }, []);
+  }, [checkWorkType]);
 
   return (
     <PageWrapper

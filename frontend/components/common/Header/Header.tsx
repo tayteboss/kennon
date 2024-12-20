@@ -34,15 +34,16 @@ const HeaderWrapper = styled.header`
 type Props = {
   menuIsActive: boolean;
   setMenuIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+  workTypeRefresh: any;
 };
 
 const Header = (props: Props) => {
-  const { menuIsActive, setMenuIsActive } = props;
+  const { menuIsActive, setMenuIsActive, workTypeRefresh } = props;
 
   return (
     <HeaderWrapper className="header">
       <Link href="/">Kennon</Link>
-      <NavbarLinks />
+      <NavbarLinks workTypeRefresh={workTypeRefresh} />
       <MenuTrigger
         menuIsActive={menuIsActive}
         setMenuIsActive={setMenuIsActive}

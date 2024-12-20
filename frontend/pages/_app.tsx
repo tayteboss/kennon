@@ -27,6 +27,7 @@ const App = (props: Props) => {
 
   const [hasVisited, setHasVisited] = useState<boolean>(false);
   const [appCursorRefresh, setAppCursorRefresh] = useState(0);
+  const [checkWorkType, setCheckWorkType] = useState(0);
 
   const router = useRouter();
   const routerEvents = router.events;
@@ -60,7 +61,7 @@ const App = (props: Props) => {
     <>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <Layout>
+        <Layout workTypeRefresh={() => setCheckWorkType(checkWorkType + 1)}>
           <AnimatePresence
             mode="wait"
             onExitComplete={() => handleExitComplete()}
@@ -70,6 +71,7 @@ const App = (props: Props) => {
               key={router.asPath}
               pageTransitionVariants={pageTransitionVariants}
               cursorRefresh={() => setAppCursorRefresh(appCursorRefresh + 1)}
+              checkWorkType={checkWorkType}
             />
           </AnimatePresence>
         </Layout>
