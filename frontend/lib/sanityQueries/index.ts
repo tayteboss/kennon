@@ -106,12 +106,8 @@ export const studioPageQueryString = `
 		referenceTitle,
 		seo,
 		heroTitle,
-		heroImages[] {
-			asset-> {
-				...,
-				url,
-				alt
-			}
+		heroMedia {
+			${mediaString}
 		},
 		studioSection {
 			...,

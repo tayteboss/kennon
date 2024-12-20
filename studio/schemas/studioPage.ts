@@ -20,11 +20,20 @@ export default {
       type: 'string',
     },
     {
-      title: 'Hero images',
-      name: 'heroImages',
-      type: 'array',
-      of: [{type: 'image'}],
-      description: 'Please upload png sketches/drawings per the design',
+      title: 'Hero Media',
+      name: 'heroMedia',
+      type: 'object',
+      fields: [
+        selectMediaTypeObject,
+        {
+          ...imageObject,
+          hidden: ({parent}: any) => parent?.mediaType !== 'image',
+        },
+        {
+          ...videoObject,
+          hidden: ({parent}: any) => parent?.mediaType !== 'video',
+        },
+      ],
     },
     {
       title: 'Studio Section',

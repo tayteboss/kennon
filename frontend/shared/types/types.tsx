@@ -114,12 +114,7 @@ export type StudioPageType = {
   referenceTitle: string;
   seo: SEOType;
   heroTitle: string;
-  heroImages: {
-    asset: {
-      url: string;
-      alt: string;
-    };
-  }[];
+  heroMedia: MediaType;
   studioSection: {
     subheading: string;
     heading: string;

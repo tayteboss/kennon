@@ -12,8 +12,18 @@ import {
   siteSettingsQueryString,
   studioPageQueryString,
 } from "../lib/sanityQueries";
+import pxToRem from "../utils/pxToRem";
+import HeroTitle from "../components/blocks/HeroTitle";
+import StudioHeroMedia from "../components/blocks/StudioHeroMedia";
 
-const PageWrapper = styled(motion.div)``;
+const PageWrapper = styled(motion.div)`
+  padding-top: var(--header-h);
+  margin-bottom: ${pxToRem(240)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    margin-bottom: ${pxToRem(120)};
+  }
+`;
 
 type Props = {
   data: StudioPageType;
@@ -38,7 +48,8 @@ const Page = (props: Props) => {
         title={data?.seo?.title || ""}
         description={data?.seo?.description || ""}
       />
-      Studio
+      <HeroTitle title={data?.heroTitle} useSmallGrid />
+      <StudioHeroMedia data={data?.heroMedia} />
     </PageWrapper>
   );
 };
