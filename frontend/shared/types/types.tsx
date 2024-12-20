@@ -81,9 +81,21 @@ export type WorkPageType = {
   heroTitle: string;
 };
 
+export type PressCardType = {
+  colour: { hex: string };
+  image: {
+    asset: {
+      url: string;
+    };
+  };
+  title: string;
+  link: string;
+};
+
 export type PressPageType = {
   seo: SEOType;
   heroTitle: string;
+  pressCards: PressCardType[];
 };
 
 export type SensitivePageType = {

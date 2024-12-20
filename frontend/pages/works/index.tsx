@@ -20,7 +20,6 @@ import PortraitWorksList from "../../components/blocks/PortraitWorksList";
 import ListWorksList from "../../components/blocks/ListWorksList";
 import WorkViewToolbar from "../../components/elements/WorkViewToolbar";
 import { useLenis } from "@studio-freight/react-lenis";
-import { useRouter } from "next/router";
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
@@ -79,7 +78,6 @@ const Page = (props: Props) => {
   const [workData, setWorkData] = useState<WorkType[]>(privateWorkList);
 
   const lenis = useLenis(({ scroll }) => {});
-  const router = useRouter();
 
   useEffect(() => {
     if (!lenis) return;

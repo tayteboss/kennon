@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { SiteSettingsType } from "../../../shared/types/types";
 import MuxPlayer from "@mux/mux-player-react/lazy";
 import pxToRem from "../../../utils/pxToRem";
+import Logo from "../../svgs/Logo";
 
 const MenuShowreelWrapper = styled.div`
   position: absolute;
@@ -40,6 +41,23 @@ const Inner = styled.div`
   border-radius: 4px;
 `;
 
+const LogoWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  mix-blend-mode: difference;
+
+  svg {
+    width: ${pxToRem(100)};
+
+    path {
+      fill: var(--colour-white);
+    }
+  }
+`;
+
 type Props = {
   showreel: SiteSettingsType["showreel"];
 };
@@ -64,6 +82,9 @@ const MenuShowreel = (props: Props) => {
               playsInline={true}
             />
           )}
+          <LogoWrapper>
+            <Logo />
+          </LogoWrapper>
         </Inner>
       </Outer>
     </MenuShowreelWrapper>
