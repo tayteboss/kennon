@@ -35,7 +35,7 @@ const WorksTrigger = styled.button<{ $isActive: boolean }>`
     opacity: 0.5;
 
     &::after {
-      opacity: 0.5;
+      opacity: ${(props) => props.$isActive && 0.5};
     }
   }
 
@@ -59,13 +59,32 @@ const Comma = styled.span`
   white-space: pre;
 `;
 
-const StudioLink = styled.div`
+const StudioLink = styled.div<{ $isActive: boolean }>`
   color: var(--colour-white);
+  position: relative;
 
   transition: all var(--transition-speed-default) var(--transition-ease);
 
   &:hover {
     opacity: 0.5;
+
+    &::after {
+      opacity: ${(props) => props.$isActive && 0.5};
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--colour-white);
+    opacity: ${(props) => (props.$isActive ? 1 : 0)};
+    mix-blend-mode: difference;
+
+    transition: all var(--transition-speed-default) var(--transition-ease);
   }
 `;
 

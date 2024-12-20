@@ -97,9 +97,64 @@ export const contactPageQueryString = `
 	}
 `;
 
+export const studioPageQueryString = `
+	*[_type == "studioPage"][0] {
+		...,
+		referenceTitle,
+		seo,
+		heroTitle,
+		heroImages[] {
+			asset-> {
+				...,
+				url,
+				alt
+			}
+		},
+		studioSection {
+			...,
+			subheading,
+			heading,
+			sectorExperience[] {
+				...,
+			},
+			associations[] {
+				...,
+			},
+			awards[] {
+				year,
+				awardTitle
+			}
+		},
+		beingSensitiveSection {
+			...,
+			subheading,
+			heading,
+			media {
+				${mediaString}
+			}
+		},
+		teamSection {
+			...,
+			subheading,
+			heading,
+			media {
+				${mediaString}
+			}
+		},
+		pressSection {
+			...,
+			subheading,
+			heading
+		}
+	}
+`;
+
 export const sensitivePageQueryString = `
 	*[_type == "sensitivePage"][0] {
 		...,
+		media {
+			${mediaString}
+		}
 	}
 `;
 

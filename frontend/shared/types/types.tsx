@@ -98,6 +98,46 @@ export type ContactPageType = {
   media: MediaType;
 };
 
+export type StudioPageType = {
+  referenceTitle: string;
+  seo: SEOType;
+  heroTitle: string;
+  heroImages: {
+    asset: {
+      url: string;
+      alt: string;
+    };
+  }[];
+  studioSection: {
+    subheading: string;
+    heading: string;
+    sectorExperience: {
+      [key: string]: unknown;
+    }[];
+    associations: {
+      [key: string]: unknown;
+    }[];
+    awards: {
+      year: number;
+      awardTitle: string;
+    }[];
+  };
+  beingSensitiveSection: {
+    subheading: string;
+    heading: string;
+    media: MediaType;
+  };
+  teamSection: {
+    subheading: string;
+    heading: string;
+    media: MediaType;
+  };
+  pressSection: {
+    subheading: string;
+    heading: string;
+  };
+};
+
 export type CreditsType = {
   name: string;
   title: string;

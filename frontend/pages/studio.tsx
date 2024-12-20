@@ -1,36 +1,31 @@
 import styled from "styled-components";
 import { NextSeo } from "next-seo";
 import {
-  SensitivePageType,
+  ContactPageType,
   SiteSettingsType,
+  StudioPageType,
   TransitionsType,
 } from "../shared/types/types";
 import { motion } from "framer-motion";
 import client from "../client";
-import { sensitivePageQueryString } from "../lib/sanityQueries";
-import HeroTitle from "../components/blocks/HeroTitle";
-import BeingSensitiveMedia from "../components/blocks/BeingSensitiveMedia";
-import pxToRem from "../utils/pxToRem";
+import {
+  siteSettingsQueryString,
+  studioPageQueryString,
+} from "../lib/sanityQueries";
 
-const PageWrapper = styled(motion.div)`
-  padding-top: var(--header-h);
-  margin-bottom: ${pxToRem(240)};
-
-  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    margin-bottom: ${pxToRem(120)};
-  }
-`;
+const PageWrapper = styled(motion.div)``;
 
 type Props = {
-  data: SensitivePageType;
+  data: StudioPageType;
   siteSettings: SiteSettingsType;
   pageTransitionVariants: TransitionsType;
 };
 
 const Page = (props: Props) => {
-  const { data, pageTransitionVariants } = props;
+  const { data, siteSettings, pageTransitionVariants } = props;
 
   console.log("data", data);
+  console.log("siteSettings", siteSettings);
 
   return (
     <PageWrapper
@@ -43,18 +38,19 @@ const Page = (props: Props) => {
         title={data?.seo?.title || ""}
         description={data?.seo?.description || ""}
       />
-      <HeroTitle title={data?.heroTitle} />
-      <BeingSensitiveMedia data={data?.media} />
+      Studio
     </PageWrapper>
   );
 };
 
 export async function getStaticProps() {
-  const data = await client.fetch(sensitivePageQueryString);
+  const data = await client.fetch(studioPageQueryString);
+  const siteSettings = await client.fetch(siteSettingsQueryString);
 
   return {
     props: {
       data,
+      siteSettings,
     },
   };
 }

@@ -213,7 +213,7 @@ export const GlobalStyles = createGlobalStyle`
 		transform: scale(1.02);
 		filter: blur(5px);
 
-		transition: all 2000ms ease;
+		transition: transform 2000ms ease, filter 500ms ease;
 
 		&--in-view
 		{
