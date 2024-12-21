@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { SensitivePageType } from "../../../shared/types/types";
 import MediaStack from "../../common/MediaStack";
 import pxToRem from "../../../utils/pxToRem";
+import StudioParallax from "../StudioParallax";
 
 const StudioHeroMediaWrapper = styled.section`
   margin-bottom: ${pxToRem(120)};
@@ -35,8 +36,8 @@ const StudioHeroMedia = (props: Props) => {
   return (
     <StudioHeroMediaWrapper>
       <Inner>
-        <MediaStack data={data} />
-        TRY PARALLAX IDEA
+        {/* <MediaStack data={data} /> */}
+        <StudioParallax />
       </Inner>
     </StudioHeroMediaWrapper>
   );

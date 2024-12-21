@@ -4,10 +4,37 @@ import LayoutWrapper from "../../layout/LayoutWrapper";
 import SectionHeading from "../SectionHeading";
 import PressCard from "../PressCard";
 import LayoutGrid from "../../layout/LayoutGrid";
+import pxToRem from "../../../utils/pxToRem";
+import ButtonLayout from "../../layout/ButtonLayout";
 
-const StudioPressWrapper = styled.section``;
+const StudioPressWrapper = styled.section`
+  .press-card {
+    a {
+      padding-top: 133.33%;
+
+      @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+        padding-top: 100%;
+      }
+    }
+  }
+
+  .layout-grid {
+    row-gap: ${pxToRem(24)};
+
+    @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+      row-gap: ${pxToRem(16)};
+    }
+  }
+`;
 
 const CardsWrapper = styled.div``;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: ${pxToRem(64)};
+`;
 
 type Props = {
   data: StudioPageType["pressSection"];
@@ -41,6 +68,9 @@ const StudioPress = (props: Props) => {
               ))}
           </LayoutGrid>
         </CardsWrapper>
+        <ButtonWrapper>
+          <ButtonLayout link="/press">See all press articles</ButtonLayout>
+        </ButtonWrapper>
       </LayoutWrapper>
     </StudioPressWrapper>
   );

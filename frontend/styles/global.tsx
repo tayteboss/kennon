@@ -124,6 +124,11 @@ export const GlobalStyles = createGlobalStyle`
 	div {
 		font-size: ${pxToRem(16)};
 		line-height: ${pxToRem(21)};
+
+		@media ${theme.mediaBreakpoints.tabletPortrait} {
+			font-size: ${pxToRem(14)};
+			line-height: ${pxToRem(18)};
+		}
 	}
 
 	.type-p-small {
@@ -143,6 +148,7 @@ export const GlobalStyles = createGlobalStyle`
 
 	.type-heading-xsmall {
 		font-size: ${pxToRem(11)};
+		text-transform: uppercase;
 	}
 
 	.work-landscape-card {

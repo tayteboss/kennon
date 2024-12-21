@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { StudioPageType } from "../../../shared/types/types";
 import SectionHeading from "../SectionHeading";
 import LayoutWrapper from "../../layout/LayoutWrapper";
+import InformationColumn from "../InformationColumn";
 
 const StudioInformationWrapper = styled.section``;
 
@@ -20,6 +21,12 @@ const StudioInformation = (props: Props) => {
           heading={data.heading}
           useTopBorder
         />
+        <InformationColumn
+          title="Sector experience"
+          data={data.sectorExperience}
+        />
+        <InformationColumn title="Associates" data={data.associations} />
+        <InformationColumn title="Awards" data={data.awards} useAwardsType />
       </LayoutWrapper>
     </StudioInformationWrapper>
   );

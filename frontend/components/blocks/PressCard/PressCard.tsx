@@ -49,6 +49,8 @@ const ContentInner = styled.div`
   justify-content: center;
   z-index: 2;
   overflow: hidden;
+  padding: ${pxToRem(16)};
+  text-align: center;
 `;
 
 const ImageWrapper = styled.div`
@@ -88,12 +90,14 @@ const PressCard = (props: Props) => {
     <PressCardWrapper
       $hex={colour?.hex || "#F1F0EC"}
       ref={ref}
-      className={`view-element-fade-in ${
+      className={`press-card view-element-fade-in ${
         inView ? "view-element-fade-in--in-view" : ""
       }`}
     >
-      <Link href={link || "#"}>
-        <ContentInner>{title || ""}</ContentInner>
+      <Link href={link || "#"} target="_blank">
+        <ContentInner>
+          <p>{title || ""}</p>
+        </ContentInner>
         {image?.asset?.url && (
           <ImageWrapper className="press-card__image">
             <Image
