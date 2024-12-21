@@ -157,7 +157,7 @@ export const sensitivePageQueryString = `
 	}
 `;
 
-const workListString = `
+export const workListString = `
 	...,
 	comingSoon,
 	landscapeThumbnailImage {

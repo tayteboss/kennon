@@ -233,6 +233,8 @@ export type WorkType = {
   slug: SlugType;
   comingSoon: boolean;
   title: string;
+  excerpt: string;
+  description: any[];
   landscapeThumbnailImage: {
     asset: {
       url: string;

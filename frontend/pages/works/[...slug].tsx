@@ -3,18 +3,31 @@ import client from "../../client";
 import { TransitionsType, WorkType } from "../../shared/types/types";
 import { motion } from "framer-motion";
 import { NextSeo } from "next-seo";
+import { workListString } from "../../lib/sanityQueries";
+import WorkTitle from "../../components/blocks/WorkTitle";
+import pxToRem from "../../utils/pxToRem";
+import WorkHeroImage from "../../components/blocks/WorkHeroImage";
 
 type Props = {
   data: WorkType;
   pageTransitionVariants: TransitionsType;
 };
 
-const PageWrapper = styled(motion.div)``;
+const PageWrapper = styled(motion.div)`
+  padding-top: var(--header-h);
+  margin-bottom: ${pxToRem(240)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    margin-bottom: ${pxToRem(120)};
+  }
+`;
 
 const Page = (props: Props) => {
   const { data, pageTransitionVariants } = props;
 
   console.log("data", data);
+
+  const subheading = `${data?.title} — ${data?.location} — ${data?.comingSoon ? "Coming soon" : data?.yearCompleted}`;
 
   return (
     <PageWrapper
@@ -23,7 +36,18 @@ const Page = (props: Props) => {
       animate="visible"
       exit="hidden"
     >
-      <NextSeo title={`TO BE FILLLED IN`} description={`TO BE FILLED IN`} />
+      <NextSeo
+        title={`${data?.title} —  Kennon`}
+        description={data?.excerpt || ""}
+      />
+      <WorkTitle
+        subheading={subheading}
+        heading={data?.excerpt}
+        description={data?.description}
+        credits={data?.credits}
+        sketches={data?.sketches}
+      />
+      <WorkHeroImage data={data?.landscapeThumbnailImage} title={data?.title} />
     </PageWrapper>
   );
 };
@@ -47,18 +71,16 @@ export async function getStaticPaths() {
 
   return {
     paths: allWork.map((item: any) => {
-      return `/work/${item?.slug?.current}`;
+      return `/works/${item?.slug?.current}`;
     }),
     fallback: true,
   };
 }
 
 export async function getStaticProps({ params }: any) {
-  console.log("params", params);
-
   const workQuery = `
 		*[_type in ['privateWork', 'publicWork'] && slug.current == "${params.slug[0]}"][0] {
-			...,
+      ${workListString}
 		}
 	`;
   const data = await client.fetch(workQuery);

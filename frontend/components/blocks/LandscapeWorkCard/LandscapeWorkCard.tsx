@@ -64,7 +64,7 @@ const LandscapeWorkCard = (props: Props) => {
     <Link
       className={`work-landscape-card ${comingSoon ? "cursor-arrow-text-link" : "cursor-arrow-link"}`}
       data-title="Coming soon"
-      href={`/work/${slug.current}`}
+      href={`/works/${slug.current}`}
     >
       <LandscapeWorkCardWrapper ref={ref} $comingSoon={comingSoon}>
         {image?.asset?.url && (

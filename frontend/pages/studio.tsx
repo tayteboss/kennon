@@ -50,9 +50,6 @@ const Page = (props: Props) => {
     pageTransitionVariants,
   } = props;
 
-  console.log("data", data);
-  console.log("siteSettings", siteSettings);
-
   return (
     <PageWrapper
       variants={pageTransitionVariants}

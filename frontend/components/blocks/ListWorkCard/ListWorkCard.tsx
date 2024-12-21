@@ -16,6 +16,7 @@ import {
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import LandscapeCardTitle from "../../elements/LandscapeCardTitle";
+import { useInView } from "react-intersection-observer";
 
 const ListWorkCardWrapper = styled.div`
   display: flex;
@@ -214,8 +215,20 @@ const ListWorkCard = (props: Props) => {
     hovered.set(0);
   };
 
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.01,
+    rootMargin: "-50px",
+  });
+
   return (
-    <Link href={`/work/${slug.current}`} className="cursor-arrow-link">
+    <Link
+      href={`/works/${slug.current}`}
+      ref={ref}
+      className={`cursor-arrow-link view-element-fade-in ${
+        inView ? "view-element-fade-in--in-view" : ""
+      }`}
+    >
       <ListWorkCardWrapper
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
