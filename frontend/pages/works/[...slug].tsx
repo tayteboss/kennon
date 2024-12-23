@@ -7,6 +7,7 @@ import { workListString } from "../../lib/sanityQueries";
 import WorkTitle from "../../components/blocks/WorkTitle";
 import pxToRem from "../../utils/pxToRem";
 import WorkHeroImage from "../../components/blocks/WorkHeroImage";
+import PageBuilder from "../../components/common/PageBuilder";
 
 type Props = {
   data: WorkType;
@@ -48,6 +49,7 @@ const Page = (props: Props) => {
         sketches={data?.sketches}
       />
       <WorkHeroImage data={data?.landscapeThumbnailImage} title={data?.title} />
+      <PageBuilder data={data?.pageBuilder} />
     </PageWrapper>
   );
 };

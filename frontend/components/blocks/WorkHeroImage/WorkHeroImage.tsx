@@ -4,12 +4,14 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import router from "next/router";
 import { useState, useRef, useEffect } from "react";
+import pxToRem from "../../../utils/pxToRem";
 
 const WorkHeroImageWrapper = styled.section`
   height: 100vh;
   width: 100%;
   position: relative;
   overflow: hidden;
+  margin-bottom: ${pxToRem(80)};
 `;
 
 const ImageWrapper = styled(motion.div)`
@@ -27,6 +29,7 @@ const Title = styled.h1`
   mix-blend-mode: difference;
   font-family: var(--font-arizona-flare-light);
   font-weight: 200;
+  text-align: center;
 `;
 
 type Props = {

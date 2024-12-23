@@ -170,6 +170,83 @@ export const GlobalStyles = createGlobalStyle`
 		margin-bottom: ${pxToRem(120)};
 	}
 
+	.work-section {
+		margin-bottom: ${pxToRem(80)};
+
+		&--full {
+			.media-wrapper {
+				height: 100vh;
+				width: 100%;
+			}
+		}
+
+		&--square {
+			.media-wrapper {
+				padding-top: 100%;
+			}
+
+			.work-section__full-inner {
+				padding: 0 ${pxToRem(24)};
+
+				@media ${theme.mediaBreakpoints.tabletPortrait} {
+					padding: 0 ${pxToRem(16)};
+				}
+			}
+
+			.work-section__isolated-inner {
+				grid-column: 4 / -4;
+
+				@media ${theme.mediaBreakpoints.tabletPortrait} {
+					grid-column: 1 / -1;
+				}
+			}
+		}
+
+		&--portrait {
+			.media-wrapper {
+				padding-top: 133.33%;
+			}
+
+			.work-section__isolated-inner {
+				grid-column: 4 / -4;
+
+				@media ${theme.mediaBreakpoints.tabletPortrait} {
+					grid-column: 1 / -1;
+				}
+			}
+		}
+
+		&--landscape {
+			.media-wrapper {
+				padding-top: 75%;
+			}
+
+			.work-section__isolated-inner {
+				grid-column: 3 / -3;
+
+				@media ${theme.mediaBreakpoints.tabletPortrait} {
+					grid-column: 1 / -1;
+				}
+			}
+		}
+
+		&__multi-cols-2 {
+			grid-column: span 6;
+
+			@media ${theme.mediaBreakpoints.tabletPortrait} {
+				grid-column: 1 / -1;
+			}
+		}
+
+		&__multi-cols-3 {
+			grid-column: span 4;
+
+			@media ${theme.mediaBreakpoints.tabletPortrait} {
+				grid-column: 1 / -1;
+			}
+		}
+	}
+
 	mux-player {
 		--media-object-fit: contain;
 		--media-object-position: center;
