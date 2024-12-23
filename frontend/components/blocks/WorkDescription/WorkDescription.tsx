@@ -8,7 +8,13 @@ import WorkSketches from "../WorkSketches";
 import WorkCredits from "../WorkCredits";
 import pxToRem from "../../../utils/pxToRem";
 
-const WorkDescriptionWrapper = styled(motion.div)``;
+const WorkDescriptionWrapper = styled(motion.div)`
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    .layout-grid {
+      grid-auto-flow: dense;
+    }
+  }
+`;
 
 const Inner = styled(motion.div)`
   margin-bottom: ${pxToRem(80)};
@@ -19,6 +25,11 @@ const LHS = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${pxToRem(40)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    grid-column: 1 / -1;
+    order: 2;
+  }
 `;
 
 const RHS = styled.div`
@@ -27,6 +38,11 @@ const RHS = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: ${pxToRem(24)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    grid-column: 1 / -1;
+    order: 1;
+  }
 `;
 
 const CloseTrigger = styled.button`
