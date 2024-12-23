@@ -28,8 +28,6 @@ const PageWrapper = styled(motion.div)`
 const Page = (props: Props) => {
   const { data, pageTransitionVariants } = props;
 
-  console.log("data", data);
-
   const subheading = `${data?.title} — ${data?.location} — ${data?.comingSoon ? "Coming soon" : data?.yearCompleted}`;
 
   return (
