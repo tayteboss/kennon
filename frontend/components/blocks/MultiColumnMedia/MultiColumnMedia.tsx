@@ -36,8 +36,6 @@ const MultiColumnMedia = (props: any) => {
     setRatio(getRatio(multiColumnMedia?.aspectRatio));
   }, [multiColumnMedia]);
 
-  console.log("multiColumnMedia", multiColumnMedia);
-
   return (
     <MultiColumnMediaWrapper
       className={`work-section work-section--${ratio} view-element-fade-in ${

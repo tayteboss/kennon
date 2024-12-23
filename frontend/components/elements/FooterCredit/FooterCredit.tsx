@@ -9,7 +9,13 @@ const FooterCreditWrapper = styled.div`
   }
 `;
 
-const LinkTag = styled.div``;
+const LinkTag = styled.div`
+  transition: all var(--transition-speed-default) var(--transition-ease);
+
+  &:hover {
+    opacity: 0.5;
+  }
+`;
 
 const FooterCredit = () => {
   return (

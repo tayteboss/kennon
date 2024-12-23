@@ -136,8 +136,18 @@ const Cursor = ({ cursorRefresh }: Props) => {
 
   const clearCursor = () => {
     setIsHoveringArrowLink(false);
+    setIsHoveringTextLink(false);
     setIsOnDevice(false);
     setCursorText("");
+
+    const timer = setTimeout(() => {
+      setIsHoveringArrowLink(false);
+      setIsHoveringTextLink(false);
+      setIsOnDevice(false);
+      setCursorText("");
+    }, 500);
+
+    return () => clearTimeout(timer);
   };
 
   useEffect(() => {

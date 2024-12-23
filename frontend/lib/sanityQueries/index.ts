@@ -213,6 +213,7 @@ export const workListString = `
 			}
 	},
 	relatedWork[]->{
+		comingSoon,
 		slug,
 		title,
 		portraitThumbnailImage {

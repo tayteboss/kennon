@@ -32,7 +32,7 @@ const Inner = styled(motion.div)`
 const wrapperVariants = {
   hidden: {
     opacity: 1,
-    filter: "blur(10px)",
+    filter: "blur(2px)",
     scale: 1.05,
     transition: {
       duration: 1,
@@ -54,7 +54,7 @@ const wrapperVariants = {
 const defaultVariants = {
   hidden: {
     opacity: 0,
-    filter: "blur(5px)",
+    filter: "blur(2px)",
     scale: 1.05,
     transition: {
       duration: 0.75,

@@ -298,7 +298,7 @@ export const GlobalStyles = createGlobalStyle`
 	.view-element-image-blur-in
 	{
 		transform: scale(1.02);
-		filter: blur(5px);
+		filter: blur(2px);
 
 		transition: transform 2000ms ease, filter 500ms ease;
 

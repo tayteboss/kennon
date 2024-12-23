@@ -8,6 +8,8 @@ import WorkTitle from "../../components/blocks/WorkTitle";
 import pxToRem from "../../utils/pxToRem";
 import WorkHeroImage from "../../components/blocks/WorkHeroImage";
 import PageBuilder from "../../components/common/PageBuilder";
+import WorkSenses from "../../components/blocks/WorkSenses";
+import WorkRelated from "../../components/blocks/WorkRelated";
 
 type Props = {
   data: WorkType;
@@ -16,10 +18,10 @@ type Props = {
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
-  margin-bottom: ${pxToRem(240)};
+  margin-bottom: ${pxToRem(120)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    margin-bottom: ${pxToRem(120)};
+    margin-bottom: ${pxToRem(80)};
   }
 `;
 
@@ -50,6 +52,8 @@ const Page = (props: Props) => {
       />
       <WorkHeroImage data={data?.landscapeThumbnailImage} title={data?.title} />
       <PageBuilder data={data?.pageBuilder} />
+      <WorkSenses data={data?.senseBlocks} />
+      <WorkRelated data={data?.relatedWork} type={data?._type} />
     </PageWrapper>
   );
 };

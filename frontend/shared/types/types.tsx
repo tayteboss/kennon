@@ -264,6 +264,7 @@ export type WorkType = {
   }>;
   senseBlocks: SenseBlockType[];
   relatedWork: Array<{
+    comingSoon: boolean;
     slug: SlugType;
     title: string;
     portraitThumbnailImage: {
