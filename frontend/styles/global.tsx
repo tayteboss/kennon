@@ -309,6 +309,10 @@ export const GlobalStyles = createGlobalStyle`
 		}
 	}
 
+	img {
+		pointer-events: none !important;
+	}
+
 	.embla {
 		overflow: hidden;
 	}
