@@ -86,6 +86,12 @@ const ImagesWrapper = styled.div`
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     overflow: auto;
     padding-right: ${pxToRem(16)};
+
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
   }
 `;
 
@@ -105,7 +111,7 @@ const MobileImagesInner = styled.div`
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     padding-left: ${pxToRem(16)};
     padding-right: ${pxToRem(16)};
     gap: ${pxToRem(4)};

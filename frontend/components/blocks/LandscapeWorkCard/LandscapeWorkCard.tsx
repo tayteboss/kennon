@@ -26,7 +26,7 @@ const LandscapeWorkCardWrapper = styled.div<{ $comingSoon: boolean }>`
   img {
     transform: ${(props) => props.$comingSoon && "scale(1.1)"};
 
-    transition: filter var(--transition-speed-slow) var(--transition-ease);
+    transition: filter 2000ms var(--transition-ease);
   }
 `;
 

@@ -3,6 +3,7 @@ import { SiteSettingsType } from "../../../shared/types/types";
 import Image from "next/image";
 import { setWorkType } from "../../../utils/setWorkType";
 import { useRouter } from "next/navigation";
+import pxToRem from "../../../utils/pxToRem";
 
 const HomeWorkCardWrapper = styled.button`
   grid-column: span 6;
@@ -36,6 +37,11 @@ const Title = styled.h2`
   color: var(--colour-white);
   mix-blend-mode: difference;
   font-weight: 400;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    font-size: ${pxToRem(14)};
+    line-height: ${pxToRem(18)};
+  }
 `;
 
 type Props = {

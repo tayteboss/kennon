@@ -43,6 +43,12 @@ const TextTrigger = styled.div`
   color: var(--colour-black);
   position: relative;
   z-index: 1;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const IconTrigger = styled.div`

@@ -7,6 +7,9 @@ import LayoutGrid from "../../layout/LayoutGrid";
 import pxToRem from "../../../utils/pxToRem";
 
 const PortraitWorksListWrapper = styled(motion.section)`
+  position: relative;
+  background: var(--colour-white);
+
   .layout-grid {
     row-gap: ${pxToRem(24)};
 

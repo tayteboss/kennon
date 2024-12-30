@@ -89,7 +89,7 @@ const ContactCard = (props: Props) => {
                 </Link>
               )}
               {address && googleMapsLink && (
-                <Link href={googleMapsLink}>
+                <Link href={googleMapsLink} target="_blank">
                   <LinkTag className="type-h1">{address}</LinkTag>
                 </Link>
               )}

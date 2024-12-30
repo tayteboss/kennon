@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { WorkType } from "../../../shared/types/types";
 import { motion } from "framer-motion";
-import LayoutWrapper from "../../layout/LayoutWrapper";
 import ListWorkCard from "../ListWorkCard";
-import Link from "next/link";
 
-const ListWorksListWrapper = styled(motion.section)``;
+const ListWorksListWrapper = styled(motion.section)`
+  position: relative;
+  background: var(--colour-white);
+`;
 
 type Props = {
   data: WorkType[];

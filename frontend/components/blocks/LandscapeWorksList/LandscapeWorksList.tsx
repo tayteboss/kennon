@@ -5,6 +5,7 @@ import { motion, Variants } from "framer-motion";
 
 const LandscapeWorksListWrapper = styled(motion.section)`
   position: relative;
+  background: var(--colour-white);
 `;
 
 type Props = {

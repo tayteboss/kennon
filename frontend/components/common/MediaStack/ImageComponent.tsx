@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 const ImageComponentWrapper = styled.div`
   position: relative;
   overflow: hidden;
+  background: var(--colour-cream);
 
   mux-player,
   img {

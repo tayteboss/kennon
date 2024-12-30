@@ -8,7 +8,7 @@ const StudioSectionMediaWrapper = styled.section`
     height: ${pxToRem(775)};
 
     @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-      height: 100vh;
+      height: 75vh;
     }
   }
 `;
