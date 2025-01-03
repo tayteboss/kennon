@@ -3,6 +3,7 @@ import { SenseBlockType } from "../../../shared/types/types";
 import Image from "next/image";
 import pxToRem from "../../../utils/pxToRem";
 import { useInView } from "react-intersection-observer";
+import Link from "next/link";
 
 const SenseBlockWrapper = styled.div`
   grid-column: span 4;
@@ -47,7 +48,7 @@ const Text = styled.p`
 `;
 
 const SenseBlock = (props: SenseBlockType & { number: string }) => {
-  const { title, description, image, number } = props;
+  const { title, description, image, number, link } = props;
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -62,25 +63,50 @@ const SenseBlock = (props: SenseBlockType & { number: string }) => {
         inView ? "view-element-fade-in--in-view" : ""
       }`}
     >
-      <Inner>
-        <ImageWrapper>
-          {image?.asset?.url && (
-            <Image
-              src={image?.asset?.url}
-              alt={image?.asset?.alt || ""}
-              fill
-              style={{
-                objectFit: "cover",
-              }}
-            />
-          )}
-        </ImageWrapper>
-        <ContentWrapper>
-          {title && <Text>{title}</Text>}
-          {description && <Text>{description}</Text>}
-          <Text>{number}</Text>
-        </ContentWrapper>
-      </Inner>
+      {link && (
+        <Link href={link} target="_blank">
+          <Inner>
+            <ImageWrapper>
+              {image?.asset?.url && (
+                <Image
+                  src={image?.asset?.url}
+                  alt={image?.asset?.alt || ""}
+                  fill
+                  style={{
+                    objectFit: "cover",
+                  }}
+                />
+              )}
+            </ImageWrapper>
+            <ContentWrapper>
+              {title && <Text>{title}</Text>}
+              {description && <Text>{description}</Text>}
+              <Text>{number}</Text>
+            </ContentWrapper>
+          </Inner>
+        </Link>
+      )}
+      {!link && (
+        <Inner>
+          <ImageWrapper>
+            {image?.asset?.url && (
+              <Image
+                src={image?.asset?.url}
+                alt={image?.asset?.alt || ""}
+                fill
+                style={{
+                  objectFit: "cover",
+                }}
+              />
+            )}
+          </ImageWrapper>
+          <ContentWrapper>
+            {title && <Text>{title}</Text>}
+            {description && <Text>{description}</Text>}
+            <Text>{number}</Text>
+          </ContentWrapper>
+        </Inner>
+      )}
     </SenseBlockWrapper>
   );
 };

@@ -38,17 +38,14 @@ const TriggerContainer = styled(motion.button)`
 `;
 
 const TextTrigger = styled.div`
-  padding: ${pxToRem(8)} ${pxToRem(16)};
+  padding: ${pxToRem(8)} ${pxToRem(16)} ${pxToRem(6)};
   height: 37px;
   color: var(--colour-black);
   position: relative;
   z-index: 1;
-
-  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const IconTrigger = styled.div`

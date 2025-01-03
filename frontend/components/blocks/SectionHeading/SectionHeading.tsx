@@ -35,18 +35,22 @@ const SectionHeading = (props: Props) => {
   });
 
   return (
-    <SectionHeadingWrapper
-      $useTopBorder={useTopBorder}
-      className={`view-element-fade-in ${
-        inView ? "view-element-fade-in--in-view" : ""
-      }`}
-      ref={ref}
-    >
-      {subheading && (
-        <Subheading className="type-heading-small">{subheading}</Subheading>
+    <>
+      {subheading && heading && (
+        <SectionHeadingWrapper
+          $useTopBorder={useTopBorder}
+          className={`view-element-fade-in ${
+            inView ? "view-element-fade-in--in-view" : ""
+          }`}
+          ref={ref}
+        >
+          {subheading && (
+            <Subheading className="type-heading-small">{subheading}</Subheading>
+          )}
+          {heading && <Heading className="type-h1">{heading}</Heading>}
+        </SectionHeadingWrapper>
       )}
-      {heading && <Heading className="type-h1">{heading}</Heading>}
-    </SectionHeadingWrapper>
+    </>
   );
 };
 

@@ -61,7 +61,7 @@ const Page = (props: Props) => {
         title={data?.seo?.title || ""}
         description={data?.seo?.description || ""}
       />
-      <HeroTitle title={data?.heroTitle} useSmallGrid />
+      <HeroTitle title={data?.heroTitle} />
       <StudioHeroMedia data={data?.heroMedia} />
       <StudioInformation data={data?.studioSection} />
       <StudioSensitive data={data?.beingSensitiveSection} />

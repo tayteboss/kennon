@@ -154,6 +154,7 @@ export type CreditsType = {
 export type SenseBlockType = {
   title: string;
   description: string;
+  link?: string;
   image: {
     asset: {
       url: string;

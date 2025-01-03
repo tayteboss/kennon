@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import pxToRem from "../../../utils/pxToRem";
 import LayoutWrapper from "../../layout/LayoutWrapper";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import router from "next/router";
 import { useState, useRef, useEffect } from "react";
 import { WorkType } from "../../../shared/types/types";
@@ -21,7 +26,9 @@ const Heading = styled.h3`
   width: 100%;
 `;
 
-const ReadmoreTrigger = styled.span`
+const ReadmoreTrigger = styled(motion.span)`
+  white-space: pre;
+
   button {
     font-family: var(--font-arizona-flare-light);
     font-weight: 200;
@@ -34,6 +41,25 @@ const ReadmoreTrigger = styled.span`
     }
   }
 `;
+
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+    height: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut",
+    },
+  },
+  visible: {
+    opacity: 1,
+    height: "auto",
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut",
+    },
+  },
+};
 
 type Props = {
   subheading: string;
@@ -85,14 +111,25 @@ const WorkTitle = (props: Props) => {
           {heading && (
             <Heading className="type-h1">
               {heading}{" "}
-              <ReadmoreTrigger>
-                <button
-                  className="type-h1"
-                  onClick={() => setDescriptionIsActive(!descriptionIsActive)}
-                >
-                  Read {descriptionIsActive ? "less" : "more"}
-                </button>
-              </ReadmoreTrigger>
+              <AnimatePresence>
+                {!descriptionIsActive && (
+                  <ReadmoreTrigger
+                    variants={wrapperVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                  >
+                    <button
+                      className="type-h1"
+                      onClick={() =>
+                        setDescriptionIsActive(!descriptionIsActive)
+                      }
+                    >
+                      Read more
+                    </button>
+                  </ReadmoreTrigger>
+                )}
+              </AnimatePresence>
             </Heading>
           )}
         </LayoutWrapper>

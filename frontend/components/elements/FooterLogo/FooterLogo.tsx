@@ -39,9 +39,7 @@ const FooterLogo = () => {
       <LogoWrapper>
         <Logo />
       </LogoWrapper>
-      <Copy className="type-small">
-        Kennon Architecture © {new Date().getFullYear()}
-      </Copy>
+      <Copy className="type-small">Kennon © {new Date().getFullYear()}</Copy>
     </FooterLogoWrapper>
   );
 };

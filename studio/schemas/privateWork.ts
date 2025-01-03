@@ -180,6 +180,12 @@ export default {
               type: 'string',
             },
             {
+              title: 'Link',
+              name: 'link',
+              type: 'url',
+              description: 'Optional link',
+            },
+            {
               title: 'Image',
               name: 'image',
               type: 'image',

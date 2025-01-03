@@ -76,16 +76,15 @@ const Footer = (props: Props) => {
             <FooterNavigation instagramUrl={instagramUrl} />
             <FooterMiddle>
               <FooterMiddleTop>
-                <FooterOfficeTagline
-                  estYear={estYear}
-                  footerTagline={footerTagline}
-                />
                 <FooterContact phone={phone} email={email} />
                 <FooterAddress
                   address={address}
                   googleMapsLink={googleMapsLink}
                 />
-                <FooterCredit />
+                <FooterOfficeTagline
+                  estYear={estYear}
+                  footerTagline={footerTagline}
+                />
               </FooterMiddleTop>
               <FooterMiddleBottom>
                 <FooterAoc aoc={aoc} />

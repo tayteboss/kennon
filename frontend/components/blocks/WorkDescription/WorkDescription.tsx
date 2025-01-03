@@ -17,6 +17,7 @@ const WorkDescriptionWrapper = styled(motion.div)`
 `;
 
 const Inner = styled(motion.div)`
+  padding-top: ${pxToRem(80)};
   margin-bottom: ${pxToRem(80)};
 `;
 
@@ -115,10 +116,10 @@ const WorkDescription = (props: Props) => {
               <LayoutGrid>
                 <LHS>
                   <WorkSketches data={sketches} />
-                  <WorkCredits data={credits} />
                 </LHS>
                 <RHS>
                   {description && <PortableText value={description} />}
+                  <WorkCredits data={credits} />
                   <CloseTrigger onClick={() => setDescriptionIsActive(false)}>
                     Close
                   </CloseTrigger>

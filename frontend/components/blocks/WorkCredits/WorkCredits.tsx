@@ -9,12 +9,9 @@ const WorkCreditsWrapper = styled.div`
 
 const TitleWrapper = styled.div``;
 
-const CreditTitle = styled.p`
-  font-family: var(--font-helvetica-neue-roman);
-`;
+const CreditTitle = styled.p``;
 
 const CreditLink = styled.a`
-  font-family: var(--font-helvetica-neue-roman);
   text-decoration: underline;
 
   transition: all var(--transition-speed-default) var(--transition-ease);
