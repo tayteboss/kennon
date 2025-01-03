@@ -165,7 +165,17 @@ const Cursor = ({ cursorRefresh }: Props) => {
       setCursorText("");
     }, 500);
 
-    return () => clearTimeout(timer);
+    const timer2 = setTimeout(() => {
+      setIsHoveringArrowLink(false);
+      setIsHoveringTextLink(false);
+      setIsOnDevice(false);
+      setCursorText("");
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+    };
   };
 
   useEffect(() => {
@@ -235,8 +245,6 @@ const Cursor = ({ cursorRefresh }: Props) => {
   useEffect(() => {
     clearCursor();
   }, [router.pathname, router.asPath, router.query.slug, cursorRefresh]);
-
-  console.log("isHoveringCursorBubbleLink", isHoveringCursorBubbleLink);
 
   return (
     <>
