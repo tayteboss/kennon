@@ -4,6 +4,17 @@ import pxToRem from "../utils/pxToRem";
 
 export const GlobalStyles = createGlobalStyle`
 	:root {
+		--colour-1: #F0E1CE;
+		--colour-2: #E3D999;
+		--colour-3: #E3E4E2;
+		--colour-4: #E3C19D;
+		--colour-5: #EAE2D7;
+		--colour-6: #EAE2D7;
+		/* --colour-1: #1E2662;
+		--colour-2: #171D27;
+		--colour-3: #0E172B;
+		--colour-4: #302221;
+		--colour-5: #364258; */
 		--colour-white: ${theme.colours.white};
 		--colour-black: ${theme.colours.black};
 		--colour-dark-grey: ${theme.colours.darkGrey};

@@ -65,7 +65,11 @@ const HeroTitle = (props: Props) => {
   }, [router]);
 
   return (
-    <HeroTitleWrapper $useSmallGrid={useSmallGrid} ref={wrapperRef}>
+    <HeroTitleWrapper
+      className="hero-title"
+      $useSmallGrid={useSmallGrid}
+      ref={wrapperRef}
+    >
       <LayoutWrapper>
         <LayoutGrid>
           <Title

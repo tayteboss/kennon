@@ -20,7 +20,6 @@ const CursorWrapper = styled.div<StyledProps>`
   z-index: 1000;
   position: fixed;
   display: ${(props) => (props.$isOnDevice ? "none" : "block")};
-  /* mix-blend-mode: difference; */
 
   @media ${(props) => props.theme.mediaBreakpoints.mobile} {
     display: none;
@@ -60,6 +59,13 @@ const TextOuterWrapper = styled.div`
   align-items: center;
 `;
 
+const BubbleCursor = styled.div`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: red;
+`;
+
 const TextWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -91,6 +97,16 @@ const IconWrapper = styled(motion.div)`
   }
 `;
 
+const BubbleWrapper = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vw;
+  width: 5vw;
+  background: red;
+  border-radius: 100px;
+`;
+
 const wrapperVariants = {
   hidden: {
     opacity: 0,
@@ -109,6 +125,8 @@ const wrapperVariants = {
 };
 
 const Cursor = ({ cursorRefresh }: Props) => {
+  const [isHoveringCursorBubbleLink, setIsHoveringCursorBubbleLink] =
+    useState(false);
   const [isHoveringArrowLink, setIsHoveringArrowLink] = useState(false);
   const [isHoveringTextLink, setIsHoveringTextLink] = useState(false);
   const [cursorText, setCursorText] = useState("");
@@ -152,6 +170,7 @@ const Cursor = ({ cursorRefresh }: Props) => {
 
   useEffect(() => {
     const cursorArrowLinks = document.querySelectorAll(".cursor-arrow-link");
+    const cursorBubbleLinks = document.querySelectorAll(".cursor-bubble");
     const cursorTextLinks = document.querySelectorAll(
       ".cursor-arrow-text-link"
     );
@@ -186,6 +205,15 @@ const Cursor = ({ cursorRefresh }: Props) => {
       });
     });
 
+    cursorBubbleLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => {
+        setIsHoveringCursorBubbleLink(true);
+      });
+      link.addEventListener("mouseleave", () => {
+        setIsHoveringCursorBubbleLink(false);
+      });
+    });
+
     // checking if on a device
     const ua = navigator.userAgent;
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -207,6 +235,8 @@ const Cursor = ({ cursorRefresh }: Props) => {
   useEffect(() => {
     clearCursor();
   }, [router.pathname, router.asPath, router.query.slug, cursorRefresh]);
+
+  console.log("isHoveringCursorBubbleLink", isHoveringCursorBubbleLink);
 
   return (
     <>
@@ -236,6 +266,17 @@ const Cursor = ({ cursorRefresh }: Props) => {
                   <LinkArrow />
                 </IconWrapper>
               </TextOuterWrapper>
+            )}
+            {isHoveringCursorBubbleLink && (
+              <BubbleWrapper
+                key={3}
+                variants={wrapperVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <BubbleCursor />
+              </BubbleWrapper>
             )}
           </AnimatePresence>
         </CursorRing>

@@ -13,6 +13,8 @@ const Inner = styled.div`
   text-align: center;
   background: var(--colour-cream);
   border-radius: ${pxToRem(4)};
+  pointer-events: all;
+  cursor: pointer;
 
   transition: all var(--transition-speed-default) var(--transition-ease);
 
@@ -24,7 +26,7 @@ const Inner = styled.div`
 
 type Props = {
   children: React.ReactNode;
-  link: string;
+  link?: string;
 };
 
 const ButtonLayout = (props: Props) => {
@@ -32,9 +34,12 @@ const ButtonLayout = (props: Props) => {
 
   return (
     <ButtonLayoutWrapper>
-      <Link href={link}>
-        <Inner>{children}</Inner>
-      </Link>
+      {link && (
+        <Link href={link}>
+          <Inner className="button-inner">{children}</Inner>
+        </Link>
+      )}
+      {!link && <Inner className="button-inner">{children}</Inner>}
     </ButtonLayoutWrapper>
   );
 };
