@@ -44,14 +44,9 @@ type Props = {
 
 const Bubble = (props: Props) => {
   const { data, index } = props;
-  const [duration, setDuration] = useState<number>(0);
 
+  const duration = 8;
   const audioRef = useRef(null);
-
-  const handleLoadedMetadata = () => {
-    if (!audioRef?.current) return;
-    setDuration(Math.ceil(audioRef.current.duration));
-  };
 
   useEffect(() => {
     if (duration <= 0) return;
@@ -69,11 +64,11 @@ const Bubble = (props: Props) => {
       width: "5vw",
       filter: "blur(5px)",
       transition: {
-        duration: duration / 2,
+        duration: duration,
         ease: "easeInOut",
         repeat: 1,
         repeatType: "mirror",
-        repeatDelay: duration / 2, // in ms
+        repeatDelay: duration, // in ms
       },
     },
     visible: {
@@ -81,7 +76,7 @@ const Bubble = (props: Props) => {
       width: "75vw",
       filter: "blur(20px)",
       transition: {
-        duration: duration / 2,
+        duration: duration,
         ease: "easeInOut",
         repeat: 1,
         repeatType: "mirror",
@@ -90,10 +85,10 @@ const Bubble = (props: Props) => {
     exit: {
       height: "5vw",
       width: "5vw",
-      filter: "blur(5px)",
+      filter: "blur(25px)",
       opacity: 0,
       transition: {
-        duration: duration / 2,
+        duration: duration,
         ease: "easeInOut",
       },
     },
@@ -111,7 +106,7 @@ const Bubble = (props: Props) => {
           animate="visible"
         />
       )}
-      <audio ref={audioRef} onLoadedMetadata={handleLoadedMetadata}>
+      <audio ref={audioRef}>
         <source src={`/sounds/${(index % 5) + 1}.mp3`} type="audio/mp3" />
       </audio>
     </>

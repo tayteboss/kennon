@@ -52,6 +52,7 @@ const Page = (props: Props) => {
         googleMapsLink={siteSettings?.googleMapsLink}
         instagramUrl={siteSettings?.instagramUrl}
         media={data?.media}
+        noBorder
       />
     </PageWrapper>
   );

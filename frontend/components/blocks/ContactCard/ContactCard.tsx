@@ -8,9 +8,10 @@ import Link from "next/link";
 
 const ContactCardWrapper = styled.section``;
 
-const Inner = styled.div`
+const Inner = styled.div<{ $noBorder: boolean }>`
   padding-top: ${pxToRem(24)};
-  border-top: 1px solid var(--colour-cream);
+  border-top: ${(props) =>
+    props.$noBorder ? "none" : "1px solid var(--colour-cream)"};
 `;
 
 const ContentWrapper = styled.div`
@@ -67,15 +68,24 @@ type Props = {
   googleMapsLink: SiteSettingsType["googleMapsLink"];
   instagramUrl: SiteSettingsType["instagramUrl"];
   media: ContactPageType["media"];
+  noBorder?: boolean;
 };
 
 const ContactCard = (props: Props) => {
-  const { email, phone, address, googleMapsLink, instagramUrl, media } = props;
+  const {
+    email,
+    phone,
+    address,
+    googleMapsLink,
+    instagramUrl,
+    media,
+    noBorder = false,
+  } = props;
 
   return (
     <ContactCardWrapper>
       <LayoutWrapper>
-        <Inner>
+        <Inner $noBorder={noBorder}>
           <LayoutGrid>
             <ContentWrapper>
               {phone && (
