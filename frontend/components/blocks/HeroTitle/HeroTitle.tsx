@@ -65,22 +65,26 @@ const HeroTitle = (props: Props) => {
   }, [router]);
 
   return (
-    <HeroTitleWrapper
-      className="hero-title"
-      $useSmallGrid={useSmallGrid}
-      ref={wrapperRef}
-    >
-      <LayoutWrapper>
-        <LayoutGrid>
-          <Title
-            $useSmallGrid={useSmallGrid}
-            style={{ filter: blur, transform }}
-          >
-            {title || ""}
-          </Title>
-        </LayoutGrid>
-      </LayoutWrapper>
-    </HeroTitleWrapper>
+    <>
+      {title && (
+        <HeroTitleWrapper
+          className="hero-title"
+          $useSmallGrid={useSmallGrid}
+          ref={wrapperRef}
+        >
+          <LayoutWrapper>
+            <LayoutGrid>
+              <Title
+                $useSmallGrid={useSmallGrid}
+                style={{ filter: blur, transform }}
+              >
+                {title || ""}
+              </Title>
+            </LayoutGrid>
+          </LayoutWrapper>
+        </HeroTitleWrapper>
+      )}
+    </>
   );
 };
 
