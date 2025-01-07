@@ -70,7 +70,7 @@ interface BubblePosition {
 }
 
 type Props = {
-  phrases: string[];
+  phrases?: string[];
   isActive: boolean;
 };
 
@@ -163,13 +163,15 @@ const SensitiveBoard = ({ phrases, isActive }: Props) => {
 
     // Move to the next phrase on bubble creation
     // Wraps around with modulo
-    setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
+    setPhraseIndex(
+      (prevIndex) => (prevIndex + 1) % (phrases ? phrases.length : 0)
+    );
   };
 
   return (
     <SensitiveBoardWrapper
       onClick={handleClick}
-      className="performance cursor-bubble"
+      className="performance cursor-bubble sensitive-board"
     >
       {/* Render all bubbles */}
       {bubbles.map((bubble, index) => (
@@ -179,7 +181,7 @@ const SensitiveBoard = ({ phrases, isActive }: Props) => {
       {/* AnimatePresence handles mounting/unmounting animations */}
       <PhraseWrapper>
         <AnimatePresence mode="wait">
-          {isActive && (
+          {isActive && phrases && (
             <AnimatedText key={phraseIndex} text={phrases[phraseIndex]} />
           )}
         </AnimatePresence>
@@ -196,7 +198,7 @@ const SensitiveBoard = ({ phrases, isActive }: Props) => {
         <ShaderGradient
           control="query"
           zoomOut={false}
-          urlString="https://www.shadergradient.co/customize?animate=on&axesHelper=off&bgColor1=%23000000&bgColor2=%23000000&brightness=1.2&cAzimuthAngle=180&cDistance=3.6&cPolarAngle=90&cameraZoom=1&color1=%23F0E1CE&color2=%23E3E4E2&color3=%23E3C19D&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=45&frameRate=10&gizmoHelper=hide&grain=off&lightType=3d&pixelDensity=2&positionX=-1.4&positionY=0&positionZ=0&range=disabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=0&rotationY=10&rotationZ=50&shader=defaults&type=plane&uAmplitude=0&uDensity=2.6&uFrequency=5.5&uSpeed=0.3&uStrength=1.7&uTime=0&wireframe=false"
+          urlString="https://www.shadergradient.co/customize?animate=on&axesHelper=off&bgColor1=%23000000&bgColor2=%23000000&brightness=1.2&cAzimuthAngle=190&cDistance=2.8&cPolarAngle=130&cameraZoom=1&color1=%23E3C19D&color2=%23F0E1CE&color3=%23E3E4E2&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=40&frameRate=10&gizmoHelper=hide&grain=off&lightType=3d&pixelDensity=1&positionX=0&positionY=1.8&positionZ=0&range=enabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=0&rotationY=0&rotationZ=-90&shader=defaults&type=waterPlane&uDensity=1&uFrequency=5.5&uSpeed=0.2&uStrength=3&uTime=0.2&wireframe=false"
         />
       </ShaderGradientCanvas>
     </SensitiveBoardWrapper>

@@ -8,6 +8,7 @@ import LinkArrow from "../../svgs/LinkArrow";
 
 type Props = {
   cursorRefresh: () => void;
+  appCursorRefresh: number;
 };
 
 type StyledProps = {
@@ -124,7 +125,7 @@ const wrapperVariants = {
   },
 };
 
-const Cursor = ({ cursorRefresh }: Props) => {
+const Cursor = ({ cursorRefresh, appCursorRefresh }: Props) => {
   const [isHoveringCursorBubbleLink, setIsHoveringCursorBubbleLink] =
     useState(false);
   const [isHoveringArrowLink, setIsHoveringArrowLink] = useState(false);
@@ -157,28 +158,9 @@ const Cursor = ({ cursorRefresh }: Props) => {
     setIsHoveringTextLink(false);
     setIsOnDevice(false);
     setCursorText("");
-
-    const timer = setTimeout(() => {
-      setIsHoveringArrowLink(false);
-      setIsHoveringTextLink(false);
-      setIsOnDevice(false);
-      setCursorText("");
-    }, 500);
-
-    const timer2 = setTimeout(() => {
-      setIsHoveringArrowLink(false);
-      setIsHoveringTextLink(false);
-      setIsOnDevice(false);
-      setCursorText("");
-    }, 1000);
-
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(timer2);
-    };
   };
 
-  useEffect(() => {
+  const findActions = () => {
     const cursorArrowLinks = document.querySelectorAll(".cursor-arrow-link");
     const cursorBubbleLinks = document.querySelectorAll(".cursor-bubble");
     const cursorTextLinks = document.querySelectorAll(
@@ -235,11 +217,20 @@ const Cursor = ({ cursorRefresh }: Props) => {
     ) {
       setIsOnDevice(true);
     }
+  };
+
+  useEffect(() => {
+    findActions();
+
+    const timer = setTimeout(() => {
+      findActions();
+    }, 1000);
 
     return function cleanUp() {
       clearCursor();
+      clearTimeout(timer);
     };
-  }, [cursorRefresh]);
+  }, [cursorRefresh, appCursorRefresh]);
 
   // reset cursor on page change
   useEffect(() => {

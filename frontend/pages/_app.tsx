@@ -40,6 +40,18 @@ const App = (props: Props) => {
   useHeaderHeight();
 
   useEffect(() => {
+    setAppCursorRefresh(appCursorRefresh + 1);
+
+    const timer = setTimeout(() => {
+      setAppCursorRefresh(appCursorRefresh + 1);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [router.asPath]);
+
+  useEffect(() => {
     const hasCookies = Cookies.get("visited");
 
     if (hasCookies) {
@@ -77,6 +89,7 @@ const App = (props: Props) => {
         </Layout>
         <Cursor
           cursorRefresh={() => setAppCursorRefresh(appCursorRefresh + 1)}
+          appCursorRefresh={appCursorRefresh}
         />
       </ThemeProvider>
     </>

@@ -90,7 +90,6 @@ const Page = (props: Props) => {
         title={data?.seo?.title || ""}
         description={data?.seo?.description || ""}
       />
-      {/* <HeroTitle title={data?.heroTitle} /> */}
       <ButtonWrapper $isActive={!isActive}>
         <ButtonLayout>Click anywhere</ButtonLayout>
       </ButtonWrapper>

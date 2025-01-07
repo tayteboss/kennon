@@ -49,8 +49,8 @@ const Page = (props: Props) => {
         sketches={data?.sketches}
       />
       <WorkHeroImage data={data?.landscapeThumbnailImage} title={data?.title} />
-      <PageBuilder data={data?.pageBuilder} />
       <WorkSenses data={data?.senseBlocks} />
+      <PageBuilder data={data?.pageBuilder} />
       <WorkRelated data={data?.relatedWork} type={data?._type} />
     </PageWrapper>
   );
