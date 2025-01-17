@@ -34,6 +34,7 @@ const PhraseWrapper = styled.div`
   position: relative;
   z-index: 20;
   mix-blend-mode: luminosity;
+  padding: 0 ${pxToRem(32)};
 `;
 
 const AnimatedPhraseContainer = styled(motion.div)`
@@ -56,6 +57,10 @@ const ShaderOuter = styled.div`
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     opacity: 1;
+
+    & > div {
+      filter: brightness(0.85);
+    }
   }
 `;
 
@@ -92,6 +97,10 @@ const Hint = styled.p`
   color: var(--colour-black);
   opacity: 0.5;
   text-align: center;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    opacity: 0.75;
+  }
 `;
 
 // -----------------------------
@@ -321,8 +330,6 @@ const SensitiveBoard = ({ phrases }: Props) => {
       setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
     }
   };
-
-  console.log("bubbles", bubbles);
 
   // Decide whether to play sample or melody on the nth click
   const getSoundFile = (nthClick: number): string | null => {

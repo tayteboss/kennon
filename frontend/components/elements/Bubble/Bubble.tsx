@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
+import useViewportWidth from "../../../hooks/useViewportWidth";
 
 type StyledProps = {
   $x: number;
@@ -38,12 +39,14 @@ const Bubble = ({ data, index }: Props) => {
   // Duration for the bubble's animation
   const duration = 5;
 
+  const isMobile = useViewportWidth() === "mobile";
+
   // Define the bubble's framer-motion variants
   const wrapperVariants = {
     hidden: {
       height: "5vw",
       width: "5vw",
-      filter: "blur(10px)",
+      filter: isMobile ? "blur(5px)" : "blur(10px)",
       transition: {
         duration,
         ease: "easeInOut",
@@ -55,7 +58,7 @@ const Bubble = ({ data, index }: Props) => {
     visible: {
       height: "100vw",
       width: "100vw",
-      filter: "blur(25px)",
+      filter: isMobile ? "blur(10px)" : "blur(25px)",
       transition: {
         duration,
         ease: "easeInOut",
@@ -66,7 +69,7 @@ const Bubble = ({ data, index }: Props) => {
     exit: {
       height: "5vw",
       width: "5vw",
-      filter: "blur(25px)",
+      filter: isMobile ? "blur(10px)" : "blur(25px)",
       opacity: 0,
       transition: {
         duration,
