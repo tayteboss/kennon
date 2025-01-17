@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useState, MouseEvent, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { AnimatePresence, motion, Variants } from "framer-motion";
@@ -185,7 +184,6 @@ const AnimatedText = ({ text }: AnimatedTextProps) => {
 // -----------------------------
 const SensitiveBoard = ({ phrases }: Props) => {
   const [isActive, setIsActive] = useState(false);
-
   const router = useRouter();
 
   // For the sample and melody files
@@ -272,11 +270,12 @@ const SensitiveBoard = ({ phrases }: Props) => {
     }
   }, [isActive]);
 
-  // Whenever isActive becomes true, reset phrases to start
+  // Whenever isActive becomes true, *only* reset phrases to start
   useEffect(() => {
     if (isActive) {
       setPhraseIndex(0);
-      setClickCount(0);
+      // IMPORTANT: no longer resetting clickCount to 0 here
+      // setClickCount(0);
     }
   }, [isActive]);
 
@@ -288,13 +287,13 @@ const SensitiveBoard = ({ phrases }: Props) => {
       setIsActive(true);
     }
 
-    // Increase the click count for the pattern
-    const newCount = clickCount + 1;
-    setClickCount(newCount);
+    // This updatedCount will be the correct new click number
+    const updatedCount = clickCount + 1;
+    setClickCount(updatedCount);
 
     // Create the bubble
     const coords = { x: e.clientX, y: e.clientY };
-    const fileName = getSoundFile(newCount);
+    const fileName = getSoundFile(updatedCount);
 
     // Create a new audio only if there's a valid file
     let audio: HTMLAudioElement | undefined;
@@ -308,22 +307,12 @@ const SensitiveBoard = ({ phrases }: Props) => {
     const newBubble: BubblePosition = {
       x: coords.x,
       y: coords.y,
-      fileName: isActive ? fileName : "",
+      fileName: fileName,
       audio: audio,
     };
 
     // Add the bubble to the array (while limiting total to 10)
     setBubbles((prev) => {
-      // If there's more than 9, remove the oldest (at index 0)
-      if (prev.length >= 10) {
-        const [oldestBubble, ...rest] = prev;
-        // Cleanup oldest bubble's audio
-        if (oldestBubble.audio) {
-          oldestBubble.audio.pause();
-          oldestBubble.audio.currentTime = 0;
-        }
-        return [...rest, newBubble];
-      }
       return [...prev, newBubble];
     });
 
@@ -333,12 +322,22 @@ const SensitiveBoard = ({ phrases }: Props) => {
     }
   };
 
+  console.log("bubbles", bubbles);
+
   // Decide whether to play sample or melody on the nth click
   const getSoundFile = (nthClick: number): string | null => {
-    // Pattern: 2 sample clicks, then 1 melody, repeated
-    // i.e. nthClick mod 3 => 1 or 2 => sample, 0 => melody
-    const mod = nthClick % 3;
+    // 1. First click => always play 'sample-1-breath.mp3'
+    if (nthClick === 1) {
+      return "sample-1-breath.mp3";
+    }
 
+    // 2. Second click => choose a specific sample (not random)
+    if (nthClick === 2) {
+      return "sample-2-crowd.mp3";
+    }
+
+    // 3. After that => 2 random samples, 1 melody, repeated
+    const mod = nthClick % 3;
     if (mod === 1 || mod === 2) {
       // Play a random sample
       return getRandomSample();
@@ -366,6 +365,7 @@ const SensitiveBoard = ({ phrases }: Props) => {
     return file;
   };
 
+  // Fade out the loop if user navigates away
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       if (url !== "/being-sensitive" && baseLoopRef.current) {
@@ -412,6 +412,7 @@ const SensitiveBoard = ({ phrases }: Props) => {
           )}
         </AnimatePresence>
       </PhraseWrapper>
+
       <ShaderOuter>
         <ShaderGradientCanvas
           style={{

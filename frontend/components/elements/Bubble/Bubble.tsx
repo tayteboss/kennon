@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 
 type StyledProps = {
@@ -33,8 +33,10 @@ type Props = {
 const Bubble = ({ data, index }: Props) => {
   const { x, y } = data;
 
+  const [isActive, setIsActive] = useState(true);
+
   // Duration for the bubble's animation
-  const duration = 8;
+  const duration = 5;
 
   // Define the bubble's framer-motion variants
   const wrapperVariants = {
@@ -74,8 +76,8 @@ const Bubble = ({ data, index }: Props) => {
   };
 
   return (
-    <>
-      {duration > 0 && (
+    <AnimatePresence>
+      {isActive && (
         <BubbleWrapper
           $x={x}
           $y={y}
@@ -83,9 +85,12 @@ const Bubble = ({ data, index }: Props) => {
           variants={wrapperVariants}
           initial="hidden"
           animate="visible"
+          exit="exit"
+          key={`${x}-${y}-${index}`}
+          onAnimationComplete={() => setIsActive(false)}
         />
       )}
-    </>
+    </AnimatePresence>
   );
 };
 
