@@ -8,12 +8,8 @@ import {
 import { motion } from "framer-motion";
 import client from "../client";
 import { sensitivePageQueryString } from "../lib/sanityQueries";
-import HeroTitle from "../components/blocks/HeroTitle";
-import BeingSensitiveMedia from "../components/blocks/BeingSensitiveMedia";
 import pxToRem from "../utils/pxToRem";
 import SensitiveBoard from "../components/blocks/SensitiveBoard";
-import ButtonLayout from "../components/layout/ButtonLayout";
-import { useState } from "react";
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
@@ -43,23 +39,6 @@ const PageWrapper = styled(motion.div)`
   }
 `;
 
-const ButtonWrapper = styled.div<{ $isActive: boolean }>`
-  padding: 0 ${pxToRem(16)};
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  opacity: ${(props) => (props.$isActive ? 1 : 0)};
-  pointer-events: ${(props) => (props.$isActive ? "all" : "none")};
-
-  transition: all var(--transition-speed-extra-slow) var(--transition-ease);
-
-  .button-inner {
-    background: rgba(255, 255, 255, 0.5);
-    color: var(--colour-black);
-  }
-`;
-
 type Props = {
   data: SensitivePageType;
   siteSettings: SiteSettingsType;
@@ -68,8 +47,6 @@ type Props = {
 
 const Page = (props: Props) => {
   const { data, pageTransitionVariants } = props;
-
-  const [isActive, setIsActive] = useState(false);
 
   const phrases = [
     "Being Sensitive is an on going dissertation into The Senses of Place",
@@ -84,16 +61,12 @@ const Page = (props: Props) => {
       initial="hidden"
       animate="visible"
       exit="hidden"
-      onClick={() => setIsActive(true)}
     >
       <NextSeo
         title={data?.seo?.title || ""}
         description={data?.seo?.description || ""}
       />
-      <ButtonWrapper $isActive={!isActive}>
-        <ButtonLayout>Click anywhere</ButtonLayout>
-      </ButtonWrapper>
-      <SensitiveBoard isActive={isActive} phrases={phrases} />
+      <SensitiveBoard phrases={phrases} />
     </PageWrapper>
   );
 };

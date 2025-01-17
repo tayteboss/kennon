@@ -19,22 +19,22 @@ export default {
       name: 'heroTitle',
       type: 'string',
     },
-    {
-      title: 'Hero Media',
-      name: 'heroMedia',
-      type: 'object',
-      fields: [
-        selectMediaTypeObject,
-        {
-          ...imageObject,
-          hidden: ({parent}: any) => parent?.mediaType !== 'image',
-        },
-        {
-          ...videoObject,
-          hidden: ({parent}: any) => parent?.mediaType !== 'video',
-        },
-      ],
-    },
+    // {
+    //   title: 'Hero Media',
+    //   name: 'heroMedia',
+    //   type: 'object',
+    //   fields: [
+    //     selectMediaTypeObject,
+    //     {
+    //       ...imageObject,
+    //       hidden: ({parent}: any) => parent?.mediaType !== 'image',
+    //     },
+    //     {
+    //       ...videoObject,
+    //       hidden: ({parent}: any) => parent?.mediaType !== 'video',
+    //     },
+    //   ],
+    // },
     {
       title: 'Studio Section',
       name: 'studioSection',

@@ -1,5 +1,5 @@
+import React from "react";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 type StyledProps = {
@@ -13,72 +13,51 @@ const BubbleWrapper = styled(motion.div)<StyledProps>`
   left: ${(props) => props.$x}px;
   top: ${(props) => props.$y}px;
   transform: translate(-50%, -50%);
-  background: ${(props) => `var(--colour-${(props.$index % 5) + 1})`};
+  background: ${(props) => `var(--colour-${(props.$index % 6) + 1})`};
   border-radius: 100%;
-  /* mix-blend-mode: normal; */
-  /* mix-blend-mode: multiply; */
-  /* mix-blend-mode: screen; */
-  /* mix-blend-mode: overlay; */
-  /* mix-blend-mode: darken; */
-  /* mix-blend-mode: lighten; */
-  /* mix-blend-mode: color-dodge; */
-  /* mix-blend-mode: color-burn; */
-  /* mix-blend-mode: hard-light; */
-  /* mix-blend-mode: soft-light; */
-  /* mix-blend-mode: difference; */
-  /* mix-blend-mode: exclusion; */
-  /* mix-blend-mode: hue; */
-  /* mix-blend-mode: saturation; */
-  /* mix-blend-mode: color; */
   mix-blend-mode: luminosity;
   z-index: 10;
 `;
 
+type BubbleData = {
+  x: number;
+  y: number;
+  fileName: string | null;
+};
+
 type Props = {
-  data: {
-    x: number;
-    y: number;
-  };
+  data: BubbleData;
   index: number;
 };
 
-const Bubble = (props: Props) => {
-  const { data, index } = props;
+const Bubble = ({ data, index }: Props) => {
+  const { x, y } = data;
 
+  // Duration for the bubble's animation
   const duration = 8;
-  const audioRef = useRef(null);
 
-  useEffect(() => {
-    if (duration <= 0) return;
-
-    const audio: any = audioRef.current;
-
-    audio.play();
-
-    return () => audio.pause();
-  }, [duration]);
-
+  // Define the bubble's framer-motion variants
   const wrapperVariants = {
     hidden: {
       height: "5vw",
       width: "5vw",
-      filter: "blur(5px)",
+      filter: "blur(10px)",
       transition: {
-        duration: duration,
+        duration,
         ease: "easeInOut",
-        repeat: 1,
+        repeat: 3,
         repeatType: "mirror",
-        repeatDelay: duration, // in ms
+        repeatDelay: duration,
       },
     },
     visible: {
-      height: "75vw",
-      width: "75vw",
-      filter: "blur(20px)",
+      height: "100vw",
+      width: "100vw",
+      filter: "blur(25px)",
       transition: {
-        duration: duration,
+        duration,
         ease: "easeInOut",
-        repeat: 1,
+        repeat: 3,
         repeatType: "mirror",
       },
     },
@@ -88,7 +67,7 @@ const Bubble = (props: Props) => {
       filter: "blur(25px)",
       opacity: 0,
       transition: {
-        duration: duration,
+        duration,
         ease: "easeInOut",
       },
     },
@@ -98,17 +77,14 @@ const Bubble = (props: Props) => {
     <>
       {duration > 0 && (
         <BubbleWrapper
-          $x={data.x}
-          $y={data.y}
-          $index={(index % 5) + 1}
+          $x={x}
+          $y={y}
+          $index={index}
           variants={wrapperVariants}
           initial="hidden"
           animate="visible"
         />
       )}
-      <audio ref={audioRef}>
-        <source src={`/sounds/${(index % 5) + 1}.mp3`} type="audio/mp3" />
-      </audio>
     </>
   );
 };

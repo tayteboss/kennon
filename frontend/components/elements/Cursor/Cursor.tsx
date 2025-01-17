@@ -60,13 +60,6 @@ const TextOuterWrapper = styled.div`
   align-items: center;
 `;
 
-const BubbleCursor = styled.div`
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: red;
-`;
-
 const TextWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -102,10 +95,19 @@ const BubbleWrapper = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 5vw;
-  width: 5vw;
-  background: red;
+  height: 10vw;
+  width: 10vw;
+  background: rgba(255, 255, 255, 0.3);
+  /* backdrop-filter: blur(1px); */
   border-radius: 100px;
+  filter: blur(1px);
+`;
+
+const BubbleCursor = styled.div`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--colour-black);
 `;
 
 const wrapperVariants = {
@@ -131,6 +133,7 @@ const Cursor = ({ cursorRefresh, appCursorRefresh }: Props) => {
   const [isHoveringArrowLink, setIsHoveringArrowLink] = useState(false);
   const [isHoveringTextLink, setIsHoveringTextLink] = useState(false);
   const [cursorText, setCursorText] = useState("");
+  const [isHoveringSenstive, setIsHoveringSensitive] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [isOnDevice, setIsOnDevice] = useState(false);
   const router = useRouter();
@@ -166,6 +169,19 @@ const Cursor = ({ cursorRefresh, appCursorRefresh }: Props) => {
     const cursorTextLinks = document.querySelectorAll(
       ".cursor-arrow-text-link"
     );
+    const cursorSenstiveLinks = document.querySelectorAll(".cursor-senstive");
+
+    cursorSenstiveLinks.forEach((link) => {
+      link.addEventListener("mouseenter", () => {
+        setIsHoveringSensitive(true);
+      });
+      link.addEventListener("mouseleave", () => {
+        setIsHoveringSensitive(false);
+      });
+      link.addEventListener("mouseup", () => {
+        setIsHoveringSensitive(false);
+      });
+    });
 
     cursorArrowLinks.forEach((link) => {
       link.addEventListener("mouseenter", () => {
@@ -241,7 +257,9 @@ const Cursor = ({ cursorRefresh, appCursorRefresh }: Props) => {
     <>
       <CursorWrapper $isOnDevice={isOnDevice} className="cursor-wrapper">
         <CursorRing
-          $isActive={isHoveringArrowLink || isHoveringTextLink}
+          $isActive={
+            isHoveringArrowLink || isHoveringTextLink || isHoveringSenstive
+          }
           variants={variantsWrapper}
           animate="visible"
           layout
@@ -266,7 +284,7 @@ const Cursor = ({ cursorRefresh, appCursorRefresh }: Props) => {
                 </IconWrapper>
               </TextOuterWrapper>
             )}
-            {isHoveringCursorBubbleLink && (
+            {false && (
               <BubbleWrapper
                 key={3}
                 variants={wrapperVariants}
