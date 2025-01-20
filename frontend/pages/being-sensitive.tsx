@@ -48,13 +48,6 @@ type Props = {
 const Page = (props: Props) => {
   const { data, pageTransitionVariants } = props;
 
-  const phrases = [
-    "Being Sensitive is an on going dissertation into The Senses of Place",
-    "With equal purpose to make ideas matter in both practice and theory",
-    "Being Sensitive is a tool to communicate the theory behind purpose,",
-    "pragmatism and philosophy that informs our work",
-  ];
-
   return (
     <PageWrapper
       variants={pageTransitionVariants}
@@ -66,7 +59,12 @@ const Page = (props: Props) => {
         title={data?.seo?.title || ""}
         description={data?.seo?.description || ""}
       />
-      <SensitiveBoard phrases={phrases} />
+      <SensitiveBoard
+        phrases={data?.phrases}
+        baseLoop={data?.baseLoop}
+        melodySounds={data?.melodySounds}
+        environmentalSounds={data?.environmentalSounds}
+      />
     </PageWrapper>
   );
 };

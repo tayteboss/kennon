@@ -15,6 +15,9 @@ const Inner = styled.div`
   border-radius: ${pxToRem(4)};
   pointer-events: all;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: ${pxToRem(8)};
 
   transition: all var(--transition-speed-default) var(--transition-ease);
 

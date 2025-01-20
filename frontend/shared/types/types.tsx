@@ -101,7 +101,28 @@ export type PressPageType = {
 export type SensitivePageType = {
   seo: SEOType;
   heroTitle: string;
-  media: MediaType;
+  phrases: string[];
+  baseLoop: {
+    asset: {
+      url: string;
+    };
+  };
+  melodySounds: {
+    file: {
+      asset: {
+        url: string;
+      };
+    };
+    title: string;
+  }[];
+  environmentalSounds: {
+    file: {
+      asset: {
+        url: string;
+      };
+    };
+    title: string;
+  }[];
 };
 
 export type ContactPageType = {

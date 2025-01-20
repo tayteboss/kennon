@@ -6,6 +6,9 @@ import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
 import pxToRem from "../../../utils/pxToRem";
 import ButtonLayout from "../../layout/ButtonLayout";
 import { useRouter } from "next/router";
+import { SensitivePageType } from "../../../shared/types/types";
+import SoundIcon from "../../svgs/SoundIcon";
+import MuteTrigger from "../../elements/MuteTrigger";
 
 const SensitiveBoardWrapper = styled.section`
   height: 100lvh;
@@ -114,7 +117,10 @@ interface BubblePosition {
 }
 
 type Props = {
-  phrases?: string[];
+  phrases?: SensitivePageType["phrases"];
+  baseLoop?: SensitivePageType["baseLoop"];
+  melodySounds?: SensitivePageType["melodySounds"];
+  environmentalSounds?: SensitivePageType["environmentalSounds"];
 };
 
 // -----------------------------
@@ -191,201 +197,158 @@ const AnimatedText = ({ text }: AnimatedTextProps) => {
 // -----------------------------
 //   SENSITIVE BOARD COMPONENT
 // -----------------------------
-const SensitiveBoard = ({ phrases }: Props) => {
+export const SensitiveBoard = ({
+  phrases,
+  baseLoop,
+  melodySounds,
+  environmentalSounds,
+}: Props) => {
   const [isActive, setIsActive] = useState(false);
   const router = useRouter();
 
-  // For the sample and melody files
-  const sampleFiles = [
-    "sample-1-breath.mp3",
-    "sample-2-crowd.mp3",
-    "sample-3-ferry.mp3",
-    "sample-4-footy.mp3",
-    "sample-5-pier.mp3",
-    "sample-6-pizzicat.mp3",
-    "sample-7-stopping.mp3",
-  ];
-
-  const melodyFiles = [
-    "melody-1-piano.mp3",
-    "melody-2-rhodes.mp3",
-    "melody-3-scape.mp3",
-    "melody-4-violin.mp3",
-  ];
-
-  // Track the bubble + audio data
-  const [bubbles, setBubbles] = useState<BubblePosition[]>([]);
-  // Keep track of the phrase index
+  const [bubbles, setBubbles] = useState<any[]>([]);
   const [phraseIndex, setPhraseIndex] = useState<number>(0);
-
-  // We only start counting clicks once isActive is true
   const [clickCount, setClickCount] = useState<number>(0);
+  const [isMuted, setIsMuted] = useState(false);
 
-  // For the base-loop reference
   const baseLoopRef = useRef<HTMLAudioElement | null>(null);
+  const environmentalAudioRefs = useRef<HTMLAudioElement[]>([]);
+  const melodyAudioRefs = useRef<HTMLAudioElement[]>([]);
 
-  // Keep track of the previous sample to avoid repeats
-  const lastSampleRef = useRef<string | null>(null);
+  const [envIndex, setEnvIndex] = useState<number>(0);
+  const [melIndex, setMelIndex] = useState<number>(0);
 
-  // Cycle through melody in order
-  const [melodyIndex, setMelodyIndex] = useState<number>(0);
+  const environmentalFiles =
+    environmentalSounds?.map((item: any) => item.file.asset.url) || [];
 
-  // -----------------------------
-  //   PLAY BASE LOOP WHEN ACTIVE
-  // -----------------------------
+  const melodyFiles =
+    melodySounds?.map((item: any) => item.file.asset.url) || [];
+
   useEffect(() => {
     if (isActive) {
       if (!baseLoopRef.current) {
-        const audio = new Audio("/sounds/base-loop.mp3");
+        const audio = new Audio(baseLoop?.asset?.url || "");
         audio.loop = true;
-        audio.volume = 0; // start volume at 0 for fade
+        audio.volume = isMuted ? 0 : 1;
         baseLoopRef.current = audio;
       }
-
       const audioEl = baseLoopRef.current;
       if (audioEl) {
         audioEl.currentTime = 0;
         audioEl.play().catch((err) => {
           console.error("Could not play base loop:", err);
         });
-
-        // Fade in if volume is 0
-        if (audioEl.volume === 0) {
-          let currentVolume = 0;
-          const fadeInterval = setInterval(() => {
-            if (!audioEl) return;
-            currentVolume += 0.05;
-            audioEl.volume = Math.min(currentVolume, 1);
-            if (currentVolume >= 1) {
-              clearInterval(fadeInterval);
-            }
-          }, 100);
-        }
       }
     } else {
-      // If user becomes inactive again, reset base loop
       if (baseLoopRef.current) {
-        const fadeOutInterval = setInterval(() => {
-          if (!baseLoopRef.current) return;
-          const currentVolume = baseLoopRef.current.volume;
-          baseLoopRef.current.volume = Math.max(currentVolume - 0.05, 0);
-          if (currentVolume <= 0) {
-            clearInterval(fadeOutInterval);
-            baseLoopRef.current.pause();
-            baseLoopRef.current.currentTime = 0;
-          }
-        }, 100);
+        baseLoopRef.current.pause();
+        baseLoopRef.current.currentTime = 0;
       }
     }
-  }, [isActive]);
+  }, [isActive, baseLoop]);
 
-  // Whenever isActive becomes true, *only* reset phrases to start
   useEffect(() => {
     if (isActive) {
       setPhraseIndex(0);
-      // IMPORTANT: no longer resetting clickCount to 0 here
-      // setClickCount(0);
     }
   }, [isActive]);
 
-  // -----------------------------
-  //   CLICK HANDLER
-  // -----------------------------
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     if (!isActive) {
       setIsActive(true);
     }
-
-    // This updatedCount will be the correct new click number
     const updatedCount = clickCount + 1;
     setClickCount(updatedCount);
 
-    // Create the bubble
     const coords = { x: e.clientX, y: e.clientY };
     const fileName = getSoundFile(updatedCount);
 
-    // Create a new audio only if there's a valid file
     let audio: HTMLAudioElement | undefined;
     if (fileName) {
-      audio = new Audio(`/sounds/${fileName}`);
+      audio = new Audio(fileName);
+      audio.volume = isMuted ? 0 : 1;
       audio.play().catch((err) => {
         console.error("Could not play bubble audio:", err);
       });
+      if (environmentalFiles.includes(fileName)) {
+        environmentalAudioRefs.current.push(audio);
+      } else if (melodyFiles.includes(fileName)) {
+        melodyAudioRefs.current.push(audio);
+      }
     }
 
-    const newBubble: BubblePosition = {
+    const newBubble = {
       x: coords.x,
       y: coords.y,
-      fileName: fileName,
-      audio: audio,
+      fileName,
+      audio,
     };
 
-    // Add the bubble to the array (while limiting total to 10)
-    setBubbles((prev) => {
-      return [...prev, newBubble];
-    });
+    setBubbles((prev) => [...prev, newBubble]);
 
-    // Move to the next phrase on bubble creation (wrap around if needed)
     if (phrases && phrases.length > 0) {
       setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
     }
   };
 
-  // Decide whether to play sample or melody on the nth click
   const getSoundFile = (nthClick: number): string | null => {
-    // 1. First click => always play 'sample-1-breath.mp3'
     if (nthClick === 1) {
-      return "sample-1-breath.mp3";
+      const file = environmentalFiles[0];
+      if (file) setEnvIndex((prev) => prev + 1);
+      return file || null;
     }
-
-    // 2. Second click => choose a specific sample (not random)
     if (nthClick === 2) {
-      return "sample-2-crowd.mp3";
+      const file = melodyFiles[0];
+      if (file) setMelIndex((prev) => prev + 1);
+      return file || null;
     }
-
-    // 3. After that => 2 random samples, 1 melody, repeated
-    const mod = nthClick % 3;
-    if (mod === 1 || mod === 2) {
-      // Play a random sample
-      return getRandomSample();
+    const offset = nthClick - 3;
+    const patternIndex = offset % 3;
+    if (patternIndex === 0 || patternIndex === 1) {
+      const file = environmentalFiles[envIndex % environmentalFiles.length];
+      setEnvIndex((prev) => prev + 1);
+      return file || null;
     } else {
-      // Every 3rd click => melody
-      return getNextMelody();
+      const file = melodyFiles[melIndex % melodyFiles.length];
+      setMelIndex((prev) => prev + 1);
+      return file || null;
     }
   };
 
-  const getRandomSample = (): string => {
-    if (sampleFiles.length === 0) return "";
-    let chosenSample: string;
-    do {
-      const randomIndex = Math.floor(Math.random() * sampleFiles.length);
-      chosenSample = sampleFiles[randomIndex];
-    } while (chosenSample === lastSampleRef.current && sampleFiles.length > 1);
-    lastSampleRef.current = chosenSample;
-    return chosenSample;
+  const handleVolumeChange = () => {
+    const targetVolume = isMuted ? 0 : 1;
+    if (baseLoopRef.current) {
+      baseLoopRef.current.volume = targetVolume;
+    }
+    environmentalAudioRefs.current.forEach((audio) => {
+      audio.volume = targetVolume;
+    });
+    melodyAudioRefs.current.forEach((audio) => {
+      audio.volume = targetVolume;
+    });
   };
 
-  const getNextMelody = (): string => {
-    if (melodyFiles.length === 0) return "";
-    const file = melodyFiles[melodyIndex % melodyFiles.length];
-    setMelodyIndex(melodyIndex + 1);
-    return file;
+  const handleFadeOutAllSound = () => {
+    const targetVolume = 0;
+    if (baseLoopRef.current) {
+      baseLoopRef.current.volume = targetVolume;
+    }
+    environmentalAudioRefs.current.forEach((audio) => {
+      audio.volume = targetVolume;
+    });
+    melodyAudioRefs.current.forEach((audio) => {
+      audio.volume = targetVolume;
+    });
   };
 
-  // Fade out the loop if user navigates away
+  useEffect(() => {
+    handleVolumeChange();
+  }, [isMuted]);
+
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       if (url !== "/being-sensitive" && baseLoopRef.current) {
-        const fadeOutInterval = setInterval(() => {
-          if (!baseLoopRef.current) return;
-          const currentVolume = baseLoopRef.current.volume;
-          baseLoopRef.current.volume = Math.max(currentVolume - 0.05, 0);
-          if (currentVolume <= 0) {
-            clearInterval(fadeOutInterval);
-            baseLoopRef.current.pause();
-            baseLoopRef.current.currentTime = 0;
-          }
-        }, 100);
+        handleFadeOutAllSound();
       }
     };
     handleRouteChange(router.asPath);
@@ -407,6 +370,12 @@ const SensitiveBoard = ({ phrases }: Props) => {
           Turn your volume up for the best experience
         </Hint>
       </StartWrapper>
+
+      <MuteTrigger
+        setIsMuted={setIsMuted}
+        isMuted={isMuted}
+        isActive={isActive}
+      />
 
       {bubbles.map((bubble, index) => (
         <Bubble data={bubble} index={index} key={index} />

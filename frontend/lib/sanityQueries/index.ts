@@ -153,6 +153,27 @@ export const sensitivePageQueryString = `
 		...,
 		media {
 			${mediaString}
+		},
+		baseLoop {
+			asset-> {
+				url
+			}
+		},
+		melodySounds[] {
+			title,
+			file {
+				asset-> {
+					url
+				}
+			}
+		},
+		environmentalSounds[] {
+			title,
+			file {
+				asset-> {
+					url
+				}
+			}
 		}
 	}
 `;

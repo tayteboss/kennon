@@ -20,18 +20,61 @@ export default {
       type: 'string',
     },
     {
-      title: 'Media',
-      name: 'media',
-      type: 'object',
-      fields: [
-        selectMediaTypeObject,
+      title: 'Phrases',
+      name: 'phrases',
+      type: 'array',
+      of: [{type: 'string'}],
+    },
+    {
+      title: 'Base loop',
+      name: 'baseLoop',
+      type: 'file',
+    },
+    {
+      title: 'Melody Sounds',
+      name: 'melodySounds',
+      type: 'array',
+      of: [
         {
-          ...imageObject,
-          hidden: ({parent}: any) => parent?.mediaType !== 'image',
+          title: 'Sound',
+          name: 'sound',
+          type: 'object',
+          fields: [
+            {
+              title: 'File',
+              name: 'file',
+              type: 'file',
+            },
+            {
+              title: 'Title',
+              name: 'title',
+              type: 'string',
+            },
+          ],
         },
+      ],
+    },
+    {
+      title: 'Environmental Sounds',
+      name: 'environmentalSounds',
+      type: 'array',
+      of: [
         {
-          ...videoObject,
-          hidden: ({parent}: any) => parent?.mediaType !== 'video',
+          title: 'Sound',
+          name: 'sound',
+          type: 'object',
+          fields: [
+            {
+              title: 'File',
+              name: 'file',
+              type: 'file',
+            },
+            {
+              title: 'Title',
+              name: 'title',
+              type: 'string',
+            },
+          ],
         },
       ],
     },
