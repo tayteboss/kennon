@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { setWorkType } from "../../../utils/setWorkType";
 import { useRouter } from "next/navigation";
+import pxToRem from "../../../utils/pxToRem";
 
 const MenuNavigationWrapper = styled.div`
   align-self: flex-end;
@@ -63,6 +64,7 @@ const PrivateTrigger = styled(motion.button)`
 
 const PublicTrigger = styled(motion.button)`
   text-align: right;
+  margin-bottom: ${pxToRem(16)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
     text-align: center;
@@ -173,13 +175,13 @@ const MenuNavigation = (props: Props) => {
               onClick={() => handlePrivateClick()}
               variants={childVariants}
             >
-              <InnerTrigger>Private</InnerTrigger>
+              <InnerTrigger>Private —</InnerTrigger>
             </PrivateTrigger>
             <PublicTrigger
               onClick={() => handlePublicClick()}
               variants={childVariants}
             >
-              <InnerTrigger>Public</InnerTrigger>
+              <InnerTrigger>Public —</InnerTrigger>
             </PublicTrigger>
           </WorkTypesList>
         )}

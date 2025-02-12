@@ -121,6 +121,7 @@ const MobileImagesInner = styled.div`
 const ImageWrapper = styled.div`
   flex: 7vw 0 0;
   overflow: hidden;
+  background: var(--colour-cream);
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     flex: 15vw 0 0;
@@ -161,65 +162,8 @@ const ListWorkCard = (props: Props) => {
   } = props;
 
   const hasImages = allImages && allImages.length > 0;
-  const position = useMousePosition();
 
   const imagesRef = useRef<HTMLDivElement>(null);
-  const [overflow, setOverflow] = useState(false);
-  const [maxScroll, setMaxScroll] = useState(0);
-
-  useEffect(() => {
-    if (!imagesRef.current || !hasImages) return;
-    const containerWidth = imagesRef.current.clientWidth;
-    const contentWidth = Array.from(imagesRef.current.children).reduce(
-      (acc, child) => acc + (child as HTMLElement).offsetWidth,
-      0
-    );
-    setOverflow(contentWidth > containerWidth);
-    setMaxScroll(Math.max(contentWidth - containerWidth, 0));
-  }, [allImages, hasImages]);
-
-  const windowWidth = typeof window !== "undefined" ? window.innerWidth : 1;
-  const mouseX = useMotionValue(position.x);
-
-  useEffect(() => {
-    mouseX.set(position.x);
-  }, [position.x, mouseX]);
-
-  // Convert mouseX (0 to windowWidth) to a 0-1 ratio
-  const cursorPositionRelativeToWindow = useTransform(mouseX, (x) => {
-    return windowWidth ? x / windowWidth : 0;
-  });
-
-  // We'll have a hovered state that we use as a motion value
-  const hovered = useMotionValue(0);
-
-  // When hovered is true (1), we map mouse position to a small translation range
-  // We use a very subtle range: ±2% of maxScroll
-  // If maxScroll = 1000px, this results in a ±20px movement max.
-  const hoveredValue = useTransform(
-    cursorPositionRelativeToWindow,
-    [0, 1],
-    [maxScroll * 0.02, -maxScroll * 0.1]
-  );
-
-  // Combine hovered and hoveredValue so that when hovered = 0, we return to 0 translation
-  const finalX = useTransform([hoveredValue, hovered], ([hVal, h]) => {
-    return h ? hVal : 0;
-  });
-
-  // Use a spring to smooth out the movement
-  const smoothX = useSpring(finalX as MotionValue<number>, {
-    stiffness: 80,
-    damping: 20,
-  });
-
-  const handleMouseEnter = () => {
-    hovered.set(1);
-  };
-
-  const handleMouseLeave = () => {
-    hovered.set(0);
-  };
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -235,10 +179,7 @@ const ListWorkCard = (props: Props) => {
         inView ? "view-element-fade-in--in-view" : ""
       }`}
     >
-      <ListWorkCardWrapper
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+      <ListWorkCardWrapper>
         <LayoutWrapper>
           <DesktopContentWrapper>
             <LayoutGrid>
@@ -265,7 +206,7 @@ const ListWorkCard = (props: Props) => {
           </MobileContentWrapper>
         </LayoutWrapper>
         <ImagesWrapper>
-          <DesktopImagesInner ref={imagesRef} style={{ x: smoothX }}>
+          <DesktopImagesInner ref={imagesRef}>
             {hasImages &&
               allImages.map((img, i) => (
                 <ImageWrapper key={i}>
@@ -276,7 +217,7 @@ const ListWorkCard = (props: Props) => {
                       priority={isPriority}
                       fill
                       style={{ objectFit: "cover" }}
-                      sizes="10vw"
+                      sizes="8vw"
                     />
                   </ImageInner>
                 </ImageWrapper>

@@ -10,19 +10,27 @@ const NavbarLinksWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex: 1;
+  position: relative;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     display: none;
   }
 `;
 
-const DefaultLinks = styled(motion.div)`
+const DefaultLinks = styled.div<{ $fadeOut: boolean }>`
   display: flex;
   justify-content: center;
+  opacity: ${(props) => (props.$fadeOut ? 0.33 : 1)};
+
+  transition: all var(--transition-speed-default) var(--transition-ease);
 `;
 
 const WorkLinks = styled(motion.div)`
   display: flex;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const WorksTrigger = styled.button<{ $isActive: boolean }>`
@@ -153,8 +161,20 @@ const NavbarLinks = (props: Props) => {
 
   return (
     <NavbarLinksWrapper onMouseLeave={() => setShowWorkTypes(false)}>
+      <DefaultLinks $fadeOut={showWorkTypes}>
+        <WorksTrigger
+          $isActive={activeLink === "Works"}
+          onClick={() => setShowWorkTypes(true)}
+        >
+          Works
+        </WorksTrigger>
+        <Comma>, </Comma>
+        <Link href="/studio">
+          <StudioLink $isActive={activeLink === "Studio"}>Studio</StudioLink>
+        </Link>
+      </DefaultLinks>
       <AnimatePresence mode="wait">
-        {showWorkTypes ? (
+        {showWorkTypes && (
           <WorkLinks
             variants={wrapperVariants}
             initial="hidden"
@@ -170,27 +190,6 @@ const NavbarLinks = (props: Props) => {
               Public
             </PublicTrigger>
           </WorkLinks>
-        ) : (
-          <DefaultLinks
-            variants={wrapperVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            key={2}
-          >
-            <WorksTrigger
-              $isActive={activeLink === "Works"}
-              onClick={() => setShowWorkTypes(true)}
-            >
-              Works
-            </WorksTrigger>
-            <Comma>, </Comma>
-            <Link href="/studio">
-              <StudioLink $isActive={activeLink === "Studio"}>
-                Studio
-              </StudioLink>
-            </Link>
-          </DefaultLinks>
         )}
       </AnimatePresence>
     </NavbarLinksWrapper>

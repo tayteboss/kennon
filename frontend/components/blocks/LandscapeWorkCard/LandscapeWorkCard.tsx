@@ -15,7 +15,7 @@ const LandscapeWorkCardWrapper = styled.div<{ $comingSoon: boolean }>`
 
   &:hover {
     img {
-      filter: ${(props) => props.$comingSoon && "blur(20px)"};
+      filter: ${(props) => props.$comingSoon && "blur(3px)"};
     }
 
     .work-portrait-card__comingsoon {

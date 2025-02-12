@@ -11,7 +11,7 @@ const PortraitWorkCardWrapper = styled.div<{ $comingSoon: boolean }>`
 
   &:hover {
     img {
-      filter: ${(props) => props.$comingSoon && "blur(20px) brightness(1.2)"};
+      filter: ${(props) => props.$comingSoon && "blur(5px) brightness(1.2)"};
     }
 
     .work-portrait-card__comingsoon {
@@ -29,6 +29,7 @@ const ImageWrapper = styled.div`
   width: 100%;
   position: relative;
   overflow: hidden;
+  background: var(--colour-cream);
 
   img {
     transition:
@@ -49,8 +50,8 @@ const Comingsoon = styled.p`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  color: var(--colour-white);
-  mix-blend-mode: difference;
+  color: var(--colour-black);
+  /* mix-blend-mode: difference; */
   opacity: 0;
   pointer-events: none;
 
@@ -93,6 +94,7 @@ const PortraitWorkCard = (props: Props) => {
               style={{
                 objectFit: "cover",
               }}
+              sizes="(max-width: 768px) 50vw, 33vw"
             />
           </ImageWrapper>
         )}
