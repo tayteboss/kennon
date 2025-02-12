@@ -11,7 +11,11 @@ import FooterAoc from "../../elements/FooterAoc";
 import FooterLogo from "../../elements/FooterLogo";
 import pxToRem from "../../../utils/pxToRem";
 
-const FooterWrapper = styled.footer``;
+const FooterWrapper = styled.footer`
+  position: relative;
+  z-index: 10;
+  background: var(--colour-white);
+`;
 
 const Inner = styled.div`
   padding: ${pxToRem(24)} 0;

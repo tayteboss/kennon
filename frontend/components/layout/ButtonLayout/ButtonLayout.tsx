@@ -18,6 +18,7 @@ const Inner = styled.div`
   display: flex;
   align-items: center;
   gap: ${pxToRem(8)};
+  white-space: nowrap;
 
   transition: all var(--transition-speed-default) var(--transition-ease);
 

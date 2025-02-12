@@ -44,6 +44,31 @@ export const homePageQueryString = `
 			heroMedia {
 				${mediaString}
 			},
+			useBeingSensitiveBoard,
+			beingSensitiveBoard {
+				...,
+				baseLoop {
+					asset-> {
+						url
+					}
+				},
+				melodySounds[] {
+					title,
+					file {
+						asset-> {
+							url
+						}
+					}
+				},
+				environmentalSounds[] {
+					title,
+					file {
+						asset-> {
+							url
+						}
+					}
+				}
+			},
 			featuredWork[]->{
 					_type,
 					slug,

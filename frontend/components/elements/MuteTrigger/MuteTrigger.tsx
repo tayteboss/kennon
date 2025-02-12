@@ -94,7 +94,11 @@ const MuteTrigger = (props: Props) => {
   const { isActive, isMuted, setIsMuted } = props;
 
   return (
-    <MuteTriggerWrapper onClick={() => setIsMuted(!isMuted)} layout>
+    <MuteTriggerWrapper
+      onClick={() => setIsMuted(!isMuted)}
+      layout
+      className="sensitive-board__mute"
+    >
       <IconWrapper>
         <AnimatePresence mode="wait">
           {isMuted && (
@@ -130,7 +134,7 @@ const MuteTrigger = (props: Props) => {
             animate="visible"
             exit="hidden"
           >
-            Click here to mute sound
+            mute sound
           </MuteText>
         )}
       </AnimatePresence>

@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { SensitivePageType } from "../../../shared/types/types";
 import SoundIcon from "../../svgs/SoundIcon";
 import MuteTrigger from "../../elements/MuteTrigger";
+import Logo from "../../svgs/Logo";
 
 const SensitiveBoardWrapper = styled.section`
   height: 100lvh;
@@ -87,7 +88,7 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 
   .button-inner {
-    background: var(--colour-cream);
+    background: var(--colour-white);
     color: var(--colour-black);
   }
 
@@ -106,6 +107,28 @@ const Hint = styled.p`
   }
 `;
 
+const LogoWrapper = styled.div<{ $isReady: boolean }>`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  opacity: ${(props) => (props.$isReady ? 1 : 0)};
+  filter: ${(props) => (props.$isReady ? "none" : "blur(5px)")};
+
+  transition: all var(--transition-speed-slow) var(--transition-ease);
+
+  svg {
+    path {
+      fill: var(--colour-black);
+    }
+
+    @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+      width: ${pxToRem(130)};
+    }
+  }
+`;
+
 // -----------------------------
 //   TYPES
 // -----------------------------
@@ -121,6 +144,7 @@ type Props = {
   baseLoop?: SensitivePageType["baseLoop"];
   melodySounds?: SensitivePageType["melodySounds"];
   environmentalSounds?: SensitivePageType["environmentalSounds"];
+  isHomePage?: boolean;
 };
 
 // -----------------------------
@@ -202,6 +226,7 @@ export const SensitiveBoard = ({
   baseLoop,
   melodySounds,
   environmentalSounds,
+  isHomePage = false,
 }: Props) => {
   const [isActive, setIsActive] = useState(false);
   const router = useRouter();
@@ -347,9 +372,7 @@ export const SensitiveBoard = ({
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
-      if (url !== "/being-sensitive" && baseLoopRef.current) {
-        handleFadeOutAllSound();
-      }
+      handleFadeOutAllSound();
     };
     handleRouteChange(router.asPath);
   }, [router]);
@@ -362,20 +385,28 @@ export const SensitiveBoard = ({
       onClick={handleClick}
       className="performance sensitive-board"
     >
-      <StartWrapper $isActive={!isActive}>
+      {isHomePage && (
+        <LogoWrapper $isReady={!isActive}>
+          <Logo />
+        </LogoWrapper>
+      )}
+
+      <StartWrapper $isActive={!isActive} className="sensitive-board__start">
         <ButtonWrapper>
           <ButtonLayout>Click here to begin</ButtonLayout>
         </ButtonWrapper>
-        <Hint className="type-small">
+        <Hint className="type-small sensitive-board__hint">
           Turn your volume up for the best experience
         </Hint>
       </StartWrapper>
 
-      <MuteTrigger
-        setIsMuted={setIsMuted}
-        isMuted={isMuted}
-        isActive={isActive}
-      />
+      {isActive && (
+        <MuteTrigger
+          setIsMuted={setIsMuted}
+          isMuted={isMuted}
+          isActive={isActive}
+        />
+      )}
 
       {bubbles.map((bubble, index) => (
         <Bubble data={bubble} index={index} key={index} />

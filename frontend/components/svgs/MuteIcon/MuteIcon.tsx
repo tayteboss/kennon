@@ -10,32 +10,32 @@ const MuteIcon = () => {
       <path
         d="M9.40039 5.19971C9.70299 5.60309 9.89902 6.07624 9.97036 6.57543"
         stroke="black"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M11.418 3.18164C12.1853 3.94856 12.7039 4.92883 12.906 5.99472C13.1082 7.06061 12.9846 8.16268 12.5513 9.1573"
         stroke="black"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M1 1L12.9993 12.9993"
         stroke="black"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M3.99983 4L3.64765 4.35218C3.5693 4.431 3.47608 4.49349 3.3734 4.53602C3.27072 4.57856 3.16062 4.60029 3.04948 4.59997H1.59997C1.44085 4.59997 1.28824 4.66318 1.17573 4.77569C1.06321 4.88821 1 5.04081 1 5.19993V8.79973C1 8.95885 1.06321 9.11145 1.17573 9.22397C1.28824 9.33648 1.44085 9.39969 1.59997 9.39969H3.04948C3.16062 9.39937 3.27072 9.4211 3.3734 9.46364C3.47608 9.50617 3.5693 9.56866 3.64765 9.64748L5.67733 11.6778C5.73649 11.737 5.81191 11.7774 5.89404 11.7938C5.97616 11.8102 6.0613 11.8018 6.13866 11.7697C6.21602 11.7377 6.28213 11.6833 6.3286 11.6137C6.37507 11.544 6.39981 11.4621 6.39969 11.3784V6.39986"
         stroke="black"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M5.69727 2.30323C5.75479 2.24549 5.82817 2.20612 5.9081 2.19013C5.98803 2.17414 6.07091 2.18224 6.14623 2.21341C6.22154 2.24457 6.28591 2.29741 6.33117 2.3652C6.37642 2.433 6.40053 2.5127 6.40043 2.59422V3.00579"
         stroke="black"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

@@ -7,7 +7,12 @@ import ButtonLayout from "../../layout/ButtonLayout";
 import pxToRem from "../../../utils/pxToRem";
 import SensitiveBoard from "../SensitiveBoard";
 
-const StudioSensitiveWrapper = styled.section``;
+const StudioSensitiveWrapper = styled.section`
+  .sensitive-board__start,
+  .sensitive-board__mute {
+    display: none;
+  }
+`;
 
 const ButtonWrapper = styled.div`
   display: flex;

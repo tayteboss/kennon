@@ -31,6 +31,77 @@ export default {
       ],
     },
     {
+      title: 'Use Being Sensitive Board',
+      name: 'useBeingSensitiveBoard',
+      type: 'boolean',
+    },
+    {
+      title: 'Being Sensitive Board',
+      name: 'beingSensitiveBoard',
+      type: 'object',
+      fields: [
+        {
+          title: 'Phrases',
+          name: 'phrases',
+          type: 'array',
+          of: [{type: 'string'}],
+        },
+        {
+          title: 'Base loop',
+          name: 'baseLoop',
+          type: 'file',
+        },
+        {
+          title: 'Melody Sounds',
+          name: 'melodySounds',
+          type: 'array',
+          of: [
+            {
+              title: 'Sound',
+              name: 'sound',
+              type: 'object',
+              fields: [
+                {
+                  title: 'File',
+                  name: 'file',
+                  type: 'file',
+                },
+                {
+                  title: 'Title',
+                  name: 'title',
+                  type: 'string',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: 'Environmental Sounds',
+          name: 'environmentalSounds',
+          type: 'array',
+          of: [
+            {
+              title: 'Sound',
+              name: 'sound',
+              type: 'object',
+              fields: [
+                {
+                  title: 'File',
+                  name: 'file',
+                  type: 'file',
+                },
+                {
+                  title: 'Title',
+                  name: 'title',
+                  type: 'string',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
       title: 'Featured Work',
       name: 'featuredWork',
       type: 'array',

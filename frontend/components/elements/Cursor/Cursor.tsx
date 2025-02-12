@@ -211,6 +211,10 @@ const Cursor = ({ cursorRefresh, appCursorRefresh }: Props) => {
         setIsHoveringTextLink(false);
         setCursorText("");
       });
+      link.addEventListener("click", () => {
+        setIsHoveringTextLink(false);
+        setCursorText("");
+      });
     });
 
     cursorBubbleLinks.forEach((link) => {

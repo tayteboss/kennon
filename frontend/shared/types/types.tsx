@@ -64,10 +64,37 @@ export type SEOType = {
   description: string;
 };
 
+export type BeingSensitiveBoard = {
+  phrases: string[];
+  baseLoop: {
+    asset: {
+      url: string;
+    };
+  };
+  melodySounds: {
+    file: {
+      asset: {
+        url: string;
+      };
+    };
+    title: string;
+  }[];
+  environmentalSounds: {
+    file: {
+      asset: {
+        url: string;
+      };
+    };
+    title: string;
+  }[];
+};
+
 export type HomePageType = {
   referenceTitle: string;
   seo: SEOType;
   heroMedia: MediaType;
+  useBeingSensitiveBoard: boolean;
+  beingSensitiveBoard: BeingSensitiveBoard;
   featuredWork: WorkType[];
   studioSection: {
     studioSubheading: string;
