@@ -353,17 +353,33 @@ export const SensitiveBoard = ({
     });
   };
 
-  const handleFadeOutAllSound = () => {
-    const targetVolume = 0;
-    if (baseLoopRef.current) {
-      baseLoopRef.current.volume = targetVolume;
+  const isMobile = () =>
+    typeof window !== "undefined" &&
+    /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  const fadeOutAndPause = (audio: HTMLAudioElement) => {
+    if (!audio) return;
+    if (isMobile()) {
+      audio.pause(); // Instantly pause on mobile
+    } else {
+      let volume = audio.volume;
+      const fadeInterval = setInterval(() => {
+        if (volume > 0.05) {
+          volume -= 0.05;
+          audio.volume = volume;
+        } else {
+          audio.pause();
+          audio.volume = 1; // Reset volume for next play
+          clearInterval(fadeInterval);
+        }
+      }, 100); // Adjust for smoother fade
     }
-    environmentalAudioRefs.current.forEach((audio) => {
-      audio.volume = targetVolume;
-    });
-    melodyAudioRefs.current.forEach((audio) => {
-      audio.volume = targetVolume;
-    });
+  };
+
+  const handleFadeOutAllSound = () => {
+    if (baseLoopRef.current) fadeOutAndPause(baseLoopRef.current);
+    environmentalAudioRefs.current.forEach(fadeOutAndPause);
+    melodyAudioRefs.current.forEach(fadeOutAndPause);
   };
 
   useEffect(() => {

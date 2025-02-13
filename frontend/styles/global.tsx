@@ -167,6 +167,10 @@ export const GlobalStyles = createGlobalStyle`
 		height: 100lvh;
 		width: 100%;
 		position: relative;
+
+		@media ${theme.mediaBreakpoints.tabletPortrait} {
+			height: 50lvh;
+		}
 	}
 
 	.work-portrait-card {

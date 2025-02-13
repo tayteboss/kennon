@@ -57,57 +57,61 @@ const SenseBlock = (props: SenseBlockType & { number: string }) => {
   });
 
   return (
-    <SenseBlockWrapper
-      ref={ref}
-      className={`view-element-fade-in ${
-        inView ? "view-element-fade-in--in-view" : ""
-      }`}
-    >
-      {link && (
-        <Link href={link} target="_blank">
-          <Inner>
-            <ImageWrapper>
-              {image?.asset?.url && (
-                <Image
-                  src={image?.asset?.url}
-                  alt={image?.asset?.alt || ""}
-                  fill
-                  style={{
-                    objectFit: "cover",
-                  }}
-                />
-              )}
-            </ImageWrapper>
-            <ContentWrapper>
-              {title && <Text>{title}</Text>}
-              {description && <Text>{description}</Text>}
-              <Text>{number}</Text>
-            </ContentWrapper>
-          </Inner>
-        </Link>
+    <>
+      {title && description && (
+        <SenseBlockWrapper
+          ref={ref}
+          className={`view-element-fade-in ${
+            inView ? "view-element-fade-in--in-view" : ""
+          }`}
+        >
+          {link && (
+            <Link href={link} target="_blank">
+              <Inner>
+                <ImageWrapper>
+                  {image?.asset?.url && (
+                    <Image
+                      src={image?.asset?.url}
+                      alt={image?.asset?.alt || ""}
+                      fill
+                      style={{
+                        objectFit: "cover",
+                      }}
+                    />
+                  )}
+                </ImageWrapper>
+                <ContentWrapper>
+                  {title && <Text>{title}</Text>}
+                  {description && <Text>{description}</Text>}
+                  <Text>{number}</Text>
+                </ContentWrapper>
+              </Inner>
+            </Link>
+          )}
+          {!link && (
+            <Inner>
+              <ImageWrapper>
+                {image?.asset?.url && (
+                  <Image
+                    src={image?.asset?.url}
+                    alt={image?.asset?.alt || ""}
+                    fill
+                    style={{
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
+              </ImageWrapper>
+              <ContentWrapper>
+                {title && <Text>{title}</Text>}
+                {description && <Text>{description}</Text>}
+                <Text>{number}</Text>
+              </ContentWrapper>
+            </Inner>
+          )}
+        </SenseBlockWrapper>
       )}
-      {!link && (
-        <Inner>
-          <ImageWrapper>
-            {image?.asset?.url && (
-              <Image
-                src={image?.asset?.url}
-                alt={image?.asset?.alt || ""}
-                fill
-                style={{
-                  objectFit: "cover",
-                }}
-              />
-            )}
-          </ImageWrapper>
-          <ContentWrapper>
-            {title && <Text>{title}</Text>}
-            {description && <Text>{description}</Text>}
-            <Text>{number}</Text>
-          </ContentWrapper>
-        </Inner>
-      )}
-    </SenseBlockWrapper>
+    </>
   );
 };
 

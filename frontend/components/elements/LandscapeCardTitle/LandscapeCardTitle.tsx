@@ -12,10 +12,16 @@ const LandscapeCardTitleWrapper = styled.div`
   flex-direction: column;
   mix-blend-mode: difference;
   padding: ${pxToRem(32)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    padding: ${pxToRem(32)} 0;
+  }
 `;
 
 const Text = styled.p`
   color: var(--colour-white);
+  text-align: center;
+  white-space: nowrap;
 `;
 
 type Props = {

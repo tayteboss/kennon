@@ -10,6 +10,8 @@ import WorkHeroImage from "../../components/blocks/WorkHeroImage";
 import PageBuilder from "../../components/common/PageBuilder";
 import WorkSenses from "../../components/blocks/WorkSenses";
 import WorkRelated from "../../components/blocks/WorkRelated";
+import { useEffect } from "react";
+import { useLenis } from "@studio-freight/react-lenis";
 
 type Props = {
   data: WorkType;
@@ -30,6 +32,13 @@ const Page = (props: Props) => {
 
   const subheading = `${data?.title} — ${data?.location} — ${data?.comingSoon ? "Coming soon" : data?.yearCompleted}`;
 
+  const lenis = useLenis(({ scroll }) => {});
+
+  useEffect(() => {
+    if (!lenis) return;
+    lenis.scrollTo(0, { immediate: true });
+  }, [lenis]);
+
   return (
     <PageWrapper
       variants={pageTransitionVariants}
@@ -49,8 +58,8 @@ const Page = (props: Props) => {
         sketches={data?.sketches}
       />
       <WorkHeroImage data={data?.landscapeThumbnailImage} title={data?.title} />
-      <WorkSenses data={data?.senseBlocks} />
       <PageBuilder data={data?.pageBuilder} />
+      <WorkSenses data={data?.senseBlocks} />
       <WorkRelated data={data?.relatedWork} type={data?._type} />
     </PageWrapper>
   );
