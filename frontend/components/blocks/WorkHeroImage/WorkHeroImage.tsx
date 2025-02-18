@@ -7,14 +7,20 @@ import { useState, useRef, useEffect } from "react";
 import pxToRem from "../../../utils/pxToRem";
 
 const WorkHeroImageWrapper = styled.section`
-  height: 100vh;
+  padding-top: 56.25%;
   width: 100%;
   position: relative;
   overflow: hidden;
   margin-bottom: ${pxToRem(80)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    margin: 0 ${pxToRem(16)} ${pxToRem(16)} ${pxToRem(16)};
+  }
 `;
 
 const ImageWrapper = styled(motion.div)`
+  position: absolute;
+  inset: 0;
   height: 100%;
   width: 100%;
 `;

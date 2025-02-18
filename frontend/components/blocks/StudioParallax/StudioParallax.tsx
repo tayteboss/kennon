@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 const StudioParallaxWrapper = styled.div`
-  height: 440px;
+  height: 60vh;
   width: 100%;
   position: relative;
 

@@ -67,5 +67,10 @@ export default {
       name: 'estYear',
       type: 'number',
     },
+    {
+      title: 'Being Sensitive Button Title',
+      name: 'beingSensitiveButtonTitle',
+      type: 'string',
+    },
   ],
 }

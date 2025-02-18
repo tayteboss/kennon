@@ -75,6 +75,7 @@ const Page = (props: Props) => {
           environmentalSounds={data?.beingSensitiveBoard?.environmentalSounds}
           isHomePage={true}
           handleCursorRefresh={() => handleCursorRefresh()}
+          buttonTitle={siteSettings?.beingSensitiveButtonTitle}
         />
       )}
       <HomeWorks

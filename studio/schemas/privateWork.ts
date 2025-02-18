@@ -189,6 +189,7 @@ export default {
               title: 'Image',
               name: 'image',
               type: 'image',
+              description: 'IMPORTANT: Please user either a video or image, not both',
               fields: [
                 {
                   title: 'Alt text',
@@ -197,6 +198,12 @@ export default {
                   description: 'Important for SEO and accessibility',
                 },
               ],
+            },
+            {
+              title: 'Video',
+              name: 'video',
+              type: 'mux.video',
+              description: 'IMPORTANT: Please user either a video or image, not both',
             },
           ],
         },
@@ -207,7 +214,7 @@ export default {
       title: 'Related Work',
       name: 'relatedWork',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'publicWork'}}],
+      of: [{type: 'reference', to: {type: 'privateWork'}}],
       validation: (Rule: any) => Rule.min(2).max(3),
     },
   ],

@@ -3,10 +3,15 @@ import MediaStack from "../../common/MediaStack";
 import { useInView } from "react-intersection-observer";
 import getRatio from "../../../utils/getRatio";
 import { useEffect, useState } from "react";
+import pxToRem from "../../../utils/pxToRem";
 
 const FullMediaSectionWrapper = styled.section``;
 
-const Inner = styled.div``;
+const Inner = styled.div`
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    padding: 0 ${pxToRem(16)};
+  }
+`;
 
 const FullMediaSection = (props: any) => {
   const { fullMedia } = props;

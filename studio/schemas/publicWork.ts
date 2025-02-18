@@ -189,6 +189,7 @@ export default {
               title: 'Image',
               name: 'image',
               type: 'image',
+              description: 'IMPORTANT: Please user either a video or image, not both',
               fields: [
                 {
                   title: 'Alt text',
@@ -197,6 +198,12 @@ export default {
                   description: 'Important for SEO and accessibility',
                 },
               ],
+            },
+            {
+              title: 'Video',
+              name: 'video',
+              type: 'mux.video',
+              description: 'IMPORTANT: Please user either a video or image, not both',
             },
           ],
         },

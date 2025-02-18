@@ -250,13 +250,18 @@ export const workListString = `
 			}
 	},
 	senseBlocks[]{
-			...,
-			image {
-				asset->{
-					url,
-					alt
-				}
+		...,
+		image {
+			asset->{
+				url,
+				alt
 			}
+		},
+		video {
+			asset->{
+				playbackId
+			}
+		}
 	},
 	relatedWork[]->{
 		comingSoon,

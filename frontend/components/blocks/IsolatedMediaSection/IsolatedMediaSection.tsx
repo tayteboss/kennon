@@ -11,7 +11,7 @@ const IsolatedMediaSectionWrapper = styled.section`
   padding: ${pxToRem(240)} 0;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    padding: ${pxToRem(120)} 0;
+    padding: 0;
   }
 `;
 

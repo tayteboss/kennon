@@ -7,7 +7,10 @@ import {
 } from "../shared/types/types";
 import { motion } from "framer-motion";
 import client from "../client";
-import { sensitivePageQueryString } from "../lib/sanityQueries";
+import {
+  sensitivePageQueryString,
+  siteSettingsQueryString,
+} from "../lib/sanityQueries";
 import pxToRem from "../utils/pxToRem";
 import SensitiveBoard from "../components/blocks/SensitiveBoard";
 
@@ -46,7 +49,7 @@ type Props = {
 };
 
 const Page = (props: Props) => {
-  const { data, pageTransitionVariants } = props;
+  const { data, siteSettings, pageTransitionVariants } = props;
 
   return (
     <PageWrapper
@@ -64,6 +67,7 @@ const Page = (props: Props) => {
         baseLoop={data?.baseLoop}
         melodySounds={data?.melodySounds}
         environmentalSounds={data?.environmentalSounds}
+        buttonTitle={siteSettings?.beingSensitiveButtonTitle}
       />
     </PageWrapper>
   );
@@ -71,10 +75,12 @@ const Page = (props: Props) => {
 
 export async function getStaticProps() {
   const data = await client.fetch(sensitivePageQueryString);
+  const siteSettings = await client.fetch(siteSettingsQueryString);
 
   return {
     props: {
       data,
+      siteSettings,
     },
   };
 }

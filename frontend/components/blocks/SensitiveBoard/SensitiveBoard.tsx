@@ -88,7 +88,7 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 
   .button-inner {
-    background: var(--colour-white);
+    background: transparent;
     color: var(--colour-black);
   }
 
@@ -145,6 +145,8 @@ type Props = {
   melodySounds?: SensitivePageType["melodySounds"];
   environmentalSounds?: SensitivePageType["environmentalSounds"];
   isHomePage?: boolean;
+  handleCursorRefresh?: () => void;
+  buttonTitle?: string;
 };
 
 // -----------------------------
@@ -227,6 +229,7 @@ export const SensitiveBoard = ({
   melodySounds,
   environmentalSounds,
   isHomePage = false,
+  buttonTitle = "Be Sensitive?",
 }: Props) => {
   const [isActive, setIsActive] = useState(false);
   const router = useRouter();
@@ -409,7 +412,7 @@ export const SensitiveBoard = ({
 
       <StartWrapper $isActive={!isActive} className="sensitive-board__start">
         <ButtonWrapper>
-          <ButtonLayout>Click here to begin</ButtonLayout>
+          <ButtonLayout>{buttonTitle}</ButtonLayout>
         </ButtonWrapper>
         <Hint className="type-small sensitive-board__hint">
           Turn your volume up for the best experience

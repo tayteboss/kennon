@@ -188,9 +188,14 @@ export const GlobalStyles = createGlobalStyle`
 	.work-section {
 		margin-bottom: ${pxToRem(80)};
 
+		@media ${theme.mediaBreakpoints.tabletPortrait} {
+			margin-bottom: ${pxToRem(16)};
+		}
+
 		&--full {
 			.media-wrapper {
-				height: 100vh;
+				position: relative;
+				padding-top: 56.25%;
 				width: 100%;
 			}
 		}
@@ -334,11 +339,13 @@ export const GlobalStyles = createGlobalStyle`
 
 	.embla__container {
 		display: flex;
+		padding-left: 1rem;
 	}
 
 	.embla__slide {
-		flex: 0 0 100%;
+		flex: 0 0 90%;
 		min-width: 0;
+		margin-right: 1rem;
 	}
 
 	.performance {

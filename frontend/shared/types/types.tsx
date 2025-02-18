@@ -57,6 +57,7 @@ export type SiteSettingsType = {
       url: string;
     };
   };
+  beingSensitiveButtonTitle: string;
 };
 
 export type SEOType = {
@@ -207,6 +208,11 @@ export type SenseBlockType = {
     asset: {
       url: string;
       alt: string;
+    };
+  };
+  video: {
+    asset: {
+      playbackId: string;
     };
   };
 };

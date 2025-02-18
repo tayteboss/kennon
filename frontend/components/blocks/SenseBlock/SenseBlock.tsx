@@ -4,6 +4,7 @@ import Image from "next/image";
 import pxToRem from "../../../utils/pxToRem";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
+import MuxPlayer from "@mux/mux-player-react/lazy";
 
 const SenseBlockWrapper = styled.div`
   grid-column: span 4;
@@ -26,6 +27,12 @@ const ImageWrapper = styled.div`
   height: 100%;
   width: 100%;
   z-index: 1;
+
+  mux-player {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -48,7 +55,7 @@ const Text = styled.p`
 `;
 
 const SenseBlock = (props: SenseBlockType & { number: string }) => {
-  const { title, description, image, number, link } = props;
+  const { title, description, image, video, number, link } = props;
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -79,6 +86,19 @@ const SenseBlock = (props: SenseBlockType & { number: string }) => {
                       }}
                     />
                   )}
+                  {video?.asset?.playbackId && (
+                    <MuxPlayer
+                      streamType="on-demand"
+                      playbackId={video?.asset?.playbackId}
+                      autoPlay="muted"
+                      loop={true}
+                      thumbnailTime={1}
+                      loading="viewport"
+                      preload="auto"
+                      muted
+                      playsInline={true}
+                    />
+                  )}
                 </ImageWrapper>
                 <ContentWrapper>
                   {title && <Text>{title}</Text>}
@@ -99,6 +119,19 @@ const SenseBlock = (props: SenseBlockType & { number: string }) => {
                     style={{
                       objectFit: "cover",
                     }}
+                  />
+                )}
+                {video?.asset?.playbackId && (
+                  <MuxPlayer
+                    streamType="on-demand"
+                    playbackId={video?.asset?.playbackId}
+                    autoPlay="muted"
+                    loop={true}
+                    thumbnailTime={1}
+                    loading="viewport"
+                    preload="auto"
+                    muted
+                    playsInline={true}
                   />
                 )}
               </ImageWrapper>

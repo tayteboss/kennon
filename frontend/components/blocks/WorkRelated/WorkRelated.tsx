@@ -7,6 +7,7 @@ import { setWorkType } from "../../../utils/setWorkType";
 import pxToRem from "../../../utils/pxToRem";
 import LayoutGrid from "../../layout/LayoutGrid";
 import PortraitWorkCard from "../PortraitWorkCard";
+import useEmblaCarousel from "embla-carousel-react";
 
 const WorkRelatedWrapper = styled.section`
   .layout-grid {
@@ -46,6 +47,21 @@ const Button = styled.button`
   }
 `;
 
+const DesktopWrapper = styled.div`
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    display: none;
+  }
+`;
+
+const MobileWrapper = styled.div`
+  display: none;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    display: block;
+    position: relative;
+  }
+`;
+
 type Props = {
   data: WorkType["relatedWork"];
   type: WorkType["_type"];
@@ -66,6 +82,8 @@ const WorkRelated = (props: Props) => {
 
   const hasData = data && data.length > 0;
 
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+
   return (
     <WorkRelatedWrapper>
       <LayoutWrapper>
@@ -75,19 +93,38 @@ const WorkRelated = (props: Props) => {
           </Title>
           <Button onClick={() => handleClick()}>Back to works</Button>
         </TitleWrapper>
-        <LayoutGrid>
-          {hasData &&
-            data.map((item, i) => (
-              <PortraitWorkCard
-                key={i}
-                title={item?.title}
-                image={item?.portraitThumbnailImage}
-                slug={item?.slug}
-                comingSoon={item?.comingSoon}
-              />
-            ))}
-        </LayoutGrid>
+        <DesktopWrapper>
+          <LayoutGrid>
+            {hasData &&
+              data.map((item, i) => (
+                <PortraitWorkCard
+                  key={i}
+                  title={item?.title}
+                  image={item?.portraitThumbnailImage}
+                  slug={item?.slug}
+                  comingSoon={item?.comingSoon}
+                />
+              ))}
+          </LayoutGrid>
+        </DesktopWrapper>
       </LayoutWrapper>
+      <MobileWrapper>
+        <div className="embla" ref={emblaRef}>
+          <div className="embla__container">
+            {hasData &&
+              data.map((item, i) => (
+                <div className="embla__slide" key={i}>
+                  <PortraitWorkCard
+                    title={item?.title}
+                    image={item?.portraitThumbnailImage}
+                    slug={item?.slug}
+                    comingSoon={item?.comingSoon}
+                  />
+                </div>
+              ))}
+          </div>
+        </div>
+      </MobileWrapper>
     </WorkRelatedWrapper>
   );
 };
