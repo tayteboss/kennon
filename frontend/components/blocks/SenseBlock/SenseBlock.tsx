@@ -36,23 +36,10 @@ const ImageWrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 2;
-  padding: ${pxToRem(24)};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  mix-blend-mode: difference;
+  padding-top: ${pxToRem(8)};
 `;
 
-const Text = styled.p`
-  text-align: center;
-  color: var(--colour-white);
-`;
+const Text = styled.p``;
 
 const SenseBlock = (props: SenseBlockType & { number: string }) => {
   const { title, description, image, video, number, link } = props;
@@ -100,11 +87,6 @@ const SenseBlock = (props: SenseBlockType & { number: string }) => {
                     />
                   )}
                 </ImageWrapper>
-                <ContentWrapper>
-                  {title && <Text>{title}</Text>}
-                  {description && <Text>{description}</Text>}
-                  <Text>{number}</Text>
-                </ContentWrapper>
               </Inner>
             </Link>
           )}
@@ -135,13 +117,13 @@ const SenseBlock = (props: SenseBlockType & { number: string }) => {
                   />
                 )}
               </ImageWrapper>
-              <ContentWrapper>
-                {title && <Text>{title}</Text>}
-                {description && <Text>{description}</Text>}
-                <Text>{number}</Text>
-              </ContentWrapper>
             </Inner>
           )}
+          <ContentWrapper>
+            <Text>
+              {title || ""} — {description || ""}
+            </Text>
+          </ContentWrapper>
         </SenseBlockWrapper>
       )}
     </>
