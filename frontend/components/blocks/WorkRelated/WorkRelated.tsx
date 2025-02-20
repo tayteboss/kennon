@@ -85,47 +85,51 @@ const WorkRelated = (props: Props) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
   return (
-    <WorkRelatedWrapper>
-      <LayoutWrapper>
-        <TitleWrapper>
-          <Title className="type-h1">
-            Other {formatType(type, true)} works
-          </Title>
-          <Button onClick={() => handleClick()}>Back to works</Button>
-        </TitleWrapper>
-        <DesktopWrapper>
-          <LayoutGrid>
-            {hasData &&
-              data.map((item, i) => (
-                <PortraitWorkCard
-                  key={i}
-                  title={item?.title}
-                  image={item?.portraitThumbnailImage}
-                  slug={item?.slug}
-                  comingSoon={item?.comingSoon}
-                />
-              ))}
-          </LayoutGrid>
-        </DesktopWrapper>
-      </LayoutWrapper>
-      <MobileWrapper>
-        <div className="embla" ref={emblaRef}>
-          <div className="embla__container">
-            {hasData &&
-              data.map((item, i) => (
-                <div className="embla__slide" key={i}>
-                  <PortraitWorkCard
-                    title={item?.title}
-                    image={item?.portraitThumbnailImage}
-                    slug={item?.slug}
-                    comingSoon={item?.comingSoon}
-                  />
-                </div>
-              ))}
-          </div>
-        </div>
-      </MobileWrapper>
-    </WorkRelatedWrapper>
+    <>
+      {hasData && (
+        <WorkRelatedWrapper>
+          <LayoutWrapper>
+            <TitleWrapper>
+              <Title className="type-h1">
+                Other {formatType(type, true)} works
+              </Title>
+              <Button onClick={() => handleClick()}>Back to works</Button>
+            </TitleWrapper>
+            <DesktopWrapper>
+              <LayoutGrid>
+                {hasData &&
+                  data.map((item, i) => (
+                    <PortraitWorkCard
+                      key={i}
+                      title={item?.title}
+                      image={item?.portraitThumbnailImage}
+                      slug={item?.slug}
+                      comingSoon={item?.comingSoon}
+                    />
+                  ))}
+              </LayoutGrid>
+            </DesktopWrapper>
+          </LayoutWrapper>
+          <MobileWrapper>
+            <div className="embla" ref={emblaRef}>
+              <div className="embla__container">
+                {hasData &&
+                  data.map((item, i) => (
+                    <div className="embla__slide" key={i}>
+                      <PortraitWorkCard
+                        title={item?.title}
+                        image={item?.portraitThumbnailImage}
+                        slug={item?.slug}
+                        comingSoon={item?.comingSoon}
+                      />
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </MobileWrapper>
+        </WorkRelatedWrapper>
+      )}
+    </>
   );
 };
 

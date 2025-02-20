@@ -19,6 +19,10 @@ const WorkTitleWrapper = styled(motion.section)`
 const Subheading = styled.h2`
   text-align: center;
   margin-bottom: ${pxToRem(16)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    text-align: left;
+  }
 `;
 
 const Heading = styled.h3`

@@ -8,6 +8,12 @@ import MediaStack from "../../common/MediaStack";
 import pxToRem from "../../../utils/pxToRem";
 
 const MultiColumnMediaWrapper = styled.section`
+  padding: 0 ${pxToRem(24)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    padding: 0;
+  }
+
   .layout-grid {
     row-gap: ${pxToRem(24)};
 
@@ -43,19 +49,17 @@ const MultiColumnMedia = (props: any) => {
       }`}
       ref={ref}
     >
-      <LayoutWrapper>
-        <LayoutGrid>
-          {hasColumns &&
-            multiColumnMedia?.columns.map((item: any, i: number) => (
-              <ImageWrapper
-                className={`work-section__multi-inner work-section__multi-cols-${multiColumnMedia?.columns?.length}`}
-                key={i}
-              >
-                <MediaStack data={item} />
-              </ImageWrapper>
-            ))}
-        </LayoutGrid>
-      </LayoutWrapper>
+      <LayoutGrid>
+        {hasColumns &&
+          multiColumnMedia?.columns.map((item: any, i: number) => (
+            <ImageWrapper
+              className={`work-section__multi-inner work-section__multi-cols-${multiColumnMedia?.columns?.length}`}
+              key={i}
+            >
+              <MediaStack data={item} />
+            </ImageWrapper>
+          ))}
+      </LayoutGrid>
     </MultiColumnMediaWrapper>
   );
 };

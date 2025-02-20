@@ -63,13 +63,13 @@ const Page = (props: Props) => {
       />
       <HeroTitle title={data?.heroTitle} />
       <StudioHeroMedia data={data?.heroMedia} />
-      <StudioInformation data={data?.studioSection} />
       <StudioSensitive data={data?.beingSensitiveSection} />
       <StudioTeam data={data?.teamSection} />
       <StudioPress
         data={data?.pressSection}
         pressCards={firstThreePressCards}
       />
+      <StudioInformation data={data?.studioSection} />
       <StudioContact
         siteSettings={siteSettings}
         contactPageData={contactPageData}

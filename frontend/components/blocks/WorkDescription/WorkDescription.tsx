@@ -19,6 +19,10 @@ const WorkDescriptionWrapper = styled(motion.div)`
 const Inner = styled(motion.div)`
   padding-top: ${pxToRem(80)};
   margin-bottom: ${pxToRem(80)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    padding-top: 0;
+  }
 `;
 
 const LHS = styled.div`

@@ -8,7 +8,7 @@ import LayoutGrid from "../../layout/LayoutGrid";
 import pxToRem from "../../../utils/pxToRem";
 
 const IsolatedMediaSectionWrapper = styled.section`
-  padding: ${pxToRem(240)} 0;
+  padding: ${pxToRem(240)} ${pxToRem(24)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     padding: 0;
@@ -39,13 +39,11 @@ const IsolatedMediaSection = (props: any) => {
       }`}
       ref={ref}
     >
-      <LayoutWrapper>
-        <LayoutGrid>
-          <Inner className="work-section__isolated-inner">
-            {isolatedMedia?.media && <MediaStack data={isolatedMedia?.media} />}
-          </Inner>
-        </LayoutGrid>
-      </LayoutWrapper>
+      <LayoutGrid>
+        <Inner className="work-section__isolated-inner">
+          {isolatedMedia?.media && <MediaStack data={isolatedMedia?.media} />}
+        </Inner>
+      </LayoutGrid>
     </IsolatedMediaSectionWrapper>
   );
 };

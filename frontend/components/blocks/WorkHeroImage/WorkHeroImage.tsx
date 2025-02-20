@@ -14,8 +14,7 @@ const WorkHeroImageWrapper = styled.section`
   margin-bottom: ${pxToRem(80)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    margin: 0 auto ${pxToRem(16)};
-    width: calc(100% - 32px);
+    margin-bottom: ${pxToRem(16)};
   }
 `;
 

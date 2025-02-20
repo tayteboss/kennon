@@ -37,6 +37,10 @@ const ImageWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   padding-top: ${pxToRem(8)};
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    text-align: center;
+  }
 `;
 
 const Text = styled.p``;

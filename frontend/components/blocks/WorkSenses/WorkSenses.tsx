@@ -7,9 +7,11 @@ import pxToRem from "../../../utils/pxToRem";
 
 const WorkSensesWrapper = styled.section`
   margin-bottom: ${pxToRem(240)};
+  padding: 0 ${pxToRem(24)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     margin-bottom: ${pxToRem(120)};
+    padding: 0;
   }
 
   .layout-grid {
@@ -32,14 +34,12 @@ const WorkSenses = (props: Props) => {
 
   return (
     <WorkSensesWrapper>
-      <LayoutWrapper>
-        <LayoutGrid>
-          {hasData &&
-            data.map((item, i) => (
-              <SenseBlock {...item} key={i} number={`0${i + 1}`} />
-            ))}
-        </LayoutGrid>
-      </LayoutWrapper>
+      <LayoutGrid>
+        {hasData &&
+          data.map((item, i) => (
+            <SenseBlock {...item} key={i} number={`0${i + 1}`} />
+          ))}
+      </LayoutGrid>
     </WorkSensesWrapper>
   );
 };

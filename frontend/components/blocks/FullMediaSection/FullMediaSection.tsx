@@ -7,11 +7,7 @@ import pxToRem from "../../../utils/pxToRem";
 
 const FullMediaSectionWrapper = styled.section``;
 
-const Inner = styled.div`
-  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    padding: 0 ${pxToRem(16)};
-  }
-`;
+const Inner = styled.div``;
 
 const FullMediaSection = (props: any) => {
   const { fullMedia } = props;
