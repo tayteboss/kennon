@@ -20,6 +20,10 @@ const FooterWrapper = styled.footer`
 const Inner = styled.div`
   padding: ${pxToRem(24)} 0;
   border-top: ${pxToRem(1)} solid var(--colour-cream);
+
+  .layout-grid {
+    align-items: end;
+  }
 `;
 
 const FooterMiddle = styled.div`
@@ -90,9 +94,6 @@ const Footer = (props: Props) => {
                   footerTagline={footerTagline}
                 />
               </FooterMiddleTop>
-              <FooterMiddleBottom>
-                <FooterAoc aoc={aoc} />
-              </FooterMiddleBottom>
             </FooterMiddle>
             <FooterLogo />
           </LayoutGrid>

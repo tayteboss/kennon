@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StudioPageType } from "../../../shared/types/types";
+import { SiteSettingsType, StudioPageType } from "../../../shared/types/types";
 import SectionHeading from "../SectionHeading";
 import LayoutWrapper from "../../layout/LayoutWrapper";
 import InformationColumn from "../InformationColumn";
@@ -8,10 +8,11 @@ const StudioInformationWrapper = styled.section``;
 
 type Props = {
   data: StudioPageType["studioSection"];
+  aoc: SiteSettingsType["aoc"];
 };
 
 const StudioInformation = (props: Props) => {
-  const { data } = props;
+  const { data, aoc } = props;
 
   return (
     <StudioInformationWrapper className="studio-section">
@@ -24,9 +25,19 @@ const StudioInformation = (props: Props) => {
         <InformationColumn
           title="Sector experience"
           data={data.sectorExperience}
+          useDefaultType
         />
-        <InformationColumn title="Associates" data={data.associations} />
+        <InformationColumn
+          title="Associates"
+          data={data.associations}
+          useDefaultType
+        />
         <InformationColumn title="Awards" data={data.awards} useAwardsType />
+        <InformationColumn
+          title="Acknowledgement of Country"
+          data={aoc}
+          useAocType
+        />
       </LayoutWrapper>
     </StudioInformationWrapper>
   );

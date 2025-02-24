@@ -69,7 +69,7 @@ const Page = (props: Props) => {
         data={data?.pressSection}
         pressCards={firstThreePressCards}
       />
-      <StudioInformation data={data?.studioSection} />
+      <StudioInformation data={data?.studioSection} aoc={siteSettings?.aoc} />
       <StudioContact
         siteSettings={siteSettings}
         contactPageData={contactPageData}

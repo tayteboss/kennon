@@ -9,7 +9,13 @@ const FooterOfficeTaglineWrapper = styled.div`
   }
 `;
 
-const Text = styled.p``;
+const Text = styled.p`
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    &.footer-tagline {
+      text-align: right;
+    }
+  }
+`;
 
 type Props = {
   estYear: SiteSettingsType["estYear"];
@@ -21,7 +27,9 @@ const FooterOfficeTagline = (props: Props) => {
 
   return (
     <FooterOfficeTaglineWrapper>
-      {footerTagline && <Text className="type-small">{footerTagline}</Text>}
+      {footerTagline && (
+        <Text className="type-small footer-tagline">{footerTagline}</Text>
+      )}
       {estYear && <Text className="type-small">Established in {estYear}</Text>}
     </FooterOfficeTaglineWrapper>
   );

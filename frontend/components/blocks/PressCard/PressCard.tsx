@@ -36,6 +36,10 @@ const PressCardWrapper = styled.div<{ $hex: string }>`
         transform: scale(1);
       }
     }
+
+    .press-card__content {
+      opacity: 0;
+    }
   }
 `;
 
@@ -51,6 +55,8 @@ const ContentInner = styled.div`
   overflow: hidden;
   padding: ${pxToRem(16)};
   text-align: center;
+
+  transition: all var(--transition-speed-default) var(--transition-ease);
 `;
 
 const ImageWrapper = styled.div`
@@ -95,7 +101,7 @@ const PressCard = (props: Props) => {
       }`}
     >
       <Link href={link || "#"} target="_blank">
-        <ContentInner>
+        <ContentInner className="press-card__content">
           <p>{title || ""}</p>
         </ContentInner>
         {image?.asset?.url && (

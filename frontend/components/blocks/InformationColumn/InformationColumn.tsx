@@ -4,6 +4,7 @@ import pxToRem from "../../../utils/pxToRem";
 import { PortableText } from "@portabletext/react";
 import AwardsList from "../AwardsList";
 import { useInView } from "react-intersection-observer";
+import { SiteSettingsType } from "../../../shared/types/types";
 
 const InformationColumnWrapper = styled.div`
   padding-top: ${pxToRem(12)};
@@ -46,14 +47,24 @@ const ContentWrapper = styled.div`
   }
 `;
 
+const Content = styled.p``;
+
 type Props = {
   title: string;
   data: any;
   useAwardsType?: boolean;
+  useAocType?: boolean;
+  useDefaultType?: boolean;
 };
 
 const InformationColumn = (props: Props) => {
-  const { title, data, useAwardsType = false } = props;
+  const {
+    title,
+    data,
+    useAwardsType = false,
+    useAocType = false,
+    useDefaultType = false,
+  } = props;
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -71,11 +82,9 @@ const InformationColumn = (props: Props) => {
       <LayoutGrid>
         <Title className="type-heading-xsmall">{title}</Title>
         <ContentWrapper>
-          {useAwardsType ? (
-            <AwardsList data={data} />
-          ) : (
-            <PortableText value={data} />
-          )}
+          {useAwardsType && <AwardsList data={data} />}
+          {useDefaultType && <PortableText value={data} />}
+          {useAocType && <Content>{data || ""}</Content>}
         </ContentWrapper>
       </LayoutGrid>
     </InformationColumnWrapper>
