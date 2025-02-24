@@ -69,6 +69,15 @@ export default defineConfig({
                   .schemaType('publicWork')
                   .filter('_type == "publicWork"'),
               ),
+            S.listItem()
+              .title('Multi Res Work')
+              .icon(CaseIcon)
+              .child(
+                S.documentList()
+                  .title('Multi Res Work')
+                  .schemaType('multiResWork')
+                  .filter('_type == "multiResWork"'),
+              ),
             S.divider(),
             orderableDocumentListDeskItem({
               type: 'privateWork',
@@ -81,6 +90,12 @@ export default defineConfig({
               S,
               context,
               title: 'Public Work (Orderable)',
+            }),
+            orderableDocumentListDeskItem({
+              type: 'multiResWork',
+              S,
+              context,
+              title: 'Multi Res Work (Orderable)',
             }),
           ])
       },

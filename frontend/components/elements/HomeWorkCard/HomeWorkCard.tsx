@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import pxToRem from "../../../utils/pxToRem";
 
 const HomeWorkCardWrapper = styled.button`
-  grid-column: span 6;
-  height: calc(100lvh - 48px);
+  grid-column: span 4;
+  padding-top: 125%;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -26,6 +26,13 @@ const HomeWorkCardWrapper = styled.button`
   img {
     transition: all 2000ms var(--transition-ease);
   }
+`;
+
+const Inner = styled.div`
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
 `;
 
 const Title = styled.h2`
@@ -70,16 +77,18 @@ const HomeWorkCard = (props: Props) => {
       onClick={() => handleClick()}
       className="cursor-arrow-link"
     >
-      {image?.asset?.url && (
-        <Image
-          src={image.asset.url}
-          alt="Work type image"
-          fill
-          style={{
-            objectFit: "cover",
-          }}
-        />
-      )}
+      <Inner>
+        {image?.asset?.url && (
+          <Image
+            src={image.asset.url}
+            alt="Work type image"
+            fill
+            style={{
+              objectFit: "cover",
+            }}
+          />
+        )}
+      </Inner>
       <Title>{title}</Title>
     </HomeWorkCardWrapper>
   );

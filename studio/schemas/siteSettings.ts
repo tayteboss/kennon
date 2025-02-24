@@ -42,6 +42,11 @@ export default {
       type: 'image',
     },
     {
+      title: 'Multi Res Work Image',
+      name: 'multiResWorkImage',
+      type: 'image',
+    },
+    {
       title: 'Acknowledgement of Country',
       name: 'aoc',
       type: 'text',

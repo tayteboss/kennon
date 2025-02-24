@@ -8,6 +8,7 @@ import {
 } from "../../shared/types/types";
 import { NextSeo } from "next-seo";
 import {
+  multiResWorkQueryString,
   privateWorkQueryString,
   publicWorkQueryString,
   workPageQueryString,
@@ -56,6 +57,7 @@ type Props = {
   data: WorkPageType;
   publicWorkList: WorkType[];
   privateWorkList: WorkType[];
+  multiResWorkList: WorkType[];
   pageTransitionVariants: TransitionsType;
   cursorRefresh: any;
   checkWorkType: any;
@@ -66,6 +68,7 @@ const Page = (props: Props) => {
     data,
     publicWorkList,
     privateWorkList,
+    multiResWorkList,
     pageTransitionVariants,
     cursorRefresh,
     checkWorkType,
@@ -74,7 +77,9 @@ const Page = (props: Props) => {
   const [listView, setListView] = useState<"landscape" | "portrait" | "list">(
     "landscape"
   );
-  const [workType, setWorkType] = useState<"private" | "public">("private");
+  const [workType, setWorkType] = useState<"private" | "public" | "multi">(
+    "private"
+  );
   const [workData, setWorkData] = useState<WorkType[]>(privateWorkList);
 
   const lenis = useLenis(({ scroll }) => {});
@@ -91,14 +96,22 @@ const Page = (props: Props) => {
   useEffect(() => {
     if (workType === "private") {
       setWorkData(privateWorkList);
-    } else {
+    } else if (workType === "public") {
       setWorkData(publicWorkList);
+    } else if (workType === "multi") {
+      setWorkData(multiResWorkList);
+    } else {
+      setWorkData(privateWorkList);
     }
-  }, [workType, privateWorkList, publicWorkList]);
+  }, [workType, privateWorkList, publicWorkList, multiResWorkList]);
 
   useEffect(() => {
     const sessionWorkType = sessionStorage.getItem("kennon-work-type");
-    if (sessionWorkType === "private" || sessionWorkType === "public") {
+    if (
+      sessionWorkType === "private" ||
+      sessionWorkType === "public" ||
+      sessionWorkType === "multi"
+    ) {
       setWorkType(sessionWorkType);
     }
   }, [checkWorkType]);
@@ -152,6 +165,7 @@ export async function getStaticProps() {
   const data = await client.fetch(workPageQueryString);
   let publicWorkList = await client.fetch(publicWorkQueryString);
   let privateWorkList = await client.fetch(privateWorkQueryString);
+  let multiResWorkList = await client.fetch(multiResWorkQueryString);
 
   const extractImages = (item: any): any => {
     const allImages: string[] = [];
@@ -211,11 +225,15 @@ export async function getStaticProps() {
   // Process private work list
   privateWorkList = privateWorkList.map((item: any) => extractImages(item));
 
+  // Process multi res work list
+  multiResWorkList = multiResWorkList.map((item: any) => extractImages(item));
+
   return {
     props: {
       data,
       publicWorkList,
       privateWorkList,
+      multiResWorkList,
     },
   };
 }

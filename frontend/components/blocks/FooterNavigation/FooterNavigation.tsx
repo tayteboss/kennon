@@ -70,15 +70,9 @@ const FooterNavigation = (props: Props) => {
 
   return (
     <FooterNavigationWrapper>
-      <PrivateTrigger
-        className="type-small"
-        onClick={() => handlePrivateClick()}
-      >
-        Private
-      </PrivateTrigger>
-      <PublicTrigger className="type-small" onClick={() => handlePublicClick()}>
-        Public
-      </PublicTrigger>
+      <Link href="/studio">
+        <LinkTag className="type-small">Studio</LinkTag>
+      </Link>
       <Link href="/press">
         <LinkTag className="type-small">Press</LinkTag>
       </Link>

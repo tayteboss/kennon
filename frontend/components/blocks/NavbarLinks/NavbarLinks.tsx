@@ -159,6 +159,13 @@ const NavbarLinks = (props: Props) => {
     workTypeRefresh();
   };
 
+  const handleMultiClick = () => {
+    setShowWorkTypes(false);
+    setWorkType("multi");
+    router.push("/works");
+    workTypeRefresh();
+  };
+
   return (
     <NavbarLinksWrapper onMouseLeave={() => setShowWorkTypes(false)}>
       <DefaultLinks $fadeOut={showWorkTypes}>
@@ -188,6 +195,10 @@ const NavbarLinks = (props: Props) => {
             <Comma>, </Comma>
             <PublicTrigger onClick={() => handlePublicClick()}>
               Public
+            </PublicTrigger>
+            <Comma>, </Comma>
+            <PublicTrigger onClick={() => handleMultiClick()}>
+              Multi Residence
             </PublicTrigger>
           </WorkLinks>
         )}

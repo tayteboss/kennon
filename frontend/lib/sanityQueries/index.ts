@@ -30,6 +30,11 @@ export const siteSettingsQueryString = `
 			url
 		}
 	},
+	multiResWorkImage {
+		asset-> {
+			url
+		}
+	},
 	showreel {
 		asset-> {
 			playbackId
@@ -284,6 +289,12 @@ export const publicWorkQueryString = `
 
 export const privateWorkQueryString = `
     *[_type == "privateWork"] | order(orderRank) [0...100] {
+			${workListString}
+    }
+`;
+
+export const multiResWorkQueryString = `
+    *[_type == "multiResWork"] | order(orderRank) [0...100] {
 			${workListString}
     }
 `;

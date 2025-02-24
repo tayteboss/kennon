@@ -64,6 +64,20 @@ const PrivateTrigger = styled(motion.button)`
 
 const PublicTrigger = styled(motion.button)`
   text-align: right;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
+    text-align: center;
+  }
+
+  &:hover {
+    & > div {
+      opacity: 0.5;
+    }
+  }
+`;
+
+const MultiTrigger = styled(motion.button)`
+  text-align: right;
   margin-bottom: ${pxToRem(16)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
@@ -146,6 +160,13 @@ const MenuNavigation = (props: Props) => {
     router.push("/works");
   };
 
+  const handleMultiClick = () => {
+    setShowWorkTypes(false);
+    setMenuIsActive(false);
+    setWorkType("multi");
+    router.push("/works");
+  };
+
   return (
     <MenuNavigationWrapper onMouseLeave={() => setShowWorkTypes(false)}>
       <Link href="/">
@@ -183,6 +204,12 @@ const MenuNavigation = (props: Props) => {
             >
               <InnerTrigger>Public —</InnerTrigger>
             </PublicTrigger>
+            <MultiTrigger
+              onClick={() => handleMultiClick()}
+              variants={childVariants}
+            >
+              <InnerTrigger>Multi Residence —</InnerTrigger>
+            </MultiTrigger>
           </WorkTypesList>
         )}
       </AnimatePresence>

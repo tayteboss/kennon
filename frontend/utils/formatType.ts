@@ -5,6 +5,10 @@ const formatType = (type: WorkType["_type"], useLowerCase = false) => {
     return useLowerCase ? "public" : "Public";
   } else if (type === "privateWork") {
     return useLowerCase ? "private" : "Private";
+  } else if (type === "multiResWork") {
+    return useLowerCase ? "multi" : "Multi Residence";
+  } else {
+    return "";
   }
 };
 

@@ -57,6 +57,11 @@ export type SiteSettingsType = {
       url: string;
     };
   };
+  multiResWorkImage: {
+    asset: {
+      url: string;
+    };
+  };
   beingSensitiveButtonTitle: string;
 };
 
@@ -284,7 +289,7 @@ export type MultiColumnMediaType = {
 };
 
 export type WorkType = {
-  _type: "publicWork" | "privateWork";
+  _type: "publicWork" | "privateWork" | "multiResWork";
   slug: SlugType;
   comingSoon: boolean;
   title: string;

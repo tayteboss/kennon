@@ -81,6 +81,7 @@ const Page = (props: Props) => {
       <HomeWorks
         privateWorkImage={siteSettings?.privateWorkImage}
         publicWorkImage={siteSettings?.publicWorkImage}
+        multiResWorkImage={siteSettings?.multiResWorkImage}
       />
       <HomeFeaturedWorks data={data?.featuredWork} />
       <HomeStudio data={data?.studioSection} />

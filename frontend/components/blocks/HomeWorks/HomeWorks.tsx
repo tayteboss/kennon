@@ -20,10 +20,11 @@ const HomeWorksWrapper = styled.section`
 type Props = {
   privateWorkImage: SiteSettingsType["privateWorkImage"];
   publicWorkImage: SiteSettingsType["publicWorkImage"];
+  multiResWorkImage: SiteSettingsType["multiResWorkImage"];
 };
 
 const HomeWorks = (props: Props) => {
-  const { privateWorkImage, publicWorkImage } = props;
+  const { privateWorkImage, publicWorkImage, multiResWorkImage } = props;
 
   return (
     <HomeWorksWrapper>
@@ -31,6 +32,10 @@ const HomeWorks = (props: Props) => {
         <LayoutGrid>
           <HomeWorkCard title="Private Works" image={privateWorkImage} />
           <HomeWorkCard title="Public Works" image={publicWorkImage} />
+          <HomeWorkCard
+            title="Multi Residence Works"
+            image={multiResWorkImage}
+          />
         </LayoutGrid>
       </LayoutWrapper>
     </HomeWorksWrapper>

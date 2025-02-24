@@ -22,6 +22,10 @@ const HomeStudioWrapper = styled.section`
       grid-column: 1 / -1;
     }
   }
+
+  .media-wrapper {
+    background: transparent !important;
+  }
 `;
 
 const ImageWrapper = styled.div`

@@ -1,8 +1,6 @@
 import contactPage from './contactPage'
-import fullMedia from './fullImage'
 import homePage from './homePage'
-import isolatedMedia from './isolatedImage'
-import multiColumnMedia from './multiColumnMedia'
+import multiResWork from './multiResWork'
 import pressPage from './pressPage'
 import privateWork from './privateWork'
 import publicWork from './publicWork'
@@ -27,6 +25,7 @@ export const schemaTypes = [
   // Work
   privateWork,
   publicWork,
+  multiResWork,
 
   // Documents
   workSense,

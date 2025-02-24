@@ -17,6 +17,14 @@ const WorkViewToolbarWrapper = styled.div`
   gap: ${pxToRem(4)};
 `;
 
+const TypeWrapper = styled.div``;
+
+const ViewWrapper = styled.div`
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    display: none;
+  }
+`;
+
 const ToggleWrapper = styled.div`
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
@@ -46,6 +54,11 @@ const TextTrigger = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    font-size: ${pxToRem(12)};
+  }
 `;
 
 const IconTrigger = styled.div`
@@ -70,9 +83,9 @@ const Highlight = styled(motion.div)`
 
 type Props = {
   listView: "landscape" | "portrait" | "list";
-  workType: "private" | "public";
+  workType: "private" | "public" | "multi";
   setListView: (view: "landscape" | "portrait" | "list") => void;
-  setWorkType: (type: "private" | "public") => void;
+  setWorkType: (type: "private" | "public" | "multi") => void;
 };
 
 const WorkViewToolbar: FC<Props> = ({
@@ -83,40 +96,48 @@ const WorkViewToolbar: FC<Props> = ({
 }) => {
   return (
     <WorkViewToolbarWrapper>
-      <LayoutGroup>
-        <ToggleWrapper>
-          <TriggerContainer layout onClick={() => setWorkType("private")}>
-            {workType === "private" && <Highlight layoutId="workType" />}
-            <TextTrigger>Private</TextTrigger>
-          </TriggerContainer>
-          <TriggerContainer layout onClick={() => setWorkType("public")}>
-            {workType === "public" && <Highlight layoutId="workType" />}
-            <TextTrigger>Public</TextTrigger>
-          </TriggerContainer>
-        </ToggleWrapper>
-      </LayoutGroup>
-      <LayoutGroup>
-        <ToggleWrapper>
-          <TriggerContainer layout onClick={() => setListView("landscape")}>
-            {listView === "landscape" && <Highlight layoutId="listType" />}
-            <IconTrigger>
-              <LandscapeIcon />
-            </IconTrigger>
-          </TriggerContainer>
-          <TriggerContainer layout onClick={() => setListView("portrait")}>
-            {listView === "portrait" && <Highlight layoutId="listType" />}
-            <IconTrigger>
-              <PortraitIcon />
-            </IconTrigger>
-          </TriggerContainer>
-          <TriggerContainer layout onClick={() => setListView("list")}>
-            {listView === "list" && <Highlight layoutId="listType" />}
-            <IconTrigger>
-              <ListIcon />
-            </IconTrigger>
-          </TriggerContainer>
-        </ToggleWrapper>
-      </LayoutGroup>
+      <TypeWrapper>
+        <LayoutGroup>
+          <ToggleWrapper>
+            <TriggerContainer layout onClick={() => setWorkType("private")}>
+              {workType === "private" && <Highlight layoutId="workType" />}
+              <TextTrigger>Private</TextTrigger>
+            </TriggerContainer>
+            <TriggerContainer layout onClick={() => setWorkType("public")}>
+              {workType === "public" && <Highlight layoutId="workType" />}
+              <TextTrigger>Public</TextTrigger>
+            </TriggerContainer>
+            <TriggerContainer layout onClick={() => setWorkType("multi")}>
+              {workType === "multi" && <Highlight layoutId="workType" />}
+              <TextTrigger>Multi Residence</TextTrigger>
+            </TriggerContainer>
+          </ToggleWrapper>
+        </LayoutGroup>
+      </TypeWrapper>
+      <ViewWrapper>
+        <LayoutGroup>
+          <ToggleWrapper>
+            <TriggerContainer layout onClick={() => setListView("landscape")}>
+              {listView === "landscape" && <Highlight layoutId="listType" />}
+              <IconTrigger>
+                <LandscapeIcon />
+              </IconTrigger>
+            </TriggerContainer>
+            <TriggerContainer layout onClick={() => setListView("portrait")}>
+              {listView === "portrait" && <Highlight layoutId="listType" />}
+              <IconTrigger>
+                <PortraitIcon />
+              </IconTrigger>
+            </TriggerContainer>
+            <TriggerContainer layout onClick={() => setListView("list")}>
+              {listView === "list" && <Highlight layoutId="listType" />}
+              <IconTrigger>
+                <ListIcon />
+              </IconTrigger>
+            </TriggerContainer>
+          </ToggleWrapper>
+        </LayoutGroup>
+      </ViewWrapper>
     </WorkViewToolbarWrapper>
   );
 };

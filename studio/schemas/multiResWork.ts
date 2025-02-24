@@ -3,8 +3,8 @@ import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list
 import {fullMedia, isolatedMedia, multiColumnMedia} from '../objects'
 
 export default {
-  title: 'Private Work',
-  name: 'privateWork',
+  title: 'Multi Res Work',
+  name: 'multiResWork',
   type: 'document',
   icon: CaseIcon,
   orderings: [orderRankOrdering],
@@ -20,7 +20,7 @@ export default {
     },
   },
   fields: [
-    orderRankField({type: 'privateWork'}),
+    orderRankField({type: 'multiResWork'}),
     {
       title: 'Coming Soon',
       name: 'comingSoon',
@@ -214,7 +214,7 @@ export default {
       title: 'Related Work',
       name: 'relatedWork',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'privateWork'}}],
+      of: [{type: 'reference', to: {type: 'multiResWork'}}],
       validation: (Rule: any) => Rule.min(2).max(3),
     },
   ],

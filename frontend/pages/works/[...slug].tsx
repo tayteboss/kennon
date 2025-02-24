@@ -76,11 +76,17 @@ export async function getStaticPaths() {
 			slug
 		}
 	`;
+  const multiResWorkQuery = `
+		*[_type == 'multiResWork'] [0...100] {
+			slug
+		}
+	`;
 
   const allPublicWork = await client.fetch(publicWorkQuery);
   const allPrivateWork = await client.fetch(privateWorkQuery);
+  const allMultiResWork = await client.fetch(multiResWorkQuery);
 
-  const allWork = [...allPublicWork, ...allPrivateWork];
+  const allWork = [...allPublicWork, ...allPrivateWork, ...allMultiResWork];
 
   return {
     paths: allWork.map((item: any) => {
@@ -92,7 +98,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: any) {
   const workQuery = `
-		*[_type in ['privateWork', 'publicWork'] && slug.current == "${params.slug[0]}"][0] {
+		*[_type in ['privateWork', 'publicWork', 'multiResWork'] && slug.current == "${params.slug[0]}"][0] {
       ${workListString}
 		}
 	`;
