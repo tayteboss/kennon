@@ -196,19 +196,19 @@ const MenuNavigation = (props: Props) => {
               onClick={() => handlePrivateClick()}
               variants={childVariants}
             >
-              <InnerTrigger>Private —</InnerTrigger>
+              <InnerTrigger>Private Residences —</InnerTrigger>
             </PrivateTrigger>
             <PublicTrigger
               onClick={() => handlePublicClick()}
               variants={childVariants}
             >
-              <InnerTrigger>Public —</InnerTrigger>
+              <InnerTrigger>Public Works —</InnerTrigger>
             </PublicTrigger>
             <MultiTrigger
               onClick={() => handleMultiClick()}
               variants={childVariants}
             >
-              <InnerTrigger>Multi Residence —</InnerTrigger>
+              <InnerTrigger>Multi Residential —</InnerTrigger>
             </MultiTrigger>
           </WorkTypesList>
         )}

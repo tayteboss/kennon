@@ -30,12 +30,9 @@ const HomeWorks = (props: Props) => {
     <HomeWorksWrapper>
       <LayoutWrapper>
         <LayoutGrid>
-          <HomeWorkCard title="Private Works" image={privateWorkImage} />
+          <HomeWorkCard title="Private Residences" image={privateWorkImage} />
           <HomeWorkCard title="Public Works" image={publicWorkImage} />
-          <HomeWorkCard
-            title="Multi Residence Works"
-            image={multiResWorkImage}
-          />
+          <HomeWorkCard title="Multi Residential" image={multiResWorkImage} />
         </LayoutGrid>
       </LayoutWrapper>
     </HomeWorksWrapper>

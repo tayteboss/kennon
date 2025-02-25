@@ -98,6 +98,7 @@ const StudioLink = styled.div<{ $isActive: boolean }>`
 
 const PrivateTrigger = styled.button`
   color: var(--colour-white);
+  white-space: nowrap;
 
   transition: all var(--transition-speed-default) var(--transition-ease);
 
@@ -108,6 +109,18 @@ const PrivateTrigger = styled.button`
 
 const PublicTrigger = styled.button`
   color: var(--colour-white);
+  white-space: nowrap;
+
+  transition: all var(--transition-speed-default) var(--transition-ease);
+
+  &:hover {
+    opacity: 0.5;
+  }
+`;
+
+const MultiTrigger = styled.button`
+  color: var(--colour-white);
+  white-space: nowrap;
 
   transition: all var(--transition-speed-default) var(--transition-ease);
 
@@ -190,16 +203,16 @@ const NavbarLinks = (props: Props) => {
             key={1}
           >
             <PrivateTrigger onClick={() => handlePrivateClick()}>
-              Private
+              Private Residences
             </PrivateTrigger>
             <Comma>, </Comma>
             <PublicTrigger onClick={() => handlePublicClick()}>
-              Public
+              Public Works
             </PublicTrigger>
             <Comma>, </Comma>
-            <PublicTrigger onClick={() => handleMultiClick()}>
-              Multi Residence
-            </PublicTrigger>
+            <MultiTrigger onClick={() => handleMultiClick()}>
+              Multi Residential
+            </MultiTrigger>
           </WorkLinks>
         )}
       </AnimatePresence>

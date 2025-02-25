@@ -101,15 +101,15 @@ const WorkViewToolbar: FC<Props> = ({
           <ToggleWrapper>
             <TriggerContainer layout onClick={() => setWorkType("private")}>
               {workType === "private" && <Highlight layoutId="workType" />}
-              <TextTrigger>Private</TextTrigger>
+              <TextTrigger>Private Residences</TextTrigger>
             </TriggerContainer>
             <TriggerContainer layout onClick={() => setWorkType("public")}>
               {workType === "public" && <Highlight layoutId="workType" />}
-              <TextTrigger>Public</TextTrigger>
+              <TextTrigger>Public Works</TextTrigger>
             </TriggerContainer>
             <TriggerContainer layout onClick={() => setWorkType("multi")}>
               {workType === "multi" && <Highlight layoutId="workType" />}
-              <TextTrigger>Multi Residence</TextTrigger>
+              <TextTrigger>Multi Residential</TextTrigger>
             </TriggerContainer>
           </ToggleWrapper>
         </LayoutGroup>
