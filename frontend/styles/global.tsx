@@ -10,11 +10,6 @@ export const GlobalStyles = createGlobalStyle`
 		--colour-4: #E3C19D;
 		--colour-5: #EAE2D7;
 		--colour-6: #CCDEDE;
-		/* --colour-1: #1E2662;
-		--colour-2: #171D27;
-		--colour-3: #0E172B;
-		--colour-4: #302221;
-		--colour-5: #364258; */
 		--colour-white: ${theme.colours.white};
 		--colour-black: ${theme.colours.black};
 		--colour-dark-grey: ${theme.colours.darkGrey};
@@ -23,8 +18,6 @@ export const GlobalStyles = createGlobalStyle`
 		--colour-cream: ${theme.colours.cream};
 		--colour-light-cream: ${theme.colours.lightCream};
 		--font-arizona-flare-light: ${theme.fonts.arizonaFlareLight};
-		--font-helvetica-neue-medium: ${theme.fonts.helveticaNeueMedium};
-		--font-helvetica-neue-roman: ${theme.fonts.helveticaNeueRoman};
 		--transition-speed-default: ${theme.transitionSpeed.default};
 		--transition-speed-fast: ${theme.transitionSpeed.fast};
 		--transition-speed-extra-fast: ${theme.transitionSpeed.extraFast};
@@ -77,7 +70,7 @@ export const GlobalStyles = createGlobalStyle`
 	button,
 	label,
 	body {
-		font-family: var(--font-helvetica-neue-medium);
+		font-family: var(--font-arizona-flare-light);
 		color: var(--colour-black);
 		line-height: normal;
 	}
@@ -101,18 +94,7 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	h1,
-	.type-h1 {
-		font-size: ${pxToRem(32)};
-		line-height: ${pxToRem(35)};
-		letter-spacing: -0.03em;
-		font-weight: 200;
-
-		@media ${theme.mediaBreakpoints.tabletPortrait} {
-			font-size: ${pxToRem(25)};
-			line-height: ${pxToRem(29)};
-		}
-	}
-
+	.type-h1,
 	h2,
 	.type-h2,
 	h3,
@@ -154,12 +136,11 @@ export const GlobalStyles = createGlobalStyle`
 	.type-heading-small {
 		font-size: ${pxToRem(14)};
 		line-height: ${pxToRem(18)};
-		text-transform: uppercase;
+		color: var(--colour-mid-grey);
 	}
 
 	.type-heading-xsmall {
 		font-size: ${pxToRem(11)};
-		text-transform: uppercase;
 	}
 
 	.work-landscape-card {

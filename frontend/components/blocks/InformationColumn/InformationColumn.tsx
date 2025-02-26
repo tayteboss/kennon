@@ -1,10 +1,8 @@
 import styled from "styled-components";
-import LayoutGrid from "../../layout/LayoutGrid";
 import pxToRem from "../../../utils/pxToRem";
 import { PortableText } from "@portabletext/react";
 import AwardsList from "../AwardsList";
 import { useInView } from "react-intersection-observer";
-import { SiteSettingsType } from "../../../shared/types/types";
 
 const InformationColumnWrapper = styled.div`
   padding-top: ${pxToRem(12)};
@@ -16,25 +14,18 @@ const InformationColumnWrapper = styled.div`
 `;
 
 const Title = styled.h3`
-  grid-column: 1 / 5;
+  margin-bottom: ${pxToRem(8)};
+  text-align: center;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    grid-column: 1 / -1;
     margin-bottom: ${pxToRem(12)};
   }
 `;
 
 const ContentWrapper = styled.div`
-  grid-column: 5 / -1;
-  max-width: ${pxToRem(850)};
-
-  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    grid-column: 1 / -1;
-  }
-
-  * {
-    font-family: var(--font-helvetica-neue-roman);
-  }
+  text-align: center;
+  margin: 0 auto;
+  max-width: ${pxToRem(900)};
 
   a {
     text-decoration: underline;
@@ -79,14 +70,12 @@ const InformationColumn = (props: Props) => {
         inView ? "view-element-fade-in--in-view" : ""
       }`}
     >
-      <LayoutGrid>
-        <Title className="type-heading-xsmall">{title}</Title>
-        <ContentWrapper>
-          {useAwardsType && <AwardsList data={data} />}
-          {useDefaultType && <PortableText value={data} />}
-          {useAocType && <Content>{data || ""}</Content>}
-        </ContentWrapper>
-      </LayoutGrid>
+      <Title className="type-heading-small">{title}</Title>
+      <ContentWrapper>
+        {useAwardsType && <AwardsList data={data} />}
+        {useDefaultType && <PortableText value={data} />}
+        {useAocType && <Content>{data || ""}</Content>}
+      </ContentWrapper>
     </InformationColumnWrapper>
   );
 };

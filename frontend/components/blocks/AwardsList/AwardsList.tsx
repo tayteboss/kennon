@@ -6,16 +6,18 @@ const AwardsListWrapper = styled.div``;
 
 const Award = styled.div`
   display: flex;
-  gap: ${pxToRem(12)};
+  justify-content: center;
+  align-items: center;
+  gap: ${pxToRem(4)};
 `;
 
 const Year = styled.p`
-  font-family: var(--font-helvetica-neue-roman);
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    display: none;
+  }
 `;
 
-const Title = styled.p`
-  font-family: var(--font-helvetica-neue-roman);
-`;
+const Title = styled.p``;
 
 type Props = {
   data: StudioPageType["studioSection"]["awards"];

@@ -30,14 +30,14 @@ const HomeFeaturedWorks = (props: Props) => {
 
   return (
     <HomeFeaturedWorksWrapper>
-      <Title
+      {/* <Title
         ref={ref}
         className={`type-h1 view-element-fade-in ${
           inView ? "view-element-fade-in--in-view" : ""
         }`}
       >
         Featured Works
-      </Title>
+      </Title> */}
       {hasData &&
         data.map((item, i) => (
           <LandscapeWorkCard

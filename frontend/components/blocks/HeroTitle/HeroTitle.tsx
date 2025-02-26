@@ -16,11 +16,11 @@ const HeroTitleWrapper = styled.section<{ $useSmallGrid: boolean }>`
 `;
 
 const Title = styled(motion.h1)<{ $useSmallGrid: boolean }>`
-  grid-column: ${(props) => (props.$useSmallGrid ? "3 / -3" : "2 / -2")};
+  grid-column: 3 / -3;
   text-align: center;
   font-family: var(--font-arizona-flare-light);
   font-weight: 200;
-  max-width: ${(props) => (props.$useSmallGrid ? pxToRem(700) : pxToRem(1200))};
+  max-width: ${pxToRem(650)};
   margin: 0 auto;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {

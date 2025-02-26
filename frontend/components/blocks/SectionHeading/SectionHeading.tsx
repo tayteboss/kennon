@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import pxToRem from "../../../utils/pxToRem";
 import { useInView } from "react-intersection-observer";
+import LayoutGrid from "../../layout/LayoutGrid";
 
 const SectionHeadingWrapper = styled.div<{ $useTopBorder: boolean }>`
   padding-top: ${pxToRem(24)};
@@ -11,12 +12,20 @@ const SectionHeadingWrapper = styled.div<{ $useTopBorder: boolean }>`
 
 const Subheading = styled.h2`
   text-align: center;
-  margin-bottom: ${pxToRem(16)};
+  margin-bottom: ${pxToRem(8)};
 `;
 
 const Heading = styled.h3`
   font-family: var(--font-arizona-flare-light);
   width: 100%;
+  grid-column: 3 / -3;
+  max-width: ${pxToRem(650)};
+  margin: 0 auto;
+  text-align: center;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    grid-column: 1 / -1;
+  }
 `;
 
 type Props = {
@@ -47,7 +56,9 @@ const SectionHeading = (props: Props) => {
           {subheading && (
             <Subheading className="type-heading-small">{subheading}</Subheading>
           )}
-          {heading && <Heading className="type-h1">{heading}</Heading>}
+          <LayoutGrid>
+            {heading && <Heading className="type-h1">{heading}</Heading>}
+          </LayoutGrid>
         </SectionHeadingWrapper>
       )}
     </>

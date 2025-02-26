@@ -14,15 +14,14 @@ import WorkDescription from "../WorkDescription";
 
 const WorkTitleWrapper = styled(motion.section)`
   padding: ${pxToRem(80)} 0 ${pxToRem(40)};
+  margin: 0 auto;
+  max-width: ${pxToRem(650)};
+  text-align: center;
 `;
 
 const Subheading = styled.h2`
   text-align: center;
   margin-bottom: ${pxToRem(16)};
-
-  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    text-align: left;
-  }
 `;
 
 const Heading = styled.h3`

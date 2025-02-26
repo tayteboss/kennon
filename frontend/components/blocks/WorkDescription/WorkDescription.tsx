@@ -16,9 +16,11 @@ const WorkDescriptionWrapper = styled(motion.div)`
   }
 `;
 
-const Inner = styled(motion.div)`
-  padding-top: ${pxToRem(80)};
-  margin-bottom: ${pxToRem(80)};
+const Inner = styled(motion.div)<{ $hasSketches: boolean }>`
+  max-width: ${(props) =>
+    props.$hasSketches ? `${pxToRem(1200)}` : `${pxToRem(800)}`};
+  margin: 0 auto ${pxToRem(80)};
+  padding-top: ${(props) => (props.$hasSketches ? `${pxToRem(80)}` : `0px`)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     padding-top: 0;
@@ -37,8 +39,8 @@ const LHS = styled.div`
   }
 `;
 
-const RHS = styled.div`
-  grid-column: 5 / -1;
+const RHS = styled.div<{ $hasSketches: boolean }>`
+  grid-column: ${(props) => (props.$hasSketches ? "5 / -1" : "1 / -1")};
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -48,10 +50,16 @@ const RHS = styled.div`
     grid-column: 1 / -1;
     order: 1;
   }
+
+  * {
+    text-align: ${(props) => (props.$hasSketches ? "left" : "center")};
+  }
 `;
 
-const CloseTrigger = styled.button`
+const CloseTrigger = styled.button<{ $hasSketches: boolean }>`
   transition: all var(--transition-speed-default) var(--transition-ease);
+  text-align: ${(props) => (props.$hasSketches ? "left" : "center")};
+  width: ${(props) => (props.$hasSketches ? "auto" : "100%")};
 
   &:hover {
     opacity: 0.5;
@@ -106,6 +114,8 @@ const WorkDescription = (props: Props) => {
   const { isActive, description, credits, sketches, setDescriptionIsActive } =
     props;
 
+  const hasSketches = sketches && sketches.length > 0;
+
   return (
     <AnimatePresence>
       {isActive && (
@@ -115,16 +125,21 @@ const WorkDescription = (props: Props) => {
           animate="visible"
           exit="hidden"
         >
-          <Inner variants={childVariants}>
+          <Inner variants={childVariants} $hasSketches={hasSketches}>
             <LayoutWrapper>
               <LayoutGrid>
-                <LHS>
-                  <WorkSketches data={sketches} />
-                </LHS>
-                <RHS>
+                {hasSketches && (
+                  <LHS>
+                    <WorkSketches data={sketches} />
+                  </LHS>
+                )}
+                <RHS $hasSketches={hasSketches}>
                   {description && <PortableText value={description} />}
-                  <WorkCredits data={credits} />
-                  <CloseTrigger onClick={() => setDescriptionIsActive(false)}>
+                  <WorkCredits data={credits} hasSketches={hasSketches} />
+                  <CloseTrigger
+                    $hasSketches={hasSketches}
+                    onClick={() => setDescriptionIsActive(false)}
+                  >
                     Close
                   </CloseTrigger>
                 </RHS>

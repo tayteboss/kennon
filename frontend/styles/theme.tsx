@@ -10,8 +10,6 @@ export const theme = {
   },
   fonts: {
     arizonaFlareLight: "Arizona Flare Light",
-    helveticaNeueMedium: "Helvetica Neue Medium",
-    helveticaNeueRoman: "Helvetica Neue Roman",
   },
   mediaBreakpoints: {
     desktop: "(min-width: 1680px)",

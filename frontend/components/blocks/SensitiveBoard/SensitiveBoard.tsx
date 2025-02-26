@@ -54,7 +54,14 @@ const Word = styled.span`
   color: white;
 `;
 
-const Letter = styled(motion.span)``;
+const Letter = styled(motion.span)`
+  font-size: ${pxToRem(32)};
+  line-height: 1.3;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    font-size: ${pxToRem(25)};
+  }
+`;
 
 const ShaderOuter = styled.div`
   opacity: 0.5;

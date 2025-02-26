@@ -60,7 +60,6 @@ const Title = styled.h4`
 
 const Text = styled.p`
   grid-column: span 3;
-  font-family: var(--font-helvetica-neue-roman);
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     grid-column: 1 / -1;
@@ -70,7 +69,6 @@ const Text = styled.p`
 const Year = styled.p`
   grid-column: span 2;
   text-align: right;
-  font-family: var(--font-helvetica-neue-roman);
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     grid-column: 1 / -1;

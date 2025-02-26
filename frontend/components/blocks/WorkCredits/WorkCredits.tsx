@@ -2,8 +2,11 @@ import styled from "styled-components";
 import { WorkType } from "../../../shared/types/types";
 import pxToRem from "../../../utils/pxToRem";
 
-const WorkCreditsWrapper = styled.div`
+const WorkCreditsWrapper = styled.div<{ $hasSketches: boolean }>`
   display: flex;
+  justify-content: ${({ $hasSketches }) =>
+    $hasSketches ? "flex-start" : "center"};
+  width: ${({ $hasSketches }) => ($hasSketches ? "auto" : "100%")};
   gap: ${pxToRem(24)};
 `;
 
@@ -29,15 +32,16 @@ const NameWrapper = styled.div`
 
 type Props = {
   data: WorkType["credits"];
+  hasSketches: boolean;
 };
 
 const WorkCredits = (props: Props) => {
-  const { data } = props;
+  const { data, hasSketches } = props;
 
   const hasCredits = data?.length > 0;
 
   return (
-    <WorkCreditsWrapper>
+    <WorkCreditsWrapper $hasSketches={hasSketches}>
       <TitleWrapper>
         {hasCredits &&
           data.map((item, i) => (

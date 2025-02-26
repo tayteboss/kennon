@@ -9,10 +9,6 @@ import MuxPlayer from "@mux/mux-player-react/lazy";
 const SenseBlockWrapper = styled.div`
   grid-column: span 4;
   width: 100%;
-
-  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    grid-column: 1 / -1;
-  }
 `;
 
 const Inner = styled.div`
@@ -43,7 +39,19 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const Text = styled.p``;
+const DesktopText = styled.p`
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    display: none;
+  }
+`;
+
+const MobileText = styled.p`
+  display: none;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    display: block;
+  }
+`;
 
 const SenseBlock = (props: SenseBlockType & { number: string }) => {
   const { title, description, image, video, number, link } = props;
@@ -124,9 +132,10 @@ const SenseBlock = (props: SenseBlockType & { number: string }) => {
             </Inner>
           )}
           <ContentWrapper>
-            <Text>
+            <DesktopText>
               {title || ""} — {description || ""}
-            </Text>
+            </DesktopText>
+            <MobileText>{title || ""}</MobileText>
           </ContentWrapper>
         </SenseBlockWrapper>
       )}

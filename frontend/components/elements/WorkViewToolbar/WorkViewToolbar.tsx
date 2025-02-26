@@ -20,6 +20,10 @@ const WorkViewToolbarWrapper = styled.div`
 const TypeWrapper = styled.div``;
 
 const ViewWrapper = styled.div`
+  .toggle-wrapper {
+    gap: ${pxToRem(4)};
+  }
+
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     display: none;
   }
@@ -46,8 +50,8 @@ const TriggerContainer = styled(motion.button)`
 `;
 
 const TextTrigger = styled.div`
-  padding: ${pxToRem(8)} ${pxToRem(16)} ${pxToRem(6)};
-  height: 37px;
+  padding: ${pxToRem(6)} ${pxToRem(8)} ${pxToRem(4)};
+  height: 28px;
   color: var(--colour-black);
   position: relative;
   z-index: 1;
@@ -62,13 +66,18 @@ const TextTrigger = styled.div`
 `;
 
 const IconTrigger = styled.div`
-  height: 37px;
-  width: 37px;
+  height: 28px;
+  width: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   z-index: 1;
+
+  svg {
+    height: ${pxToRem(16)};
+    width: ${pxToRem(16)};
+  }
 `;
 
 const Highlight = styled(motion.div)`
@@ -101,22 +110,28 @@ const WorkViewToolbar: FC<Props> = ({
           <ToggleWrapper>
             <TriggerContainer layout onClick={() => setWorkType("private")}>
               {workType === "private" && <Highlight layoutId="workType" />}
-              <TextTrigger>Private Residences</TextTrigger>
+              <TextTrigger className="type-heading-xsmall">
+                Private Residences
+              </TextTrigger>
             </TriggerContainer>
             <TriggerContainer layout onClick={() => setWorkType("public")}>
               {workType === "public" && <Highlight layoutId="workType" />}
-              <TextTrigger>Public Works</TextTrigger>
+              <TextTrigger className="type-heading-xsmall">
+                Public Works
+              </TextTrigger>
             </TriggerContainer>
             <TriggerContainer layout onClick={() => setWorkType("multi")}>
               {workType === "multi" && <Highlight layoutId="workType" />}
-              <TextTrigger>Multi Residential</TextTrigger>
+              <TextTrigger className="type-heading-xsmall">
+                Multi Residential
+              </TextTrigger>
             </TriggerContainer>
           </ToggleWrapper>
         </LayoutGroup>
       </TypeWrapper>
       <ViewWrapper>
         <LayoutGroup>
-          <ToggleWrapper>
+          <ToggleWrapper className="toggle-wrapper">
             <TriggerContainer layout onClick={() => setListView("landscape")}>
               {listView === "landscape" && <Highlight layoutId="listType" />}
               <IconTrigger>

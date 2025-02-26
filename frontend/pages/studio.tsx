@@ -26,10 +26,10 @@ import StudioTeam from "../components/blocks/StudioTeam";
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
-  margin-bottom: ${pxToRem(240)};
+  margin-bottom: ${pxToRem(120)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    margin-bottom: ${pxToRem(120)};
+    margin-bottom: ${pxToRem(80)};
   }
 `;
 

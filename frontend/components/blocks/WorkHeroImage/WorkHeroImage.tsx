@@ -97,7 +97,7 @@ const WorkHeroImage = (props: Props) => {
           />
         </ImageWrapper>
       )}
-      {title && <Title>{title}</Title>}
+      {/* {title && <Title>{title}</Title>} */}
     </WorkHeroImageWrapper>
   );
 };
