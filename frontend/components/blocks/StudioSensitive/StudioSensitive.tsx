@@ -23,7 +23,7 @@ const ButtonWrapper = styled.div`
 
 const BoardWrapper = styled.div`
   position: relative;
-  height: ${pxToRem(775)};
+  height: ${pxToRem(600)};
   grid-column: 1 / -1;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {

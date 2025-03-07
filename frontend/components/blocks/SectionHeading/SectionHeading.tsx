@@ -19,7 +19,7 @@ const Heading = styled.h3`
   font-family: var(--font-arizona-flare-light);
   width: 100%;
   grid-column: 3 / -3;
-  max-width: ${pxToRem(650)};
+  max-width: ${pxToRem(600)};
   margin: 0 auto;
   text-align: center;
 

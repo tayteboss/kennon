@@ -42,8 +42,14 @@ const Header = (props: Props) => {
 
   return (
     <HeaderWrapper className="header">
-      <Link href="/">Kennon</Link>
-      <NavbarLinks workTypeRefresh={workTypeRefresh} />
+      <Link
+        href="/"
+        onClick={() => setMenuIsActive(false)}
+        className="type-heading-small"
+      >
+        Kennon
+      </Link>
+      {/* <NavbarLinks workTypeRefresh={workTypeRefresh} /> */}
       <MenuTrigger
         menuIsActive={menuIsActive}
         setMenuIsActive={setMenuIsActive}

@@ -12,6 +12,7 @@ const LandscapeWorkCardWrapper = styled.div<{ $comingSoon: boolean }>`
   left: 0;
   height: 100%;
   width: 100%;
+  background: var(--colour-cream);
 
   &:hover {
     img {

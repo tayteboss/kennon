@@ -9,7 +9,11 @@ export const theme = {
     lightCream: "F9F8F6",
   },
   fonts: {
-    arizonaFlareLight: "Arizona Flare Light",
+    bradfordReg: "Bradford Regular",
+    bradfordMed: "Bradford Medium",
+    bradfordLight: "Bradford Light",
+    helveticaNeueRoman: "Helvetica Neue Roman",
+    helveticaNeueMedium: "Helvetica Neue Medium",
   },
   mediaBreakpoints: {
     desktop: "(min-width: 1680px)",

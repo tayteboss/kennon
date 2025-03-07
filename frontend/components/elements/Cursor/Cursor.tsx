@@ -72,6 +72,7 @@ const TextWrapper = styled.div`
   height: 24px;
   line-height: 0.2em;
   padding-bottom: 1px;
+  font-family: var(--font-helvetica-neue-medium) !important;
 `;
 
 const IconWrapper = styled(motion.div)`
@@ -282,7 +283,9 @@ const Cursor = ({ cursorRefresh, appCursorRefresh }: Props) => {
             )}
             {isHoveringTextLink && (
               <TextOuterWrapper key={2}>
-                <TextWrapper>{cursorText}</TextWrapper>
+                <TextWrapper className="type-heading-xsmall">
+                  {cursorText}
+                </TextWrapper>
                 <IconWrapper>
                   <LinkArrow />
                 </IconWrapper>

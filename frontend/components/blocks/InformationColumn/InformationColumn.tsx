@@ -25,7 +25,7 @@ const Title = styled.h3`
 const ContentWrapper = styled.div`
   text-align: center;
   margin: 0 auto;
-  max-width: ${pxToRem(900)};
+  max-width: ${pxToRem(800)};
 
   a {
     text-decoration: underline;

@@ -17,7 +17,11 @@ export const GlobalStyles = createGlobalStyle`
 		--colour-light-grey: ${theme.colours.lightGrey};
 		--colour-cream: ${theme.colours.cream};
 		--colour-light-cream: ${theme.colours.lightCream};
-		--font-arizona-flare-light: ${theme.fonts.arizonaFlareLight};
+		--font-bradford-light: ${theme.fonts.bradfordLight};
+		--font-bradford-medium: ${theme.fonts.bradfordMed};
+		--font-bradford-regular: ${theme.fonts.bradfordReg};
+		--font-helvetica-neue-roman: ${theme.fonts.helveticaNeueRoman};
+		--font-helvetica-neue-medium: ${theme.fonts.helveticaNeueMedium};
 		--transition-speed-default: ${theme.transitionSpeed.default};
 		--transition-speed-fast: ${theme.transitionSpeed.fast};
 		--transition-speed-extra-fast: ${theme.transitionSpeed.extraFast};
@@ -70,7 +74,7 @@ export const GlobalStyles = createGlobalStyle`
 	button,
 	label,
 	body {
-		font-family: var(--font-arizona-flare-light);
+		font-family: var(--font-bradford-medium);
 		color: var(--colour-black);
 		line-height: normal;
 	}
@@ -105,9 +109,10 @@ export const GlobalStyles = createGlobalStyle`
 	.type-h5,
 	h6,
 	.type-h6 {
-		font-weight: 200;
+		font-family: var(--font-bradford-regular);
 		font-size: ${pxToRem(14)};
 		line-height: ${pxToRem(18)};
+		font-weight: 400;
 	}
 
 	p,
@@ -117,6 +122,8 @@ export const GlobalStyles = createGlobalStyle`
 	div {
 		font-size: ${pxToRem(14)};
 		line-height: ${pxToRem(18)};
+		font-family: var(--font-bradford-regular);
+		font-weight: 400;
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
 			font-size: ${pxToRem(14)};
@@ -126,21 +133,29 @@ export const GlobalStyles = createGlobalStyle`
 
 	.type-p-small {
 		font-size: ${pxToRem(14)};
+		font-family: var(--font-bradford-regular);
+		font-weight: 400;
 	}
 
 	.type-small {
 		font-size: ${pxToRem(12)};
 		line-height: ${pxToRem(16)};
+		font-family: var(--font-bradford-regular);
+		font-weight: 400;
 	}
 
 	.type-heading-small {
 		font-size: ${pxToRem(14)};
 		line-height: ${pxToRem(18)};
 		color: var(--colour-mid-grey);
+		font-family: var(--font-bradford-regular);
+		font-weight: 400;
 	}
 
 	.type-heading-xsmall {
 		font-size: ${pxToRem(11)};
+		font-family: var(--font-bradford-regular);
+		font-weight: 400;
 	}
 
 	.work-landscape-card {

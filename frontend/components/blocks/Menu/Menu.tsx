@@ -75,7 +75,7 @@ const Menu = (props: Props) => {
               googleMapsLink={siteSettings?.googleMapsLink}
               instagramUrl={siteSettings?.instagramUrl}
             />
-            <MenuAoc aoc={siteSettings?.aoc} />
+            {/* <MenuAoc aoc={siteSettings?.aoc} /> */}
             <MenuShowreel showreel={siteSettings?.showreel} />
           </Inner>
         </MenuWrapper>

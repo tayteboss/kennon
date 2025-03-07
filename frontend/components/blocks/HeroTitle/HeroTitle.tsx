@@ -20,7 +20,7 @@ const Title = styled(motion.h1)<{ $useSmallGrid: boolean }>`
   text-align: center;
   font-family: var(--font-arizona-flare-light);
   font-weight: 200;
-  max-width: ${pxToRem(650)};
+  max-width: ${pxToRem(600)};
   margin: 0 auto;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {

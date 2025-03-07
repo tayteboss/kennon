@@ -7,6 +7,7 @@ import {vercelDeployTool} from 'sanity-plugin-vercel-deploy'
 import {EarthGlobeIcon, DocumentIcon, CaseIcon} from '@sanity/icons'
 import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 import {colorInput} from '@sanity/color-input'
+import {media} from 'sanity-plugin-media'
 
 export default defineConfig({
   name: 'default',
@@ -104,6 +105,7 @@ export default defineConfig({
     muxInput({mp4_support: 'standard'}),
     vercelDeployTool(),
     colorInput(),
+    media(),
   ],
 
   schema: {

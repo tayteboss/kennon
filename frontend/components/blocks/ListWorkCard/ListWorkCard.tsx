@@ -52,6 +52,8 @@ const MobileContentWrapper = styled.div`
 
 const Title = styled.h4`
   grid-column: 1 / 5;
+  font-family: var(--font-bradford-regular);
+  font-weight: 200;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     grid-column: 1 / -1;

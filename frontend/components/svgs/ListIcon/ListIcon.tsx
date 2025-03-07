@@ -11,21 +11,21 @@ const ListIcon = () => {
         <path
           d="M1 6.5H16"
           stroke="black"
-          strokeWidth="1"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M1 11.5H16"
           stroke="black"
-          strokeWidth="1"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M1 1.5H16"
           stroke="black"
-          strokeWidth="1"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />

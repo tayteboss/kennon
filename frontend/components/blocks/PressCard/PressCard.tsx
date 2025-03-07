@@ -9,7 +9,6 @@ const PressCardWrapper = styled.div<{ $hex: string }>`
   grid-column: span 4;
   width: 100%;
   background: ${(props) => props.$hex};
-  border-radius: ${pxToRem(4)};
   overflow: hidden;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {

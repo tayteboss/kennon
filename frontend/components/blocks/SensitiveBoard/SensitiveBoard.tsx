@@ -86,6 +86,21 @@ const StartWrapper = styled.div<{ $isActive: boolean }>`
   align-items: center;
   gap: ${pxToRem(8)};
   opacity: ${(props) => (props.$isActive ? 1 : 0)};
+
+  transition: all var(--transition-speed-extra-slow) var(--transition-ease);
+`;
+
+const HintWrapper = styled.div<{ $isActive: boolean }>`
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: ${(props) => (props.$isActive ? 1 : 0)};
+
   transition: all var(--transition-speed-extra-slow) var(--transition-ease);
 `;
 
@@ -106,7 +121,7 @@ const ButtonWrapper = styled.div`
 
 const Hint = styled.p`
   color: var(--colour-black);
-  opacity: 0.5;
+  opacity: 0.75;
   text-align: center;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
@@ -239,12 +254,14 @@ export const SensitiveBoard = ({
   buttonTitle = "Be Sensitive?",
 }: Props) => {
   const [isActive, setIsActive] = useState(false);
-  const router = useRouter();
-
-  const [bubbles, setBubbles] = useState<any[]>([]);
-  const [phraseIndex, setPhraseIndex] = useState<number>(0);
   const [clickCount, setClickCount] = useState<number>(0);
   const [isMuted, setIsMuted] = useState(false);
+  const [showClickAgainHint, setShowClickAgainHint] = useState(false);
+  const [hintTriggered, setHintTriggered] = useState(false);
+
+  const router = useRouter();
+  const [bubbles, setBubbles] = useState<any[]>([]);
+  const [phraseIndex, setPhraseIndex] = useState<number>(0);
 
   const baseLoopRef = useRef<HTMLAudioElement | null>(null);
   const environmentalAudioRefs = useRef<HTMLAudioElement[]>([]);
@@ -287,6 +304,26 @@ export const SensitiveBoard = ({
       setPhraseIndex(0);
     }
   }, [isActive]);
+
+  useEffect(() => {
+    if (isActive && !hintTriggered) {
+      const timer = setTimeout(() => {
+        setShowClickAgainHint(true);
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [isActive, hintTriggered]);
+
+  useEffect(() => {
+    if (showClickAgainHint) {
+      const handleClick = () => {
+        setShowClickAgainHint(false);
+        setHintTriggered(true);
+      };
+      window.addEventListener("click", handleClick);
+      return () => window.removeEventListener("click", handleClick);
+    }
+  }, [showClickAgainHint]);
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     if (!isActive) {
@@ -403,6 +440,9 @@ export const SensitiveBoard = ({
     handleRouteChange(router.asPath);
   }, [router]);
 
+  console.log("showClickAgainHint", showClickAgainHint);
+  console.log("isActive", isActive);
+
   // -----------------------------
   //   RENDER
   // -----------------------------
@@ -425,6 +465,12 @@ export const SensitiveBoard = ({
           Turn your volume up for the best experience
         </Hint>
       </StartWrapper>
+
+      <HintWrapper $isActive={isActive && showClickAgainHint}>
+        <Hint className="type-small sensitive-board__hint">
+          Click anywhere to continue
+        </Hint>
+      </HintWrapper>
 
       {isActive && (
         <MuteTrigger

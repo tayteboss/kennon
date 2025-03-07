@@ -8,6 +8,7 @@ const PortraitWorkCardWrapper = styled.div<{ $comingSoon: boolean }>`
   width: 100%;
   position: relative;
   overflow: hidden;
+  background: var(--colour-cream);
 
   &:hover {
     img {

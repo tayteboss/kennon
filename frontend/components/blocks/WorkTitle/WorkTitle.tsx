@@ -15,26 +15,24 @@ import WorkDescription from "../WorkDescription";
 const WorkTitleWrapper = styled(motion.section)`
   padding: ${pxToRem(80)} 0 ${pxToRem(40)};
   margin: 0 auto;
-  max-width: ${pxToRem(650)};
+  max-width: ${pxToRem(600)};
   text-align: center;
 `;
 
 const Subheading = styled.h2`
   text-align: center;
-  margin-bottom: ${pxToRem(16)};
+  margin-bottom: ${pxToRem(8)};
 `;
 
 const Heading = styled.h3`
-  font-family: var(--font-arizona-flare-light);
   width: 100%;
+  margin-bottom: ${pxToRem(8)};
 `;
 
 const ReadmoreTrigger = styled(motion.span)`
   white-space: pre;
 
   button {
-    font-family: var(--font-arizona-flare-light);
-    font-weight: 200;
     opacity: 0.5;
 
     transition: all var(--transition-speed-default) var(--transition-ease);
@@ -111,30 +109,24 @@ const WorkTitle = (props: Props) => {
           {subheading && (
             <Subheading className="type-heading-small">{subheading}</Subheading>
           )}
-          {heading && (
-            <Heading className="type-h1">
-              {heading}{" "}
-              <AnimatePresence>
-                {!descriptionIsActive && (
-                  <ReadmoreTrigger
-                    variants={wrapperVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
-                  >
-                    <button
-                      className="type-h1"
-                      onClick={() =>
-                        setDescriptionIsActive(!descriptionIsActive)
-                      }
-                    >
-                      Read more
-                    </button>
-                  </ReadmoreTrigger>
-                )}
-              </AnimatePresence>
-            </Heading>
-          )}
+          {heading && <Heading className="type-h1">{heading} </Heading>}
+          <AnimatePresence>
+            {!descriptionIsActive && (
+              <ReadmoreTrigger
+                variants={wrapperVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <button
+                  className="type-h1"
+                  onClick={() => setDescriptionIsActive(!descriptionIsActive)}
+                >
+                  Read more
+                </button>
+              </ReadmoreTrigger>
+            )}
+          </AnimatePresence>
         </LayoutWrapper>
       </WorkTitleWrapper>
       <WorkDescription

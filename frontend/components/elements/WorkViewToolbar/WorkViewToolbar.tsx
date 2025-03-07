@@ -59,6 +59,7 @@ const TextTrigger = styled.div`
   align-items: center;
   justify-content: center;
   white-space: nowrap;
+  font-family: var(--font-helvetica-neue-medium) !important;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     font-size: ${pxToRem(12)};

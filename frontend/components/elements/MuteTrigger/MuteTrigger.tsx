@@ -101,7 +101,7 @@ const MuteTrigger = (props: Props) => {
     >
       <IconWrapper>
         <AnimatePresence mode="wait">
-          {isMuted && (
+          {!isMuted && (
             <MotionWrapper
               key={1}
               variants={wrapperVariants}
@@ -112,7 +112,7 @@ const MuteTrigger = (props: Props) => {
               <UnMuteIcon />
             </MotionWrapper>
           )}
-          {!isMuted && (
+          {isMuted && (
             <MotionWrapper
               key={2}
               variants={wrapperVariants}

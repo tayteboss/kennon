@@ -43,7 +43,6 @@ const Title = styled.h2`
   z-index: 2;
   color: var(--colour-white);
   mix-blend-mode: difference;
-  font-weight: 400;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     font-size: ${pxToRem(14)};
