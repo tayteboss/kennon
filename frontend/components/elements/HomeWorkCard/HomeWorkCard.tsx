@@ -63,10 +63,14 @@ const HomeWorkCard = (props: Props) => {
   const router = useRouter();
 
   const handleClick = () => {
-    if (title === "Private work") {
+    if (title === "Private Residences") {
       setWorkType("private");
-    } else {
+    } else if (title === "Multi Residential") {
+      setWorkType("multi");
+    } else if (title === "Public Works") {
       setWorkType("public");
+    } else {
+      setWorkType("private");
     }
     router.push("/works");
   };

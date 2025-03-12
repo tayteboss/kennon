@@ -21,6 +21,7 @@ import PortraitWorksList from "../../components/blocks/PortraitWorksList";
 import ListWorksList from "../../components/blocks/ListWorksList";
 import WorkViewToolbar from "../../components/elements/WorkViewToolbar";
 import { useLenis } from "@studio-freight/react-lenis";
+import { useRouter } from "next/router";
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
@@ -84,6 +85,8 @@ const Page = (props: Props) => {
 
   const lenis = useLenis(({ scroll }) => {});
 
+  const router = useRouter();
+
   useEffect(() => {
     if (!lenis) return;
     lenis.scrollTo(0, { duration: 2, immediate: false });
@@ -103,7 +106,13 @@ const Page = (props: Props) => {
     } else {
       setWorkData(privateWorkList);
     }
-  }, [workType, privateWorkList, publicWorkList, multiResWorkList]);
+  }, [
+    workType,
+    privateWorkList,
+    publicWorkList,
+    multiResWorkList,
+    router.query,
+  ]);
 
   useEffect(() => {
     const sessionWorkType = sessionStorage.getItem("kennon-work-type");
@@ -114,7 +123,7 @@ const Page = (props: Props) => {
     ) {
       setWorkType(sessionWorkType);
     }
-  }, [checkWorkType]);
+  }, [checkWorkType, router.query]);
 
   return (
     <PageWrapper

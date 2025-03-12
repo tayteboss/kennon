@@ -286,9 +286,9 @@ const Cursor = ({ cursorRefresh, appCursorRefresh }: Props) => {
                 <TextWrapper className="type-heading-xsmall">
                   {cursorText}
                 </TextWrapper>
-                <IconWrapper>
+                {/* <IconWrapper>
                   <LinkArrow />
-                </IconWrapper>
+                </IconWrapper> */}
               </TextOuterWrapper>
             )}
             {false && (

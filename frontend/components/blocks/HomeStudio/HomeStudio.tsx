@@ -38,6 +38,10 @@ const ImageWrapper = styled.div`
   .media-wrapper {
     height: ${pxToRem(400)};
 
+    @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+      height: ${pxToRem(200)};
+    }
+
     img {
       object-fit: contain !important;
     }

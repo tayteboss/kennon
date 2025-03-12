@@ -7,7 +7,7 @@ import router from "next/router";
 import { useState, useRef, useEffect } from "react";
 
 const HeroTitleWrapper = styled.section<{ $useSmallGrid: boolean }>`
-  padding: ${pxToRem(80)} 0
+  padding: ${pxToRem(64)} 0
     ${(props) => (props.$useSmallGrid ? pxToRem(40) : pxToRem(100))};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {

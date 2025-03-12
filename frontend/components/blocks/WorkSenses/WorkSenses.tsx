@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { WorkType } from "../../../shared/types/types";
-import LayoutWrapper from "../../layout/LayoutWrapper";
 import LayoutGrid from "../../layout/LayoutGrid";
 import SenseBlock from "../SenseBlock";
 import pxToRem from "../../../utils/pxToRem";
@@ -19,6 +18,7 @@ const WorkSensesWrapper = styled.section`
 
     @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
       row-gap: ${pxToRem(16)};
+      padding: 0 ${pxToRem(16)};
     }
   }
 `;

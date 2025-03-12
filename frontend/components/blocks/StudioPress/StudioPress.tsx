@@ -68,9 +68,9 @@ const StudioPress = (props: Props) => {
               ))}
           </LayoutGrid>
         </CardsWrapper>
-        <ButtonWrapper>
+        {/* <ButtonWrapper>
           <ButtonLayout link="/press">See all press articles</ButtonLayout>
-        </ButtonWrapper>
+        </ButtonWrapper> */}
       </LayoutWrapper>
     </StudioPressWrapper>
   );

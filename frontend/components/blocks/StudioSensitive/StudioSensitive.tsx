@@ -6,6 +6,7 @@ import StudioSectionMedia from "../StudioSectionMedia";
 import ButtonLayout from "../../layout/ButtonLayout";
 import pxToRem from "../../../utils/pxToRem";
 import SensitiveBoard from "../SensitiveBoard";
+import Link from "next/link";
 
 const StudioSensitiveWrapper = styled.section`
   .sensitive-board__start,
@@ -51,12 +52,14 @@ const StudioSensitive = (props: Props) => {
           heading={data.heading}
           useTopBorder
         />
-        <BoardWrapper>
-          <SensitiveBoard isActive={true} />
-        </BoardWrapper>
-        <ButtonWrapper>
+        <Link href="/being-sensitive">
+          <BoardWrapper className="cursor-arrow-text-link" data-title="Explore">
+            <SensitiveBoard isActive={true} />
+          </BoardWrapper>
+        </Link>
+        {/* <ButtonWrapper>
           <ButtonLayout link="/being-sensitive">Learn more</ButtonLayout>
-        </ButtonWrapper>
+        </ButtonWrapper> */}
       </LayoutWrapper>
     </StudioSensitiveWrapper>
   );

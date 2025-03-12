@@ -64,11 +64,11 @@ const Page = (props: Props) => {
       <HeroTitle title={data?.heroTitle} />
       <StudioHeroMedia data={data?.heroMedia} />
       <StudioSensitive data={data?.beingSensitiveSection} />
-      <StudioTeam data={data?.teamSection} />
       <StudioPress
         data={data?.pressSection}
         pressCards={firstThreePressCards}
       />
+      <StudioTeam data={data?.teamSection} />
       <StudioInformation data={data?.studioSection} aoc={siteSettings?.aoc} />
       <StudioContact
         siteSettings={siteSettings}

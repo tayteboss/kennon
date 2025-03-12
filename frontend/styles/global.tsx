@@ -133,6 +133,7 @@ export const GlobalStyles = createGlobalStyle`
 
 	.type-p-small {
 		font-size: ${pxToRem(14)};
+		line-height: ${pxToRem(18)};
 		font-family: var(--font-bradford-regular);
 		font-weight: 400;
 	}
@@ -153,7 +154,8 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	.type-heading-xsmall {
-		font-size: ${pxToRem(11)};
+		font-size: ${pxToRem(12)};
+		line-height: ${pxToRem(16)};
 		font-family: var(--font-bradford-regular);
 		font-weight: 400;
 	}

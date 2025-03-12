@@ -20,6 +20,7 @@ const ContentWrapper = styled.div`
   @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
     grid-column: 1 / -1;
     margin-bottom: ${pxToRem(24)};
+    text-align: center;
   }
 `;
 

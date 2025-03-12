@@ -9,6 +9,10 @@ import MuxPlayer from "@mux/mux-player-react/lazy";
 const SenseBlockWrapper = styled.div`
   grid-column: span 4;
   width: 100%;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    grid-column: span 2;
+  }
 `;
 
 const Inner = styled.div`

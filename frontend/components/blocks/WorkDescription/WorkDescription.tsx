@@ -19,8 +19,9 @@ const WorkDescriptionWrapper = styled(motion.div)`
 const Inner = styled(motion.div)<{ $hasSketches: boolean }>`
   max-width: ${(props) =>
     props.$hasSketches ? `${pxToRem(1200)}` : `${pxToRem(800)}`};
-  margin: 0 auto ${pxToRem(80)};
+  margin: 0 auto;
   padding-top: ${(props) => (props.$hasSketches ? `${pxToRem(80)}` : `0px`)};
+  padding-bottom: ${pxToRem(80)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     padding-top: 0;

@@ -44,7 +44,7 @@ const WorkTypesList = styled(motion.div)`
   align-items: flex-end;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
-    align-items: center;
+    align-items: right;
   }
 `;
 
@@ -64,6 +64,7 @@ const PrivateTrigger = styled(motion.button)`
 
 const PublicTrigger = styled(motion.button)`
   text-align: right;
+  margin-bottom: ${pxToRem(16)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
     text-align: center;
@@ -78,7 +79,6 @@ const PublicTrigger = styled(motion.button)`
 
 const MultiTrigger = styled(motion.button)`
   text-align: right;
-  margin-bottom: ${pxToRem(16)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
     text-align: center;
@@ -195,21 +195,24 @@ const MenuNavigation = (props: Props) => {
             <PrivateTrigger
               onClick={() => handlePrivateClick()}
               variants={childVariants}
+              key={1}
             >
               <InnerTrigger>Private Residences —</InnerTrigger>
             </PrivateTrigger>
-            <PublicTrigger
-              onClick={() => handlePublicClick()}
-              variants={childVariants}
-            >
-              <InnerTrigger>Public Works —</InnerTrigger>
-            </PublicTrigger>
             <MultiTrigger
               onClick={() => handleMultiClick()}
               variants={childVariants}
+              key={2}
             >
               <InnerTrigger>Multi Residential —</InnerTrigger>
             </MultiTrigger>
+            <PublicTrigger
+              onClick={() => handlePublicClick()}
+              variants={childVariants}
+              key={3}
+            >
+              <InnerTrigger>Public Works —</InnerTrigger>
+            </PublicTrigger>
           </WorkTypesList>
         )}
       </AnimatePresence>
