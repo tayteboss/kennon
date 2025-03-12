@@ -4,7 +4,6 @@ const MenuTriggerWrapper = styled.button`
   color: var(--colour-white);
   flex: 1;
   text-align: right;
-  font-family: var(--font-bradford-medium) !important;
 
   transition: all var(--transition-speed-default) var(--transition-ease);
 
