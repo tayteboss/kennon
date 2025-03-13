@@ -17,8 +17,6 @@ export const GlobalStyles = createGlobalStyle`
 		--colour-light-grey: ${theme.colours.lightGrey};
 		--colour-cream: ${theme.colours.cream};
 		--colour-light-cream: ${theme.colours.lightCream};
-		--font-bradford-light: ${theme.fonts.bradfordLight};
-		--font-bradford-medium: ${theme.fonts.bradfordMed};
 		--font-bradford-regular: ${theme.fonts.bradfordReg};
 		--font-helvetica-neue-roman: ${theme.fonts.helveticaNeueRoman};
 		--font-helvetica-neue-medium: ${theme.fonts.helveticaNeueMedium};
@@ -79,11 +77,6 @@ export const GlobalStyles = createGlobalStyle`
 		line-height: normal;
 	}
 
-	strong,
-	b {
-		font-weight: 900;
-	}
-
 	em {
 		font-style: italic;
 	}
@@ -112,7 +105,6 @@ export const GlobalStyles = createGlobalStyle`
 		font-family: var(--font-bradford-regular);
 		font-size: ${pxToRem(14)};
 		line-height: ${pxToRem(18)};
-		font-weight: 200;
 	}
 
 	p,
@@ -123,7 +115,6 @@ export const GlobalStyles = createGlobalStyle`
 		font-size: ${pxToRem(14)};
 		line-height: ${pxToRem(18)};
 		font-family: var(--font-bradford-regular);
-		font-weight: 200;
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
 			font-size: ${pxToRem(14)};
@@ -135,14 +126,12 @@ export const GlobalStyles = createGlobalStyle`
 		font-size: ${pxToRem(14)};
 		line-height: ${pxToRem(18)};
 		font-family: var(--font-bradford-regular);
-		font-weight: 200;
 	}
 
 	.type-small {
 		font-size: ${pxToRem(12)};
 		line-height: ${pxToRem(16)};
 		font-family: var(--font-bradford-regular);
-		font-weight: 200;
 	}
 
 	.type-heading-small {
@@ -150,14 +139,12 @@ export const GlobalStyles = createGlobalStyle`
 		line-height: ${pxToRem(18)};
 		color: var(--colour-mid-grey);
 		font-family: var(--font-bradford-regular);
-		font-weight: 200;
 	}
 
 	.type-heading-xsmall {
 		font-size: ${pxToRem(12)};
 		line-height: ${pxToRem(16)};
 		font-family: var(--font-bradford-regular);
-		font-weight: 200;
 	}
 
 	.work-landscape-card {

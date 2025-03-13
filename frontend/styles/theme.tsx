@@ -10,8 +10,6 @@ export const theme = {
   },
   fonts: {
     bradfordReg: "Bradford Regular",
-    bradfordMed: "Bradford Medium",
-    bradfordLight: "Bradford Light",
     helveticaNeueRoman: "Helvetica Neue Roman",
     helveticaNeueMedium: "Helvetica Neue Medium",
   },

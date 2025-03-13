@@ -1,16 +1,4 @@
 @font-face {
-	font-family: 'Bradford Light';
-	src: url('/fonts/BradfordLL-Light.otf') format('opentype'), url('/fonts/BradfordLL-Light.ttf') format('truetype');
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'Bradford Medium';
-	src: url('/fonts/BradfordLL-Medium.otf') format('opentype'), url('/fonts/BradfordLL-Medium.ttf') format('truetype');
-	font-display: swap;
-}
-
-@font-face {
 	font-family: 'Bradford Regular';
 	src: url('/fonts/BradfordLL-Regular.otf') format('opentype'), url('/fonts/BradfordLL-Regular.ttf') format('truetype');
 	font-display: swap;
