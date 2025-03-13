@@ -64,10 +64,11 @@ type Props = {
   image: WorkType["landscapeThumbnailImage"];
   slug: WorkType["slug"];
   comingSoon: WorkType["comingSoon"];
+  yearCompleted: WorkType["yearCompleted"];
 };
 
 const PortraitWorkCard = (props: Props) => {
-  const { title, image, slug, comingSoon } = props;
+  const { title, image, slug, comingSoon, yearCompleted } = props;
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -101,7 +102,7 @@ const PortraitWorkCard = (props: Props) => {
         )}
         {comingSoon && (
           <Comingsoon className="work-portrait-card__comingsoon">
-            Coming soon
+            {comingSoon ? `Coming ${yearCompleted || "soon"}` : yearCompleted}
           </Comingsoon>
         )}
       </PortraitWorkCardWrapper>

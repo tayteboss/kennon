@@ -188,10 +188,8 @@ const ListWorkCard = (props: Props) => {
               <Text>{formatType(type) || ""}</Text>
               <Year>
                 {comingSoon
-                  ? "Coming soon"
-                  : yearCompleted
-                    ? yearCompleted
-                    : ""}
+                  ? `Coming ${yearCompleted || "soon"}`
+                  : yearCompleted}
               </Year>
             </LayoutGrid>
           </DesktopContentWrapper>

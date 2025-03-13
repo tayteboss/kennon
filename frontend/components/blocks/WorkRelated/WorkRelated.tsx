@@ -105,6 +105,7 @@ const WorkRelated = (props: Props) => {
                       image={item?.portraitThumbnailImage}
                       slug={item?.slug}
                       comingSoon={item?.comingSoon}
+                      yearCompleted={item?.yearCompleted}
                     />
                   ))}
               </LayoutGrid>
@@ -121,6 +122,7 @@ const WorkRelated = (props: Props) => {
                         image={item?.portraitThumbnailImage}
                         slug={item?.slug}
                         comingSoon={item?.comingSoon}
+                        yearCompleted={item?.yearCompleted}
                       />
                     </div>
                   ))}

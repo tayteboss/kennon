@@ -40,7 +40,8 @@ const LandscapeCardTitle = (props: Props) => {
       <Text>{title || ""}</Text>
       <Text>{location || ""}</Text>
       <Text>
-        {formatType(type) || ""} — {comingSoon ? "Coming soon" : yearCompleted}
+        {formatType(type) || ""} —{" "}
+        {comingSoon ? `Coming ${yearCompleted || "soon"}` : yearCompleted}
       </Text>
     </LandscapeCardTitleWrapper>
   );

@@ -327,6 +327,7 @@ export type WorkType = {
     comingSoon: boolean;
     slug: SlugType;
     title: string;
+    yearCompleted: string;
     portraitThumbnailImage: {
       asset: {
         url: string;
