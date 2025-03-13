@@ -7,8 +7,6 @@ import { useInView } from "react-intersection-observer";
 const HomeFeaturedWorksWrapper = styled.section``;
 
 const Title = styled.h2`
-  font-family: var(--font-arizona-flare-light);
-  font-weight: 200;
   text-align: center;
   padding: ${pxToRem(64)} 0 ${pxToRem(80)};
 `;

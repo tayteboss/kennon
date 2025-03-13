@@ -43,8 +43,6 @@ const PhraseWrapper = styled.div`
 
 const AnimatedPhraseContainer = styled(motion.div)`
   text-align: center;
-  font-family: var(--font-arizona-flare-light);
-  font-weight: 200;
   max-width: ${pxToRem(700)};
   margin: 0 auto;
 `;

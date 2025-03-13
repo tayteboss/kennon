@@ -16,7 +16,6 @@ const Subheading = styled.h2`
 `;
 
 const Heading = styled.h3`
-  font-family: var(--font-arizona-flare-light);
   width: 100%;
   grid-column: 3 / -3;
   max-width: ${pxToRem(600)};

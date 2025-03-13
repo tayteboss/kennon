@@ -52,9 +52,6 @@ const ImageAbsolute = styled.div`
 `;
 
 const LinkTag = styled.div`
-  font-family: var(--font-arizona-flare-light);
-  font-weight: 200;
-
   transition: all var(--transition-speed-default) var(--transition-ease);
 
   &:hover {

@@ -33,8 +33,6 @@ const Title = styled.h1`
   z-index: 2;
   color: var(--colour-white);
   mix-blend-mode: difference;
-  font-family: var(--font-arizona-flare-light);
-  font-weight: 200;
   text-align: center;
 `;
 

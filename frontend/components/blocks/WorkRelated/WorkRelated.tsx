@@ -31,10 +31,7 @@ const TitleWrapper = styled.div`
   margin-bottom: ${pxToRem(24)};
 `;
 
-const Title = styled.h3`
-  font-family: var(--font-arizona-flare-light);
-  font-weight: 200;
-`;
+const Title = styled.h3``;
 
 const Button = styled.button`
   color: var(--colour-mid-grey);
