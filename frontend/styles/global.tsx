@@ -38,8 +38,14 @@ export const GlobalStyles = createGlobalStyle`
 		list-style: none;
 		background: none;
 		outline: none;
+		outline: 0;
 		border-radius: 0;
 		box-shadow: none;
+	}
+
+	button:focus {
+		outline: none;
+		outline: 0;
 	}
 
 	-webkit-text-size-adjust: 100%;
