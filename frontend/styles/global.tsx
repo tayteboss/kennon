@@ -41,6 +41,7 @@ export const GlobalStyles = createGlobalStyle`
 		outline: 0;
 		border-radius: 0;
 		box-shadow: none;
+		font-weight: 200 !important;
 	}
 
 	button:focus {
@@ -81,19 +82,23 @@ export const GlobalStyles = createGlobalStyle`
 		font-family: var(--font-bradford-regular);
 		color: var(--colour-black);
 		line-height: normal;
+		font-weight: 200;
 	}
 
 	em {
 		font-style: italic;
+		font-weight: 200;
 	}
 
 	a {
 		text-decoration: none;
 		color: var(--colour-black);
+		font-weight: 200;
 	}
 
 	button {
 		cursor: pointer;
+		font-weight: 200;
 	}
 
 	h1,
@@ -111,6 +116,7 @@ export const GlobalStyles = createGlobalStyle`
 		font-family: var(--font-bradford-regular);
 		font-size: ${pxToRem(14)};
 		line-height: ${pxToRem(18)};
+		font-weight: 200;
 	}
 
 	p,
@@ -121,6 +127,7 @@ export const GlobalStyles = createGlobalStyle`
 		font-size: ${pxToRem(14)};
 		line-height: ${pxToRem(18)};
 		font-family: var(--font-bradford-regular);
+		font-weight: 200;
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
 			font-size: ${pxToRem(14)};
@@ -132,12 +139,14 @@ export const GlobalStyles = createGlobalStyle`
 		font-size: ${pxToRem(14)};
 		line-height: ${pxToRem(18)};
 		font-family: var(--font-bradford-regular);
+		font-weight: 200;
 	}
 
 	.type-small {
 		font-size: ${pxToRem(12)};
 		line-height: ${pxToRem(16)};
 		font-family: var(--font-bradford-regular);
+		font-weight: 200;
 	}
 
 	.type-heading-small {
@@ -145,12 +154,14 @@ export const GlobalStyles = createGlobalStyle`
 		line-height: ${pxToRem(18)};
 		color: var(--colour-mid-grey);
 		font-family: var(--font-bradford-regular);
+		font-weight: 200;
 	}
 
 	.type-heading-xsmall {
 		font-size: ${pxToRem(12)};
 		line-height: ${pxToRem(16)};
 		font-family: var(--font-bradford-regular);
+		font-weight: 200;
 	}
 
 	.work-landscape-card {
