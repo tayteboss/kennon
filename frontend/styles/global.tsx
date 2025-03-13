@@ -37,16 +37,17 @@ export const GlobalStyles = createGlobalStyle`
 		border: none;
 		list-style: none;
 		background: none;
-		outline: none;
-		outline: 0;
+		outline: none !important;
+		outline: 0 !important;
 		border-radius: 0;
 		box-shadow: none;
 		font-weight: 400 !important;
 	}
 
-	button:focus {
-		outline: none;
-		outline: 0;
+	button:focus,
+	a:focus {
+		outline: none !important;
+		outline: 0 !important;
 	}
 
 	-webkit-text-size-adjust: 100%;
