@@ -65,7 +65,6 @@ export default {
       name: 'yearCompleted',
       type: 'number',
       validation: (Rule: any) => Rule.integer().positive(),
-      description: 'Leave blank if coming soon',
     },
     {
       title: 'Excerpt',

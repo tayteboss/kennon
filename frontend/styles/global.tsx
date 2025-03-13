@@ -74,7 +74,7 @@ export const GlobalStyles = createGlobalStyle`
 	button,
 	label,
 	body {
-		font-family: var(--font-bradford-medium);
+		font-family: var(--font-bradford-regular);
 		color: var(--colour-black);
 		line-height: normal;
 	}
