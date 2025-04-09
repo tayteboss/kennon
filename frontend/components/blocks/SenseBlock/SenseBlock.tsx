@@ -68,45 +68,14 @@ const SenseBlock = (props: SenseBlockType & { number: string }) => {
 
   return (
     <>
-      {title && description && (
-        <SenseBlockWrapper
-          ref={ref}
-          className={`view-element-fade-in ${
-            inView ? "view-element-fade-in--in-view" : ""
-          }`}
-        >
-          {link && (
-            <Link href={link} target="_blank">
-              <Inner>
-                <ImageWrapper>
-                  {image?.asset?.url && (
-                    <Image
-                      src={image?.asset?.url}
-                      alt={image?.asset?.alt || ""}
-                      fill
-                      style={{
-                        objectFit: "cover",
-                      }}
-                    />
-                  )}
-                  {video?.asset?.playbackId && (
-                    <MuxPlayer
-                      streamType="on-demand"
-                      playbackId={video?.asset?.playbackId}
-                      autoPlay="muted"
-                      loop={true}
-                      thumbnailTime={1}
-                      loading="viewport"
-                      preload="auto"
-                      muted
-                      playsInline={true}
-                    />
-                  )}
-                </ImageWrapper>
-              </Inner>
-            </Link>
-          )}
-          {!link && (
+      <SenseBlockWrapper
+        ref={ref}
+        className={`view-element-fade-in ${
+          inView ? "view-element-fade-in--in-view" : ""
+        }`}
+      >
+        {link && (
+          <Link href={link} target="_blank">
             <Inner>
               <ImageWrapper>
                 {image?.asset?.url && (
@@ -134,15 +103,44 @@ const SenseBlock = (props: SenseBlockType & { number: string }) => {
                 )}
               </ImageWrapper>
             </Inner>
-          )}
-          <ContentWrapper>
-            <DesktopText>
-              {title || ""} — {description || ""}
-            </DesktopText>
-            <MobileText>{title || ""}</MobileText>
-          </ContentWrapper>
-        </SenseBlockWrapper>
-      )}
+          </Link>
+        )}
+        {!link && (
+          <Inner>
+            <ImageWrapper>
+              {image?.asset?.url && (
+                <Image
+                  src={image?.asset?.url}
+                  alt={image?.asset?.alt || ""}
+                  fill
+                  style={{
+                    objectFit: "cover",
+                  }}
+                />
+              )}
+              {video?.asset?.playbackId && (
+                <MuxPlayer
+                  streamType="on-demand"
+                  playbackId={video?.asset?.playbackId}
+                  autoPlay="muted"
+                  loop={true}
+                  thumbnailTime={1}
+                  loading="viewport"
+                  preload="auto"
+                  muted
+                  playsInline={true}
+                />
+              )}
+            </ImageWrapper>
+          </Inner>
+        )}
+        <ContentWrapper>
+          <DesktopText>
+            {title || ""} — {description || ""}
+          </DesktopText>
+          <MobileText>{title || ""}</MobileText>
+        </ContentWrapper>
+      </SenseBlockWrapper>
     </>
   );
 };
