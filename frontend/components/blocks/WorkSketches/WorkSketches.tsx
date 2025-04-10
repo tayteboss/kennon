@@ -7,14 +7,14 @@ const WorkSketchesWrapper = styled.div`
   width: 100%;
   overflow: hidden;
   border-radius: 4px;
-  background: var(--colour-cream);
+  background: var(--colour-white);
 `;
 
 const Inner = styled.div`
   width: 100%;
   padding-top: 75%;
   position: relative;
-  background: var(--colour-cream);
+  background: var(--colour-white);
 `;
 
 const FadeImageContainer = styled.div<{ $isFadingIn: boolean }>`
@@ -24,7 +24,7 @@ const FadeImageContainer = styled.div<{ $isFadingIn: boolean }>`
   height: 100%;
   transition: opacity 1s ease-in-out;
   opacity: ${(props) => (props.$isFadingIn ? 1 : 0)};
-  background: var(--colour-cream);
+  background: var(--colour-white);
 `;
 
 type Props = {
