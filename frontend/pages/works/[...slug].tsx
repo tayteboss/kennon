@@ -13,11 +13,6 @@ import WorkRelated from "../../components/blocks/WorkRelated";
 import { useEffect } from "react";
 import { useLenis } from "@studio-freight/react-lenis";
 
-type Props = {
-  data: WorkType;
-  pageTransitionVariants: TransitionsType;
-};
-
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
   margin-bottom: ${pxToRem(120)};
@@ -27,8 +22,14 @@ const PageWrapper = styled(motion.div)`
   }
 `;
 
+type Props = {
+  data: WorkType;
+  pageTransitionVariants: TransitionsType;
+  cursorRefresh: any;
+};
+
 const Page = (props: Props) => {
-  const { data, pageTransitionVariants } = props;
+  const { data, pageTransitionVariants, cursorRefresh } = props;
 
   const subheading = `${data?.title} — ${data?.location} — ${data?.comingSoon ? "Coming soon" : data?.yearCompleted}`;
 
@@ -38,6 +39,10 @@ const Page = (props: Props) => {
     if (!lenis) return;
     lenis.scrollTo(0, { immediate: true });
   }, [lenis]);
+
+  useEffect(() => {
+    cursorRefresh();
+  }, []);
 
   return (
     <PageWrapper

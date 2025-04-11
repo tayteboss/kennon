@@ -42,12 +42,17 @@ const App = (props: Props) => {
   useEffect(() => {
     setAppCursorRefresh(appCursorRefresh + 1);
 
-    const timer = setTimeout(() => {
+    const timer1 = setTimeout(() => {
+      setAppCursorRefresh(appCursorRefresh + 1);
+    }, 1500);
+
+    const timer2 = setTimeout(() => {
       setAppCursorRefresh(appCursorRefresh + 1);
     }, 3000);
 
     return () => {
-      clearTimeout(timer);
+      clearTimeout(timer1);
+      clearTimeout(timer2);
     };
   }, [router.asPath]);
 

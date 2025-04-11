@@ -29,7 +29,7 @@ const Inner = styled(motion.div)<{ $hasSketches: boolean }>`
 `;
 
 const LHS = styled.div`
-  grid-column: 1 / 5;
+  grid-column: 1 / 7;
   display: flex;
   flex-direction: column;
   gap: ${pxToRem(40)};
@@ -41,7 +41,7 @@ const LHS = styled.div`
 `;
 
 const RHS = styled.div<{ $hasSketches: boolean }>`
-  grid-column: ${(props) => (props.$hasSketches ? "5 / -1" : "1 / -1")};
+  grid-column: ${(props) => (props.$hasSketches ? "7 / -1" : "1 / -1")};
   display: flex;
   flex-direction: column;
   align-items: flex-start;

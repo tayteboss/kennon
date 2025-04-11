@@ -38,6 +38,11 @@ const WorkSketches: FC<Props> = ({ data }) => {
   useEffect(() => {
     if (!data || data.length === 0) return;
 
+    if (data.length === 1) {
+      setIsFadingIn(true);
+      return;
+    }
+
     // Fade in immediately
     setIsFadingIn(true);
 
