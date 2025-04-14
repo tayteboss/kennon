@@ -111,7 +111,7 @@ const WorkTitle = (props: Props) => {
           )}
           {heading && <Heading className="type-h1">{heading} </Heading>}
           <AnimatePresence>
-            {!descriptionIsActive && (
+            {!descriptionIsActive && description && (
               <ReadmoreTrigger
                 variants={wrapperVariants}
                 initial="hidden"
