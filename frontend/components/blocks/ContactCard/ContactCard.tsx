@@ -34,9 +34,13 @@ const ImageWrapper = styled.div`
 `;
 
 const ImageInner = styled.div`
-  padding-top: 100%;
+  padding-top: 75%;
   width: 100%;
   position: relative;
+
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    padding-top: 100%;
+  }
 `;
 
 const ImageAbsolute = styled.div`

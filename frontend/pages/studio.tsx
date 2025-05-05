@@ -62,18 +62,18 @@ const Page = (props: Props) => {
         description={data?.seo?.description || ""}
       />
       <HeroTitle title={data?.heroTitle} />
-      <StudioHeroMedia data={data?.heroMedia} />
-      <StudioSensitive data={data?.beingSensitiveSection} />
-      <StudioPress
+      {/* <StudioHeroMedia data={data?.heroMedia} /> */}
+      {/* <StudioSensitive data={data?.beingSensitiveSection} /> */}
+      {/* <StudioPress
         data={data?.pressSection}
         pressCards={firstThreePressCards}
-      />
-      <StudioTeam data={data?.teamSection} />
+      /> */}
+      {/* <StudioTeam data={data?.teamSection} /> */}
       <StudioInformation data={data?.studioSection} aoc={siteSettings?.aoc} />
-      <StudioContact
+      {/* <StudioContact
         siteSettings={siteSettings}
         contactPageData={contactPageData}
-      />
+      /> */}
     </PageWrapper>
   );
 };
