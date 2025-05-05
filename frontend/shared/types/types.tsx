@@ -111,7 +111,9 @@ export type HomePageType = {
 
 export type WorkPageType = {
   seo: SEOType;
-  heroTitle: string;
+  privateResidencesTitle: string;
+  multiResidentialTitle: string;
+  publicWorksTitle: string;
 };
 
 export type PressCardType = {

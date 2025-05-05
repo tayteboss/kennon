@@ -168,7 +168,7 @@ const MenuNavigation = (props: Props) => {
   };
 
   return (
-    <MenuNavigationWrapper onMouseLeave={() => setShowWorkTypes(false)}>
+    <MenuNavigationWrapper>
       <Link href="/">
         <LinkTag
           $isActive={activeLink === "Home"}

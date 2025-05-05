@@ -15,8 +15,18 @@ export default {
     },
     seoObject,
     {
-      title: 'Hero title',
-      name: 'heroTitle',
+      title: 'Private Residences Title',
+      name: 'privateResidencesTitle',
+      type: 'string',
+    },
+    {
+      title: 'Multi Residential Title',
+      name: 'multiResidentialTitle',
+      type: 'string',
+    },
+    {
+      title: 'Public Works Title',
+      name: 'publicWorksTitle',
       type: 'string',
     },
   ],

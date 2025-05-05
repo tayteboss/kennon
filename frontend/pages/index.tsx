@@ -84,7 +84,7 @@ const Page = (props: Props) => {
         multiResWorkImage={siteSettings?.multiResWorkImage}
       />
       <HomeFeaturedWorks data={data?.featuredWork} />
-      <HomeStudio data={data?.studioSection} />
+      {/* <HomeStudio data={data?.studioSection} /> */}
     </PageWrapper>
   );
 };

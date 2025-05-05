@@ -22,6 +22,7 @@ import ListWorksList from "../../components/blocks/ListWorksList";
 import WorkViewToolbar from "../../components/elements/WorkViewToolbar";
 import { useLenis } from "@studio-freight/react-lenis";
 import { useRouter } from "next/router";
+import WorksHeroTitle from "../../components/blocks/WorksHeroTitle";
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
@@ -136,7 +137,12 @@ const Page = (props: Props) => {
         title={data?.seo?.title || ""}
         description={data?.seo?.description || ""}
       />
-      <HeroTitle title={data?.heroTitle} />
+      <WorksHeroTitle
+        workType={workType}
+        privateTitle={data?.privateResidencesTitle}
+        publicTitle={data?.publicWorksTitle}
+        multiTitle={data?.multiResidentialTitle}
+      />
       <AnimatePresence mode="wait">
         {listView === "landscape" && (
           <LandscapeWorksList

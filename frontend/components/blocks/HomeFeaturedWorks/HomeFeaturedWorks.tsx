@@ -9,6 +9,10 @@ const HomeFeaturedWorksWrapper = styled.section``;
 const Title = styled.h2`
   text-align: center;
   padding: ${pxToRem(64)} 0 ${pxToRem(80)};
+
+  &.type-h1 {
+    font-size: ${pxToRem(24)};
+  }
 `;
 
 type Props = {
@@ -28,14 +32,14 @@ const HomeFeaturedWorks = (props: Props) => {
 
   return (
     <HomeFeaturedWorksWrapper>
-      {/* <Title
+      <Title
         ref={ref}
         className={`type-h1 view-element-fade-in ${
           inView ? "view-element-fade-in--in-view" : ""
         }`}
       >
         Featured Works
-      </Title> */}
+      </Title>
       {hasData &&
         data.map((item, i) => (
           <LandscapeWorkCard
