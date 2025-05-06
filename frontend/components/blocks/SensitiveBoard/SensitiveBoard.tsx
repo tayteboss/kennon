@@ -1,15 +1,27 @@
-import React, { useState, MouseEvent, useEffect, useRef } from "react";
+import React, {
+  useState,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import styled from "styled-components";
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import Bubble from "../../elements/Bubble";
+import Bubble from "../../elements/Bubble"; // Assuming Bubble is memoized: export default React.memo(Bubble);
 import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
 import pxToRem from "../../../utils/pxToRem";
 import ButtonLayout from "../../layout/ButtonLayout";
 import { useRouter } from "next/router";
 import { SensitivePageType } from "../../../shared/types/types";
 import SoundIcon from "../../svgs/SoundIcon";
-import MuteTrigger from "../../elements/MuteTrigger";
+import MuteTrigger from "../../elements/MuteTrigger"; // Assuming MuteTrigger is memoized
 import Logo from "../../svgs/Logo";
+
+// Define isMobile outside the component as it doesn't depend on props or state
+const isClient = typeof window !== "undefined";
+const isMobile = () =>
+  isClient && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 const SensitiveBoardWrapper = styled.section`
   height: 100lvh;
@@ -85,7 +97,6 @@ const StartWrapper = styled.div<{ $isActive: boolean }>`
   align-items: center;
   gap: ${pxToRem(8)};
   opacity: ${(props) => (props.$isActive ? 1 : 0)};
-
   transition: all var(--transition-speed-extra-slow) var(--transition-ease);
 `;
 
@@ -99,7 +110,6 @@ const HintWrapper = styled.div<{ $isActive: boolean }>`
   flex-direction: column;
   align-items: center;
   opacity: ${(props) => (props.$isActive ? 1 : 0)};
-
   transition: all var(--transition-speed-extra-slow) var(--transition-ease);
 `;
 
@@ -136,7 +146,6 @@ const LogoWrapper = styled.div<{ $isReady: boolean }>`
   z-index: 20;
   opacity: ${(props) => (props.$isReady ? 1 : 0)};
   filter: ${(props) => (props.$isReady ? "none" : "blur(5px)")};
-
   transition: all var(--transition-speed-slow) var(--transition-ease);
 
   svg {
@@ -150,14 +159,13 @@ const LogoWrapper = styled.div<{ $isReady: boolean }>`
   }
 `;
 
-// -----------------------------
-//   TYPES
-// -----------------------------
-interface BubblePosition {
+interface BubbleData {
+  // Define a more specific type for bubble data
   x: number;
   y: number;
   fileName: string | null;
   audio?: HTMLAudioElement;
+  id: number; // Add a unique ID for key prop
 }
 
 type Props = {
@@ -170,9 +178,6 @@ type Props = {
   buttonTitle?: string;
 };
 
-// -----------------------------
-//   FRAMER VARIANTS
-// -----------------------------
 const containerVariants: Variants = {
   initial: {
     transition: {
@@ -212,7 +217,7 @@ interface AnimatedTextProps {
   text: string;
 }
 
-const AnimatedText = ({ text }: AnimatedTextProps) => {
+const AnimatedText = React.memo(({ text }: AnimatedTextProps) => {
   const words = text.split(" ");
 
   return (
@@ -239,11 +244,9 @@ const AnimatedText = ({ text }: AnimatedTextProps) => {
       ))}
     </AnimatedPhraseContainer>
   );
-};
+});
+AnimatedText.displayName = "AnimatedText"; // Good practice for React DevTools
 
-// -----------------------------
-//   SENSITIVE BOARD COMPONENT
-// -----------------------------
 export const SensitiveBoard = ({
   phrases,
   baseLoop,
@@ -259,189 +262,278 @@ export const SensitiveBoard = ({
   const [hintTriggered, setHintTriggered] = useState(false);
 
   const router = useRouter();
-  const [bubbles, setBubbles] = useState<any[]>([]);
+  const [bubbles, setBubbles] = useState<BubbleData[]>([]);
   const [phraseIndex, setPhraseIndex] = useState<number>(0);
 
   const baseLoopRef = useRef<HTMLAudioElement | null>(null);
-  const environmentalAudioRefs = useRef<HTMLAudioElement[]>([]);
-  const melodyAudioRefs = useRef<HTMLAudioElement[]>([]);
+  // Use refs for indices to avoid state updates causing re-renders when only sound logic changes
+  const envIndexRef = useRef<number>(0);
+  const melIndexRef = useRef<number>(0);
+  // Store audio elements in refs for direct manipulation without re-renders
+  const environmentalAudioRefs = useRef<Set<HTMLAudioElement>>(new Set());
+  const melodyAudioRefs = useRef<Set<HTMLAudioElement>>(new Set());
+  const nextBubbleId = useRef(0); // For stable keys
 
-  const [envIndex, setEnvIndex] = useState<number>(0);
-  const [melIndex, setMelIndex] = useState<number>(0);
+  const environmentalFiles = useMemo(
+    () => environmentalSounds?.map((item: any) => item.file.asset.url) || [],
+    [environmentalSounds]
+  );
 
-  const environmentalFiles =
-    environmentalSounds?.map((item: any) => item.file.asset.url) || [];
+  const melodyFiles = useMemo(
+    () => melodySounds?.map((item: any) => item.file.asset.url) || [],
+    [melodySounds]
+  );
 
-  const melodyFiles =
-    melodySounds?.map((item: any) => item.file.asset.url) || [];
+  const baseLoopUrl = useMemo(() => baseLoop?.asset?.url, [baseLoop]);
 
+  // Effect for playing/pausing base loop
   useEffect(() => {
-    if (isActive) {
-      if (!baseLoopRef.current) {
-        const audio = new Audio(baseLoop?.asset?.url || "");
-        audio.loop = true;
-        audio.volume = isMuted ? 0 : 1;
-        baseLoopRef.current = audio;
+    let audioEl: HTMLAudioElement | null = baseLoopRef.current;
+
+    if (isActive && baseLoopUrl) {
+      if (!audioEl) {
+        audioEl = new Audio(baseLoopUrl);
+        audioEl.loop = true;
+        baseLoopRef.current = audioEl;
       }
-      const audioEl = baseLoopRef.current;
-      if (audioEl) {
-        audioEl.currentTime = 0;
+      audioEl.volume = isMuted ? 0 : 1;
+      // Check if already playing to avoid unnecessary play calls/errors
+      if (audioEl.paused) {
         audioEl.play().catch((err) => {
           console.error("Could not play base loop:", err);
         });
       }
-    } else {
-      if (baseLoopRef.current) {
-        baseLoopRef.current.pause();
-        baseLoopRef.current.currentTime = 0;
-      }
+    } else if (audioEl && !audioEl.paused) {
+      audioEl.pause();
+      audioEl.currentTime = 0; // Resetting time might be desired
     }
-  }, [isActive, baseLoop]);
+  }, [isActive, baseLoopUrl, isMuted]); // Add isMuted dependency
 
+  // Effect for resetting phrase index when activated
   useEffect(() => {
     if (isActive) {
       setPhraseIndex(0);
     }
   }, [isActive]);
 
+  // Effect for showing hint after delay
   useEffect(() => {
+    let timer: NodeJS.Timeout | null = null;
     if (isActive && !hintTriggered) {
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         setShowClickAgainHint(true);
       }, 10000);
-      return () => clearTimeout(timer);
     }
+    // Cleanup function
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, [isActive, hintTriggered]);
 
+  // Effect for hiding hint on click
   useEffect(() => {
     if (showClickAgainHint) {
       const handleClick = () => {
         setShowClickAgainHint(false);
-        setHintTriggered(true);
+        setHintTriggered(true); // Ensure hint doesn't reappear
       };
       window.addEventListener("click", handleClick);
       return () => window.removeEventListener("click", handleClick);
     }
-  }, [showClickAgainHint]);
+  }, [showClickAgainHint]); // Keep hintTriggered out, it's handled by the click itself
 
-  const handleClick = (e: MouseEvent<HTMLElement>) => {
-    if (!isActive) {
-      setIsActive(true);
-    }
-    const updatedCount = clickCount + 1;
-    setClickCount(updatedCount);
+  const getSoundFile = useCallback(
+    (nthClick: number): string | null => {
+      const currentEnvIndex = envIndexRef.current;
+      const currentMelIndex = melIndexRef.current;
 
-    const coords = { x: e.clientX, y: e.clientY };
-    const fileName = getSoundFile(updatedCount);
+      let file: string | undefined;
 
-    let audio: HTMLAudioElement | undefined;
-    if (fileName) {
-      audio = new Audio(fileName);
-      audio.volume = isMuted ? 0 : 1;
-      audio.play().catch((err) => {
-        console.error("Could not play bubble audio:", err);
-      });
-      if (environmentalFiles.includes(fileName)) {
-        environmentalAudioRefs.current.push(audio);
-      } else if (melodyFiles.includes(fileName)) {
-        melodyAudioRefs.current.push(audio);
+      if (nthClick === 1 && environmentalFiles.length > 0) {
+        file = environmentalFiles[0];
+        if (file) envIndexRef.current = 1;
+      } else if (nthClick === 2 && melodyFiles.length > 0) {
+        file = melodyFiles[0];
+        if (file) melIndexRef.current = 1;
+      } else if (nthClick > 2) {
+        const offset = nthClick - 3;
+        const patternIndex = offset % 3;
+        if (
+          (patternIndex === 0 || patternIndex === 1) &&
+          environmentalFiles.length > 0
+        ) {
+          file =
+            environmentalFiles[currentEnvIndex % environmentalFiles.length];
+          if (file) envIndexRef.current = currentEnvIndex + 1;
+        } else if (melodyFiles.length > 0) {
+          file = melodyFiles[currentMelIndex % melodyFiles.length];
+          if (file) melIndexRef.current = currentMelIndex + 1;
+        }
       }
-    }
-
-    const newBubble = {
-      x: coords.x,
-      y: coords.y,
-      fileName,
-      audio,
-    };
-
-    setBubbles((prev) => [...prev, newBubble]);
-
-    if (phrases && phrases.length > 0) {
-      setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
-    }
-  };
-
-  const getSoundFile = (nthClick: number): string | null => {
-    if (nthClick === 1) {
-      const file = environmentalFiles[0];
-      if (file) setEnvIndex((prev) => prev + 1);
       return file || null;
-    }
-    if (nthClick === 2) {
-      const file = melodyFiles[0];
-      if (file) setMelIndex((prev) => prev + 1);
-      return file || null;
-    }
-    const offset = nthClick - 3;
-    const patternIndex = offset % 3;
-    if (patternIndex === 0 || patternIndex === 1) {
-      const file = environmentalFiles[envIndex % environmentalFiles.length];
-      setEnvIndex((prev) => prev + 1);
-      return file || null;
-    } else {
-      const file = melodyFiles[melIndex % melodyFiles.length];
-      setMelIndex((prev) => prev + 1);
-      return file || null;
-    }
-  };
+    },
+    [environmentalFiles, melodyFiles]
+  ); // Depends only on the file lists
 
-  const handleVolumeChange = () => {
+  const handleClick = useCallback(
+    (e: MouseEvent<HTMLElement>) => {
+      if (!isActive) {
+        setIsActive(true);
+      }
+      const updatedCount = clickCount + 1;
+      setClickCount(updatedCount); // Still need to track clicks for sound logic
+
+      const coords = { x: e.clientX, y: e.clientY };
+      const fileName = getSoundFile(updatedCount);
+
+      let audio: HTMLAudioElement | undefined;
+      if (fileName) {
+        try {
+          audio = new Audio(fileName);
+          audio.volume = isMuted ? 0 : 1;
+          audio.play().catch((err) => {
+            console.error("Could not play bubble audio:", err);
+            // Don't add failed audio elements to refs
+            audio = undefined;
+          });
+
+          // Add successfully created/playing audio to the correct ref set
+          if (audio) {
+            const isEnv = environmentalFiles.includes(fileName);
+            const isMel = melodyFiles.includes(fileName);
+
+            if (isEnv) {
+              environmentalAudioRefs.current.add(audio);
+            } else if (isMel) {
+              melodyAudioRefs.current.add(audio);
+            }
+            // Remove from set when finished playing
+            audio.addEventListener(
+              "ended",
+              () => {
+                if (isEnv)
+                  environmentalAudioRefs.current.delete(
+                    audio as HTMLAudioElement
+                  );
+                if (isMel)
+                  melodyAudioRefs.current.delete(audio as HTMLAudioElement);
+              },
+              { once: true }
+            ); // Use once: true for automatic cleanup
+          }
+        } catch (error) {
+          console.error("Error creating or playing audio:", error);
+          audio = undefined; // Ensure audio is undefined on error
+        }
+      }
+
+      const newBubble: BubbleData = {
+        x: coords.x,
+        y: coords.y,
+        fileName,
+        audio, // Can still pass audio if needed by Bubble, though Bubble shouldn't control it
+        id: nextBubbleId.current++, // Use unique ID for key
+      };
+
+      setBubbles((prev) => [...prev, newBubble]);
+
+      if (phrases && phrases.length > 0) {
+        setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
+      }
+    },
+    [
+      isActive,
+      clickCount,
+      getSoundFile,
+      isMuted,
+      phrases,
+      environmentalFiles,
+      melodyFiles,
+    ]
+  ); // Added file lists
+
+  const handleVolumeChange = useCallback(() => {
     const targetVolume = isMuted ? 0 : 1;
     if (baseLoopRef.current) {
       baseLoopRef.current.volume = targetVolume;
     }
+    // Iterate over Sets
     environmentalAudioRefs.current.forEach((audio) => {
       audio.volume = targetVolume;
     });
     melodyAudioRefs.current.forEach((audio) => {
       audio.volume = targetVolume;
     });
-  };
+  }, [isMuted]); // Only depends on isMuted
 
-  const isMobile = () =>
-    typeof window !== "undefined" &&
-    /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const fadeOutAndPause = useCallback((audio: HTMLAudioElement) => {
+    if (!audio || audio.paused) return; // Don't fade if already paused
 
-  const fadeOutAndPause = (audio: HTMLAudioElement) => {
-    if (!audio) return;
     if (isMobile()) {
-      audio.pause(); // Instantly pause on mobile
+      audio.pause();
+      // Optional: Reset volume immediately if needed, or keep it for resume
+      // audio.volume = 1;
     } else {
-      let volume = audio.volume;
-      const fadeInterval = setInterval(() => {
-        if (volume > 0.05) {
-          volume -= 0.05;
-          audio.volume = volume;
+      let currentVolume = audio.volume;
+      // Clear previous interval if any (safety measure)
+      const existingInterval = (audio as any)._fadeInterval;
+      if (existingInterval) {
+        clearInterval(existingInterval);
+      }
+
+      (audio as any)._fadeInterval = setInterval(() => {
+        currentVolume -= 0.05;
+        if (currentVolume > 0) {
+          try {
+            // Add try-catch for potential errors setting volume
+            audio.volume = Math.max(0, currentVolume);
+          } catch (e) {
+            console.error("Error setting volume during fade:", e);
+            clearInterval((audio as any)._fadeInterval);
+            audio.pause(); // Force pause on error
+          }
         } else {
           audio.pause();
           audio.volume = 1; // Reset volume for next play
-          clearInterval(fadeInterval);
+          clearInterval((audio as any)._fadeInterval);
+          delete (audio as any)._fadeInterval; // Clean up property
         }
-      }, 100); // Adjust for smoother fade
+      }, 50); // Fade duration ~1 second (20 * 50ms)
     }
-  };
+  }, []); // No dependencies
 
-  const handleFadeOutAllSound = () => {
+  const handleFadeOutAllSound = useCallback(() => {
     if (baseLoopRef.current) fadeOutAndPause(baseLoopRef.current);
+    // Iterate Sets for fading
     environmentalAudioRefs.current.forEach(fadeOutAndPause);
     melodyAudioRefs.current.forEach(fadeOutAndPause);
-  };
+  }, [fadeOutAndPause]); // Depends on fadeOutAndPause
 
+  // Effect for handling volume changes when isMuted toggles
   useEffect(() => {
     handleVolumeChange();
-  }, [isMuted]);
+  }, [handleVolumeChange]); // Depends on the memoized function
 
+  // Effect for cleaning up sound on route change or component unmount
   useEffect(() => {
-    const handleRouteChange = (url: string) => {
+    const handleRouteChange = () => {
       handleFadeOutAllSound();
     };
-    handleRouteChange(router.asPath);
-  }, [router]);
 
-  // -----------------------------
-  //   RENDER
-  // -----------------------------
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    // Cleanup on unmount
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+      handleFadeOutAllSound(); // Also fade out on unmount
+      // Clear audio refs completely on unmount
+      baseLoopRef.current?.pause();
+      baseLoopRef.current = null;
+      environmentalAudioRefs.current.clear();
+      melodyAudioRefs.current.clear();
+    };
+  }, [router.events, handleFadeOutAllSound]); // Depend on router.events and the memoized function
+
   return (
     <SensitiveBoardWrapper
       onClick={handleClick}
@@ -466,16 +558,19 @@ export const SensitiveBoard = ({
         <Hint className="type-small">Click anywhere to continue</Hint>
       </HintWrapper>
 
+      {/* Assuming MuteTrigger is memoized */}
       {isActive && (
         <MuteTrigger
-          setIsMuted={setIsMuted}
+          setIsMuted={setIsMuted} // State setter is stable
           isMuted={isMuted}
           isActive={isActive}
         />
       )}
 
-      {bubbles.map((bubble, index) => (
-        <Bubble data={bubble} index={index} key={index} />
+      {/* Assuming Bubble is memoized and handles its own animation */}
+      {/* Use stable unique id for key prop */}
+      {bubbles.map((bubble) => (
+        <Bubble data={bubble} index={bubble.id} key={bubble.id} />
       ))}
 
       <PhraseWrapper className="cursor-sensitive">
@@ -486,6 +581,7 @@ export const SensitiveBoard = ({
         </AnimatePresence>
       </PhraseWrapper>
 
+      {/* Shader component likely won't benefit much from memoization unless its props change */}
       <ShaderOuter>
         <ShaderGradientCanvas
           style={{
@@ -506,4 +602,4 @@ export const SensitiveBoard = ({
   );
 };
 
-export default SensitiveBoard;
+export default SensitiveBoard; // Keep default export if needed

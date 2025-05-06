@@ -79,8 +79,8 @@ const PortraitWorkCard = (props: Props) => {
   return (
     <Link
       className="cursor-arrow-text-link work-portrait-card"
-      href={`/works/${slug.current}`}
       data-title={title}
+      href={`/works/${slug.current}`}
     >
       <PortraitWorkCardWrapper ref={ref} $comingSoon={comingSoon}>
         {image?.asset?.url && (
