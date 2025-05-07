@@ -7,7 +7,7 @@ import pxToRem from "../../../utils/pxToRem";
 
 const HomeWorkCardWrapper = styled.button`
   grid-column: span 4;
-  padding-top: 125%;
+  padding-top: 100%;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -89,6 +89,8 @@ const HomeWorkCard = (props: Props) => {
             style={{
               objectFit: "cover",
             }}
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 33vw"
           />
         )}
       </Inner>

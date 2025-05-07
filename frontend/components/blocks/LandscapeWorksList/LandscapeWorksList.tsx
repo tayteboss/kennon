@@ -36,6 +36,7 @@ const LandscapeWorksList = (props: Props) => {
             yearCompleted={item?.yearCompleted}
             type={item?._type}
             comingSoon={item?.comingSoon}
+            isPriority={i === 0}
           />
         ))}
     </LandscapeWorksListWrapper>

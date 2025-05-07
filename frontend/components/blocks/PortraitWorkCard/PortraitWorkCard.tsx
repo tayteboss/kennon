@@ -65,10 +65,11 @@ type Props = {
   slug: WorkType["slug"];
   comingSoon: WorkType["comingSoon"];
   yearCompleted: WorkType["yearCompleted"];
+  index: number;
 };
 
 const PortraitWorkCard = (props: Props) => {
-  const { title, image, slug, comingSoon, yearCompleted } = props;
+  const { title, image, slug, comingSoon, yearCompleted, index } = props;
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -97,6 +98,8 @@ const PortraitWorkCard = (props: Props) => {
                 objectFit: "cover",
               }}
               sizes="(max-width: 768px) 50vw, 33vw"
+              loading={index < 6 ? "eager" : "lazy"}
+              priority={index < 3 ? true : false}
             />
           </ImageWrapper>
         )}

@@ -3,6 +3,8 @@ import pxToRem from "../../../utils/pxToRem";
 import Link from "next/link";
 import NavbarLinks from "../../blocks/NavbarLinks";
 import MenuTrigger from "../../blocks/MenuTrigger";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 const HeaderWrapper = styled.header`
   position: fixed;
@@ -31,6 +33,11 @@ const HeaderWrapper = styled.header`
   }
 `;
 
+const LogoWrapper = styled.div<{ $isVisible: boolean }>`
+  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
+  transition: all var(--transition-speed-default) var(--transition-ease);
+`;
+
 type Props = {
   menuIsActive: boolean;
   setMenuIsActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -40,15 +47,49 @@ type Props = {
 const Header = (props: Props) => {
   const { menuIsActive, setMenuIsActive, workTypeRefresh } = props;
 
+  const [isVisible, setIsVisible] = useState(false);
+
+  const { pathname } = useRouter();
+
+  const handleScroll = () => {
+    if (pathname === "/") {
+      if (window.scrollY < 500) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+    } else {
+      setIsVisible(true);
+    }
+  };
+
+  useEffect(() => {
+    if (pathname === "/") {
+      setIsVisible(false);
+    } else {
+      setIsVisible(true);
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      if (pathname === "/") {
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [pathname]);
+
   return (
     <HeaderWrapper className="header">
-      <Link
-        href="/"
-        onClick={() => setMenuIsActive(false)}
-        className="type-heading-small"
-      >
-        Kennon
-      </Link>
+      <LogoWrapper $isVisible={isVisible}>
+        <Link
+          href="/"
+          onClick={() => setMenuIsActive(false)}
+          className="type-heading-small"
+        >
+          Kennon
+        </Link>
+      </LogoWrapper>
       {/* <NavbarLinks workTypeRefresh={workTypeRefresh} /> */}
       <MenuTrigger
         menuIsActive={menuIsActive}

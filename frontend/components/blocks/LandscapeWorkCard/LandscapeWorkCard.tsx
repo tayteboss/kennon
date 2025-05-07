@@ -49,11 +49,20 @@ type Props = {
   yearCompleted: WorkType["yearCompleted"];
   type: WorkType["_type"];
   comingSoon: WorkType["comingSoon"];
+  isPriority: boolean;
 };
 
 const LandscapeWorkCard = (props: Props) => {
-  const { title, image, location, slug, yearCompleted, type, comingSoon } =
-    props;
+  const {
+    title,
+    image,
+    location,
+    slug,
+    yearCompleted,
+    type,
+    comingSoon,
+    isPriority,
+  } = props;
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -81,6 +90,9 @@ const LandscapeWorkCard = (props: Props) => {
               style={{
                 objectFit: "cover",
               }}
+              loading="lazy"
+              sizes="100vw"
+              priority={isPriority}
             />
           </ImageWrapper>
         )}

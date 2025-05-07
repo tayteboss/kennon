@@ -112,6 +112,7 @@ const PressCard = (props: Props) => {
               style={{
                 objectFit: "cover",
               }}
+              loading="lazy"
             />
           </ImageWrapper>
         )}

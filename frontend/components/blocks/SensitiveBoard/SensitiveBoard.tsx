@@ -14,7 +14,6 @@ import pxToRem from "../../../utils/pxToRem";
 import ButtonLayout from "../../layout/ButtonLayout";
 import { useRouter } from "next/router";
 import { SensitivePageType } from "../../../shared/types/types";
-import SoundIcon from "../../svgs/SoundIcon";
 import MuteTrigger from "../../elements/MuteTrigger"; // Assuming MuteTrigger is memoized
 import Logo from "../../svgs/Logo";
 
@@ -81,7 +80,7 @@ const ShaderOuter = styled.div`
     opacity: 1;
 
     & > div {
-      filter: brightness(0.8);
+      filter: brightness(0.9);
     }
   }
 `;

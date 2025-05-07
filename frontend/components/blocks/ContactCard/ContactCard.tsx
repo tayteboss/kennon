@@ -115,7 +115,11 @@ const ContactCard = (props: Props) => {
               {media && (
                 <ImageInner>
                   <ImageAbsolute>
-                    <MediaStack data={media} />
+                    <MediaStack
+                      data={media}
+                      isPriority
+                      sizes="(max-width: 768px) 100vw, 60vw"
+                    />
                   </ImageAbsolute>
                 </ImageInner>
               )}

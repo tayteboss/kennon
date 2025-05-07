@@ -213,7 +213,8 @@ const ListWorkCard = (props: Props) => {
                       priority={isPriority}
                       fill
                       style={{ objectFit: "cover" }}
-                      sizes="8vw"
+                      sizes="calc(100vw / 13)"
+                      loading={isPriority ? "eager" : "lazy"}
                     />
                   </ImageInner>
                 </ImageWrapper>
@@ -231,6 +232,7 @@ const ListWorkCard = (props: Props) => {
                       fill
                       style={{ objectFit: "cover" }}
                       sizes="25vw"
+                      loading={isPriority ? "eager" : "lazy"}
                     />
                   </ImageInner>
                 </ImageWrapper>

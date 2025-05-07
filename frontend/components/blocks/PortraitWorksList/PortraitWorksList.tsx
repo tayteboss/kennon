@@ -47,6 +47,7 @@ const PortraitWorksList = (props: Props) => {
                 slug={item?.slug}
                 comingSoon={item?.comingSoon}
                 yearCompleted={item?.yearCompleted}
+                index={i}
               />
             ))}
         </LayoutGrid>
