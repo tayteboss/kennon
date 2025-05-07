@@ -68,6 +68,7 @@ const Page = (props: Props) => {
         melodySounds={data?.melodySounds}
         environmentalSounds={data?.environmentalSounds}
         buttonTitle={siteSettings?.beingSensitiveButtonTitle}
+        url={siteSettings?.beingSensitiveGradientUrl}
       />
     </PageWrapper>
   );

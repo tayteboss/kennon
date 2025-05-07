@@ -76,6 +76,7 @@ const Page = (props: Props) => {
           isHomePage={true}
           handleCursorRefresh={() => handleCursorRefresh()}
           buttonTitle={siteSettings?.beingSensitiveButtonTitle}
+          url={siteSettings?.beingSensitiveGradientUrl}
         />
       )}
       <HomeWorks

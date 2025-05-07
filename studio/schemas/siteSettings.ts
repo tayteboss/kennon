@@ -77,5 +77,11 @@ export default {
       name: 'beingSensitiveButtonTitle',
       type: 'string',
     },
+    {
+      title: 'Being Sensitive Gradient URL',
+      name: 'beingSensitiveGradientUrl',
+      type: 'url',
+      validation: (Rule) => Rule.required(),
+    },
   ],
 }

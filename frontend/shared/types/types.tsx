@@ -63,6 +63,7 @@ export type SiteSettingsType = {
     };
   };
   beingSensitiveButtonTitle: string;
+  beingSensitiveGradientUrl: string;
 };
 
 export type SEOType = {
