@@ -4,17 +4,26 @@ import ImageComponent from "./ImageComponent";
 import VideoComponent from "./VideoComponent";
 import { MediaType } from "../../../shared/types/types";
 
-const MediaStackWrapper = styled.div`
-  pointer-events: none;
-`;
+const MediaStackWrapper = styled.div``;
 
 type Props = {
   data: MediaType;
   isPriority?: boolean;
+  sizes?: undefined | string;
+  alt?: string;
+  lazyLoad?: boolean;
 };
 
 const MediaStack = (props: Props) => {
-  const { data, isPriority = false } = props ?? {};
+  const {
+    data,
+    isPriority = false,
+    sizes = undefined,
+    alt,
+    lazyLoad = false,
+  } = props ?? {};
+
+  // sizes="(max-width: 768px) 38vw, (max-width: 1024px) 20vw, 15vw"
 
   const useVideo = data?.mediaType === "video";
 
@@ -27,10 +36,22 @@ const MediaStack = (props: Props) => {
   return (
     <MediaStackWrapper ref={ref}>
       {useVideo && (
-        <VideoComponent data={data} inView={inView} isPriority={isPriority} />
+        <VideoComponent
+          data={data}
+          inView={inView}
+          isPriority={isPriority}
+          lazyLoad={lazyLoad}
+        />
       )}
       {!useVideo && (
-        <ImageComponent data={data} isPriority={isPriority} inView={inView} />
+        <ImageComponent
+          data={data}
+          isPriority={isPriority}
+          inView={inView}
+          sizes={sizes}
+          alt={alt}
+          lazyLoad={lazyLoad}
+        />
       )}
     </MediaStackWrapper>
   );

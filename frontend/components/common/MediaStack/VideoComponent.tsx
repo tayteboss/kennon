@@ -62,28 +62,38 @@ type Props = {
   data: MediaType;
   inView: boolean;
   isPriority: boolean;
+  noAnimation?: boolean;
+  lazyLoad?: boolean;
 };
 
 const VideoComponent = (props: Props) => {
-  const { data, inView, isPriority } = props;
+  const { data, inView, isPriority, noAnimation, lazyLoad } = props;
 
   const playbackId = data?.video?.asset?.playbackId;
   const posterUrl = `https://image.mux.com/${data?.video?.asset?.playbackId}/thumbnail.png?width=214&height=121&time=1`;
 
   return (
     <VideoComponentWrapper className="media-wrapper">
-      <AnimatePresence initial={false}>
-        {inView && playbackId && (
-          <InnerBlur
-            variants={wrapperVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-          >
-            <Image src={`${posterUrl}`} alt={""} fill priority={isPriority} />
-          </InnerBlur>
-        )}
-      </AnimatePresence>
+      {!noAnimation && posterUrl && (
+        <AnimatePresence initial={false}>
+          {inView && playbackId && (
+            <InnerBlur
+              variants={wrapperVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <Image
+                src={`${posterUrl}`}
+                alt={""}
+                fill
+                priority={isPriority}
+                sizes="50vw"
+              />
+            </InnerBlur>
+          )}
+        </AnimatePresence>
+      )}
       {playbackId && (
         <Inner>
           <MuxPlayer
@@ -92,7 +102,7 @@ const VideoComponent = (props: Props) => {
             autoPlay="muted"
             loop={true}
             thumbnailTime={1}
-            loading="page"
+            loading={lazyLoad ? "viewport" : "page"}
             preload="auto"
             muted
             playsInline={true}
