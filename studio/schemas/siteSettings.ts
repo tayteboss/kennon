@@ -83,5 +83,28 @@ export default {
       type: 'url',
       validation: (Rule) => Rule.required(),
     },
+    {
+      title: 'Screensavers',
+      name: 'screensavers',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              title: 'Title',
+              name: 'title',
+              type: 'string',
+            },
+            {
+              title: 'URL',
+              name: 'url',
+              type: 'url',
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+        },
+      ],
+    },
   ],
 }

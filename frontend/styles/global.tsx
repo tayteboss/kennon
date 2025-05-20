@@ -72,6 +72,12 @@ export const GlobalStyles = createGlobalStyle`
 
 	body {
 		position: relative;
+
+		&.screensaver {
+			.footer, .header {
+				display: none !important;
+			}
+		}
 	}
 
 	input,

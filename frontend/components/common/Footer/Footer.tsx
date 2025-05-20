@@ -77,7 +77,7 @@ const Footer = (props: Props) => {
   } = props.siteSettings;
 
   return (
-    <FooterWrapper>
+    <FooterWrapper className="footer">
       <LayoutWrapper>
         <Inner>
           <LayoutGrid>

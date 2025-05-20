@@ -25,6 +25,16 @@ const Layout = (props: Props) => {
 
   useEffect(() => {
     setMenuIsActive(false);
+
+    const body = document.body;
+
+    console.log(router.asPath);
+
+    if (router.asPath === "/screensavers") {
+      body.classList.add("screensaver");
+    } else {
+      body.classList.remove("screensaver");
+    }
   }, [router.asPath]);
 
   useEffect(() => {

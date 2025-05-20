@@ -64,6 +64,10 @@ export type SiteSettingsType = {
   };
   beingSensitiveButtonTitle: string;
   beingSensitiveGradientUrl: string;
+  screensavers: {
+    title: string;
+    url: string;
+  }[];
 };
 
 export type SEOType = {
