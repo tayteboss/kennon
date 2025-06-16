@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import { WorkType } from "../../../shared/types/types";
-import formatType from "../../../utils/formatType";
 import LayoutWrapper from "../../layout/LayoutWrapper";
 import router from "next/router";
 import { setWorkType } from "../../../utils/setWorkType";
 import pxToRem from "../../../utils/pxToRem";
-import LayoutGrid from "../../layout/LayoutGrid";
-import PortraitWorkCard from "../PortraitWorkCard";
-import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
+import LandscapeCardTitle from "../../elements/LandscapeCardTitle";
+import Link from "next/link";
 
 const WorkRelatedWrapper = styled.section`
   .layout-grid {
@@ -39,33 +38,48 @@ const Button = styled.button`
 
   transition: all var(--transition-speed-default) var(--transition-ease);
 
+  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+    display: none;
+  }
+
   &:hover {
     color: var(--colour-black);
   }
 `;
 
-const DesktopWrapper = styled.div`
+const NextProjectMediaWrapper = styled.section`
+  padding-top: 56.25%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    display: none;
+    padding-top: 133.33%;
   }
 `;
 
-const MobileWrapper = styled.div`
-  display: none;
+const ImageWrapper = styled.div`
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
 
-  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    display: block;
-    position: relative;
+  .landscape-card-title {
+    position: absolute;
+    top: ${pxToRem(32)};
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 
 type Props = {
-  data: WorkType["relatedWork"];
+  data?: WorkType["relatedWork"];
   type: WorkType["_type"];
+  nextWork?: any;
 };
 
 const WorkRelated = (props: Props) => {
-  const { data, type } = props;
+  const { data, type, nextWork } = props;
 
   const handleClick = () => {
     if (type === "publicWork") {
@@ -77,55 +91,47 @@ const WorkRelated = (props: Props) => {
     }
   };
 
-  const hasData = data && data.length > 0;
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+  const hasRelatedWork = data && data.length > 0;
+  const hasNextWork = !!nextWork;
 
   return (
     <>
-      {hasData && (
+      {hasNextWork && (
         <WorkRelatedWrapper>
           <LayoutWrapper>
             <TitleWrapper>
-              <Title className="type-h1">
-                Other {formatType(type, true)} works
-              </Title>
+              <Title className="type-h1"></Title>
               <Button onClick={() => handleClick()}>Back to works</Button>
             </TitleWrapper>
-            <DesktopWrapper>
-              <LayoutGrid>
-                {hasData &&
-                  data.map((item, i) => (
-                    <PortraitWorkCard
-                      key={i}
-                      title={item?.title}
-                      image={item?.portraitThumbnailImage}
-                      slug={item?.slug}
-                      comingSoon={item?.comingSoon}
-                      yearCompleted={item?.yearCompleted}
-                    />
-                  ))}
-              </LayoutGrid>
-            </DesktopWrapper>
           </LayoutWrapper>
-          <MobileWrapper>
-            <div className="embla" ref={emblaRef}>
-              <div className="embla__container">
-                {hasData &&
-                  data.map((item, i) => (
-                    <div className="embla__slide" key={i}>
-                      <PortraitWorkCard
-                        title={item?.title}
-                        image={item?.portraitThumbnailImage}
-                        slug={item?.slug}
-                        comingSoon={item?.comingSoon}
-                        yearCompleted={item?.yearCompleted}
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </MobileWrapper>
+          <Link href={`/works/${nextWork?.slug?.current}`}>
+            <NextProjectMediaWrapper
+              className="cursor-arrow-text-link"
+              data-title="Next work"
+            >
+              {nextWork?.landscapeThumbnailImage?.asset?.url && (
+                <ImageWrapper>
+                  <Image
+                    src={nextWork?.landscapeThumbnailImage?.asset?.url}
+                    alt={`${nextWork?.title} hero image`}
+                    priority={false}
+                    fill
+                    sizes="100vw"
+                    style={{
+                      objectFit: "cover",
+                    }}
+                  />
+                  <LandscapeCardTitle
+                    title={nextWork?.title}
+                    location={nextWork?.location}
+                    yearCompleted={nextWork?.yearCompleted}
+                    comingSoon={nextWork?.comingSoon}
+                    type={nextWork?._type}
+                  />
+                </ImageWrapper>
+              )}
+            </NextProjectMediaWrapper>
+          </Link>
         </WorkRelatedWrapper>
       )}
     </>

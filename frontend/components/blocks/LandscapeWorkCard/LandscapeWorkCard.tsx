@@ -90,7 +90,7 @@ const LandscapeWorkCard = (props: Props) => {
               style={{
                 objectFit: "cover",
               }}
-              loading="lazy"
+              loading={isPriority ? "eager" : "lazy"}
               sizes="100vw"
               priority={isPriority}
             />

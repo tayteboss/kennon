@@ -98,7 +98,7 @@ const PortraitWorkCard = (props: Props) => {
                 objectFit: "cover",
               }}
               sizes="(max-width: 768px) 50vw, 33vw"
-              loading={index < 6 ? "eager" : "lazy"}
+              loading={index < 3 ? "eager" : "lazy"}
               priority={index < 3 ? true : false}
             />
           </ImageWrapper>

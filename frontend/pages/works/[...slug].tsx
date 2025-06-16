@@ -15,25 +15,22 @@ import { useLenis } from "@studio-freight/react-lenis";
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
-  margin-bottom: ${pxToRem(120)};
-
-  @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-    margin-bottom: ${pxToRem(80)};
-  }
+  margin-bottom: ${pxToRem(40)};
 `;
 
 type Props = {
   data: WorkType;
   pageTransitionVariants: TransitionsType;
   cursorRefresh: any;
+  nextWork: any;
 };
 
 const Page = (props: Props) => {
-  const { data, pageTransitionVariants, cursorRefresh } = props;
+  const { data, pageTransitionVariants, cursorRefresh, nextWork } = props;
 
   const subheading = `${data?.title} — ${data?.location} — ${data?.comingSoon ? "Coming soon" : data?.yearCompleted}`;
 
-  const lenis = useLenis(({ scroll }) => {});
+  const lenis = useLenis();
 
   useEffect(() => {
     if (!lenis) return;
@@ -65,7 +62,11 @@ const Page = (props: Props) => {
       <WorkHeroImage data={data?.landscapeThumbnailImage} title={data?.title} />
       <PageBuilder data={data?.pageBuilder} />
       <WorkSenses data={data?.senseBlocks} />
-      <WorkRelated data={data?.relatedWork} type={data?._type} />
+      <WorkRelated
+        data={data?.relatedWork}
+        type={data?._type}
+        nextWork={nextWork}
+      />
     </PageWrapper>
   );
 };
@@ -109,10 +110,48 @@ export async function getStaticProps({ params }: any) {
 	`;
   const data = await client.fetch(workQuery);
 
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const allWorkQuery = `
+    *[_type == "${data._type}"] | order(yearCompleted asc) {
+      slug,
+      title,
+      _id,
+      landscapeThumbnailImage {
+          asset->{
+              url,
+              alt
+          }
+      },
+      comingSoon,
+      yearCompleted,
+      location,
+      type
+    }
+  `;
+  const allWork = await client.fetch(allWorkQuery);
+
+  const currentIndex = allWork.findIndex((work: any) => work._id === data._id);
+  let nextWork = null;
+
+  if (currentIndex > -1 && allWork.length > 1) {
+    nextWork = allWork[(currentIndex + 1) % allWork.length];
+  }
+
+  if (nextWork && nextWork._id === data._id) {
+    nextWork = null;
+  }
+
   return {
     props: {
       data,
+      nextWork,
     },
+    revalidate: 60,
   };
 }
 

@@ -28,8 +28,6 @@ const Layout = (props: Props) => {
 
     const body = document.body;
 
-    console.log(router.asPath);
-
     if (router.asPath === "/screensavers") {
       body.classList.add("screensaver");
     } else {
