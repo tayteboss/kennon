@@ -5,7 +5,7 @@ import SenseBlock from "../SenseBlock";
 import pxToRem from "../../../utils/pxToRem";
 
 const WorkSensesWrapper = styled.section`
-  margin-bottom: ${pxToRem(240)};
+  margin-bottom: ${pxToRem(120)};
   padding: 0 ${pxToRem(24)};
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {

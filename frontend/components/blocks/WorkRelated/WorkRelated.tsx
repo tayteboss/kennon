@@ -30,7 +30,14 @@ const TitleWrapper = styled.div`
   margin-bottom: ${pxToRem(24)};
 `;
 
-const Title = styled.h3``;
+const Title = styled.h3`
+  color: var(--colour-mid-grey);
+  transition: all var(--transition-speed-default) var(--transition-ease);
+
+  &:hover {
+    color: var(--colour-black);
+  }
+`;
 
 const Button = styled.button`
   color: var(--colour-mid-grey);
@@ -75,11 +82,12 @@ const ImageWrapper = styled.div`
 type Props = {
   data?: WorkType["relatedWork"];
   type: WorkType["_type"];
-  nextWork?: any;
+  nextWork?: WorkType;
+  previousWork?: WorkType;
 };
 
 const WorkRelated = (props: Props) => {
-  const { data, type, nextWork } = props;
+  const { data, type, nextWork, previousWork } = props;
 
   const handleClick = () => {
     if (type === "publicWork") {
@@ -93,6 +101,7 @@ const WorkRelated = (props: Props) => {
 
   const hasRelatedWork = data && data.length > 0;
   const hasNextWork = !!nextWork;
+  const hasPreviousWork = !!previousWork;
 
   return (
     <>
@@ -100,11 +109,16 @@ const WorkRelated = (props: Props) => {
         <WorkRelatedWrapper>
           <LayoutWrapper>
             <TitleWrapper>
-              <Title className="type-h1"></Title>
-              <Button onClick={() => handleClick()}>Back to works</Button>
+              <Link href={`/works/${previousWork?.slug?.current}`}>
+                <Title className="type-h1">Previous work</Title>
+              </Link>
+              <Link href={`/works/${nextWork?.slug?.current}`}>
+                <Title className="type-h1">Next work</Title>
+              </Link>
+              {/* <Button onClick={() => handleClick()}>Back to works</Button> */}
             </TitleWrapper>
           </LayoutWrapper>
-          <Link href={`/works/${nextWork?.slug?.current}`}>
+          {/* <Link href={`/works/${nextWork?.slug?.current}`}>
             <NextProjectMediaWrapper
               className="cursor-arrow-text-link"
               data-title="Next work"
@@ -131,7 +145,7 @@ const WorkRelated = (props: Props) => {
                 </ImageWrapper>
               )}
             </NextProjectMediaWrapper>
-          </Link>
+          </Link> */}
         </WorkRelatedWrapper>
       )}
     </>

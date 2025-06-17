@@ -22,11 +22,18 @@ type Props = {
   data: WorkType;
   pageTransitionVariants: TransitionsType;
   cursorRefresh: any;
-  nextWork: any;
+  nextWork: WorkType;
+  previousWork: WorkType;
 };
 
 const Page = (props: Props) => {
-  const { data, pageTransitionVariants, cursorRefresh, nextWork } = props;
+  const {
+    data,
+    pageTransitionVariants,
+    cursorRefresh,
+    nextWork,
+    previousWork,
+  } = props;
 
   const subheading = `${data?.title} — ${data?.location} — ${data?.comingSoon ? "Coming soon" : data?.yearCompleted}`;
 
@@ -66,6 +73,7 @@ const Page = (props: Props) => {
         data={data?.relatedWork}
         type={data?._type}
         nextWork={nextWork}
+        previousWork={previousWork}
       />
     </PageWrapper>
   );
@@ -137,19 +145,27 @@ export async function getStaticProps({ params }: any) {
 
   const currentIndex = allWork.findIndex((work: any) => work._id === data._id);
   let nextWork = null;
+  let previousWork = null;
 
   if (currentIndex > -1 && allWork.length > 1) {
     nextWork = allWork[(currentIndex + 1) % allWork.length];
+    previousWork =
+      allWork[(currentIndex - 1 + allWork.length) % allWork.length];
   }
 
   if (nextWork && nextWork._id === data._id) {
     nextWork = null;
   }
 
+  if (previousWork && previousWork._id === data._id) {
+    previousWork = null;
+  }
+
   return {
     props: {
       data,
       nextWork,
+      previousWork,
     },
     revalidate: 60,
   };
