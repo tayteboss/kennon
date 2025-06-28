@@ -110,10 +110,10 @@ const WorkRelated = (props: Props) => {
           <LayoutWrapper>
             <TitleWrapper>
               <Link href={`/works/${previousWork?.slug?.current}`}>
-                <Title className="type-h1">Previous work</Title>
+                <Title className="type-h1">Previous</Title>
               </Link>
               <Link href={`/works/${nextWork?.slug?.current}`}>
-                <Title className="type-h1">Next work</Title>
+                <Title className="type-h1">Next</Title>
               </Link>
               {/* <Button onClick={() => handleClick()}>Back to works</Button> */}
             </TitleWrapper>

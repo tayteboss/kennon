@@ -3,7 +3,6 @@ import MediaStack from "../../common/MediaStack";
 import { useInView } from "react-intersection-observer";
 import getRatio from "../../../utils/getRatio";
 import { useEffect, useState } from "react";
-import pxToRem from "../../../utils/pxToRem";
 
 const FullMediaSectionWrapper = styled.section``;
 

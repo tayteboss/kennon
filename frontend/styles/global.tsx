@@ -171,16 +171,16 @@ export const GlobalStyles = createGlobalStyle`
 		font-weight: 400;
 	}
 
-	.work-landscape-card {
+	/* .work-landscape-card {
 		display: block;
-		height: 100lvh;
+		padding-top: 75%;
 		width: 100%;
 		position: relative;
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
 			height: 50lvh;
 		}
-	}
+	} */
 
 	.work-portrait-card {
 		grid-column: span 4;
@@ -204,7 +204,7 @@ export const GlobalStyles = createGlobalStyle`
 		&--full {
 			.media-wrapper {
 				position: relative;
-				padding-top: 56.25%;
+				padding-top: 75%;
 				width: 100%;
 			}
 		}
