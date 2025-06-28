@@ -64,6 +64,8 @@ const Page = (props: Props) => {
       />
       <SensitiveBoard
         phrases={data?.phrases}
+        text={data?.text}
+        useExtendedText={true}
         baseLoop={data?.baseLoop}
         melodySounds={data?.melodySounds}
         environmentalSounds={data?.environmentalSounds}

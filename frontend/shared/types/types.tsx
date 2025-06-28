@@ -142,6 +142,7 @@ export type SensitivePageType = {
   seo: SEOType;
   heroTitle: string;
   phrases: string[];
+  text: string;
   baseLoop: {
     asset: {
       url: string;

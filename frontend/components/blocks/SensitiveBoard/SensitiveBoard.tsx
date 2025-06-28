@@ -7,7 +7,13 @@ import React, {
   useMemo,
 } from "react";
 import styled from "styled-components";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+  Variants,
+} from "framer-motion";
 import Bubble from "../../elements/Bubble"; // Assuming Bubble is memoized: export default React.memo(Bubble);
 import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
 import pxToRem from "../../../utils/pxToRem";
@@ -19,6 +25,8 @@ import {
 } from "../../../shared/types/types";
 import MuteTrigger from "../../elements/MuteTrigger"; // Assuming MuteTrigger is memoized
 import Logo from "../../svgs/Logo";
+import formatHTML from "../../../utils/formatHTML";
+import { useLenis } from "@studio-freight/react-lenis";
 
 // Define isMobile outside the component as it doesn't depend on props or state
 const isClient = typeof window !== "undefined";
@@ -27,7 +35,7 @@ const isMobile = () =>
 
 const SensitiveBoardWrapper = styled.section`
   height: 100lvh;
-  height: 100vh;
+  min-height: 100lvh;
   width: 100%;
   overflow: hidden;
   position: fixed;
@@ -43,8 +51,8 @@ const SensitiveBoardWrapper = styled.section`
   }
 `;
 
-const PhraseWrapper = styled.div`
-  height: 100%;
+const PhraseWrapper = styled(motion.div)`
+  height: 100lvh;
   width: 100%;
   display: flex;
   flex-flow: column;
@@ -77,7 +85,12 @@ const Letter = styled(motion.span)`
 `;
 
 const ShaderOuter = styled.div`
-  opacity: 0.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  opacity: 1;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     opacity: 1;
@@ -161,24 +174,34 @@ const LogoWrapper = styled.div<{ $isReady: boolean }>`
   }
 `;
 
-interface BubbleData {
-  // Define a more specific type for bubble data
+const ExtendedTextWrapper = styled.section`
+  padding: 100lvh ${pxToRem(32)} 0;
+  max-width: ${pxToRem(640)};
+  margin: 0 auto;
+  text-align: center;
+  mix-blend-mode: luminosity;
+  color: var(--colour-white);
+  pointer-events: none;
+`;
+
+const ExtendedText = styled.div`
+  * {
+    font-size: ${pxToRem(26)};
+    line-height: 1.2;
+
+    @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+      font-size: ${pxToRem(18)};
+      line-height: 1.1;
+    }
+  }
+`;
+
+type BubbleData = {
   x: number;
   y: number;
   fileName: string | null;
   audio?: HTMLAudioElement;
-  id: number; // Add a unique ID for key prop
-}
-
-type Props = {
-  phrases?: SensitivePageType["phrases"];
-  baseLoop?: SensitivePageType["baseLoop"];
-  melodySounds?: SensitivePageType["melodySounds"];
-  environmentalSounds?: SensitivePageType["environmentalSounds"];
-  isHomePage?: boolean;
-  handleCursorRefresh?: () => void;
-  buttonTitle?: string;
-  url: SiteSettingsType["beingSensitiveGradientUrl"];
+  id: number;
 };
 
 const containerVariants: Variants = {
@@ -216,9 +239,9 @@ const letterVariants: Variants = {
   },
 };
 
-interface AnimatedTextProps {
+type AnimatedTextProps = {
   text: string;
-}
+};
 
 const AnimatedText = React.memo(({ text }: AnimatedTextProps) => {
   const words = text.split(" ");
@@ -248,10 +271,26 @@ const AnimatedText = React.memo(({ text }: AnimatedTextProps) => {
     </AnimatedPhraseContainer>
   );
 });
+
 AnimatedText.displayName = "AnimatedText"; // Good practice for React DevTools
+
+type Props = {
+  phrases?: SensitivePageType["phrases"];
+  text?: SensitivePageType["text"];
+  useExtendedText?: boolean;
+  baseLoop?: SensitivePageType["baseLoop"];
+  melodySounds?: SensitivePageType["melodySounds"];
+  environmentalSounds?: SensitivePageType["environmentalSounds"];
+  isHomePage?: boolean;
+  handleCursorRefresh?: () => void;
+  buttonTitle?: string;
+  url: SiteSettingsType["beingSensitiveGradientUrl"];
+};
 
 export const SensitiveBoard = ({
   phrases,
+  text,
+  useExtendedText,
   baseLoop,
   melodySounds,
   environmentalSounds,
@@ -277,6 +316,8 @@ export const SensitiveBoard = ({
   const environmentalAudioRefs = useRef<Set<HTMLAudioElement>>(new Set());
   const melodyAudioRefs = useRef<Set<HTMLAudioElement>>(new Set());
   const nextBubbleId = useRef(0); // For stable keys
+
+  const lenis = useLenis(() => {});
 
   const environmentalFiles = useMemo(
     () => environmentalSounds?.map((item: any) => item.file.asset.url) || [],
@@ -319,6 +360,22 @@ export const SensitiveBoard = ({
       setPhraseIndex(0);
     }
   }, [isActive]);
+
+  useEffect(() => {
+    if (router.pathname !== "/being-sensitive" || !lenis) return;
+
+    if (isActive) {
+      lenis.start();
+    } else {
+      lenis.stop();
+    }
+
+    return () => {
+      if (lenis) {
+        lenis.start();
+      }
+    };
+  }, [isActive, lenis, router.pathname]);
 
   // Effect for showing hint after delay
   useEffect(() => {
@@ -538,75 +595,88 @@ export const SensitiveBoard = ({
     };
   }, [router.events, handleFadeOutAllSound]); // Depend on router.events and the memoized function
 
+  const { scrollY } = useScroll();
+
+  const blur = useTransform(scrollY, [0, 500], ["blur(0px)", "blur(20px)"]);
+
   return (
-    <SensitiveBoardWrapper
-      onClick={handleClick}
-      className="performance sensitive-board"
-    >
-      {isHomePage && (
-        <LogoWrapper $isReady={!isActive}>
-          <Logo />
-        </LogoWrapper>
-      )}
+    <>
+      <SensitiveBoardWrapper
+        onClick={handleClick}
+        className="performance sensitive-board"
+      >
+        {isHomePage && (
+          <LogoWrapper $isReady={!isActive}>
+            <Logo />
+          </LogoWrapper>
+        )}
 
-      <StartWrapper $isActive={!isActive} className="sensitive-board__start">
-        <ButtonWrapper>
-          <ButtonLayout>{buttonTitle}</ButtonLayout>
-        </ButtonWrapper>
-        <Hint className="type-small sensitive-board__hint">
-          Turn your volume up for the best experience
-        </Hint>
-      </StartWrapper>
+        <StartWrapper $isActive={!isActive} className="sensitive-board__start">
+          <ButtonWrapper>
+            <ButtonLayout>{buttonTitle}</ButtonLayout>
+          </ButtonWrapper>
+          <Hint className="type-small sensitive-board__hint">
+            Turn your volume up for the best experience
+          </Hint>
+        </StartWrapper>
 
-      <HintWrapper $isActive={isActive && showClickAgainHint}>
-        <Hint className="type-small">Click anywhere to continue</Hint>
-      </HintWrapper>
+        <HintWrapper $isActive={isActive && showClickAgainHint}>
+          <Hint className="type-small">Click anywhere to continue</Hint>
+        </HintWrapper>
 
-      {/* Assuming MuteTrigger is memoized */}
-      {isActive && (
-        <MuteTrigger
-          setIsMuted={setIsMuted} // State setter is stable
-          isMuted={isMuted}
-          isActive={isActive}
-        />
-      )}
-
-      {/* Assuming Bubble is memoized and handles its own animation */}
-      {/* Use stable unique id for key prop */}
-      {bubbles.map((bubble) => (
-        <Bubble data={bubble} index={bubble.id} key={bubble.id} />
-      ))}
-
-      <PhraseWrapper className="cursor-sensitive">
-        <AnimatePresence mode="wait">
-          {isActive && phrases && phrases.length > 0 && (
-            <AnimatedText key={phraseIndex} text={phrases[phraseIndex]} />
-          )}
-        </AnimatePresence>
-      </PhraseWrapper>
-
-      {/* Shader component likely won't benefit much from memoization unless its props change */}
-      <ShaderOuter>
-        <ShaderGradientCanvas
-          style={{
-            position: "absolute",
-            top: 0,
-            pointerEvents: "none",
-          }}
-          className="shader-gradient-canvas"
-        >
-          <ShaderGradient
-            control="query"
-            zoomOut={false}
-            urlString={
-              url
-                ? url
-                : "https://www.shadergradient.co/customize?animate=on&axesHelper=off&bgColor1=%23000000&bgColor2=%23000000&brightness=1.3&cAzimuthAngle=190&cDistance=2.8&cPolarAngle=130&cameraZoom=1&color1=%23E3C19D&color2=%23edebf0&color3=%23E3E4E2&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=40&frameRate=10&gizmoHelper=hide&grain=off&lightType=3d&pixelDensity=1&positionX=0&positionY=-0.3&positionZ=0&range=enabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=0&rotationY=0&rotationZ=-90&shader=defaults&type=waterPlane&uDensity=1&uFrequency=5.5&uSpeed=0.1&uStrength=3&uTime=0.2&wireframe=false"
-            }
+        {/* Assuming MuteTrigger is memoized */}
+        {isActive && (
+          <MuteTrigger
+            setIsMuted={setIsMuted} // State setter is stable
+            isMuted={isMuted}
+            isActive={isActive}
           />
-        </ShaderGradientCanvas>
-      </ShaderOuter>
-    </SensitiveBoardWrapper>
+        )}
+
+        {/* Assuming Bubble is memoized and handles its own animation */}
+        {/* Use stable unique id for key prop */}
+        {bubbles.map((bubble) => (
+          <Bubble data={bubble} index={bubble.id} key={bubble.id} />
+        ))}
+
+        <PhraseWrapper className="cursor-sensitive" style={{ filter: blur }}>
+          <AnimatePresence mode="wait">
+            {isActive && phrases && phrases.length > 0 && (
+              <AnimatedText key={phraseIndex} text={phrases[phraseIndex]} />
+            )}
+          </AnimatePresence>
+        </PhraseWrapper>
+
+        {/* Shader component likely won't benefit much from memoization unless its props change */}
+        <ShaderOuter>
+          <ShaderGradientCanvas
+            style={{
+              position: "absolute",
+              top: 0,
+              pointerEvents: "none",
+            }}
+            className="shader-gradient-canvas"
+          >
+            <ShaderGradient
+              control="query"
+              zoomOut={false}
+              urlString={
+                url
+                  ? url
+                  : "https://www.shadergradient.co/customize?animate=on&axesHelper=off&bgColor1=%23000000&bgColor2=%23000000&brightness=1.3&cAzimuthAngle=190&cDistance=2.8&cPolarAngle=130&cameraZoom=1&color1=%23E3C19D&color2=%23edebf0&color3=%23E3E4E2&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=40&frameRate=10&gizmoHelper=hide&grain=off&lightType=3d&pixelDensity=1&positionX=0&positionY=-0.3&positionZ=0&range=enabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=0&rotationY=0&rotationZ=-90&shader=defaults&type=waterPlane&uDensity=1&uFrequency=5.5&uSpeed=0.1&uStrength=3&uTime=0.2&wireframe=false"
+              }
+            />
+          </ShaderGradientCanvas>
+        </ShaderOuter>
+      </SensitiveBoardWrapper>
+      {useExtendedText && text && (
+        <ExtendedTextWrapper className="type-h1">
+          <ExtendedText
+            dangerouslySetInnerHTML={{ __html: formatHTML(text) }}
+          />
+        </ExtendedTextWrapper>
+      )}
+    </>
   );
 };
 

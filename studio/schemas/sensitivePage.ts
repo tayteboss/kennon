@@ -26,6 +26,11 @@ export default {
       of: [{type: 'string'}],
     },
     {
+      title: 'Text',
+      name: 'text',
+      type: 'text',
+    },
+    {
       title: 'Base loop',
       name: 'baseLoop',
       type: 'file',
