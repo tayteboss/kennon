@@ -33,7 +33,7 @@ const isClient = typeof window !== "undefined";
 const isMobile = () =>
   isClient && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-const SensitiveBoardWrapper = styled.section`
+const SensitiveBoardWrapper = styled(motion.section)`
   height: 100lvh;
   min-height: 100lvh;
   width: 100%;
@@ -303,10 +303,11 @@ export const SensitiveBoard = ({
   const [isMuted, setIsMuted] = useState(false);
   const [showClickAgainHint, setShowClickAgainHint] = useState(false);
   const [hintTriggered, setHintTriggered] = useState(false);
-
-  const router = useRouter();
   const [bubbles, setBubbles] = useState<BubbleData[]>([]);
   const [phraseIndex, setPhraseIndex] = useState<number>(0);
+  const [isSensitivePage, setIsSensitivePage] = useState(false);
+
+  const router = useRouter();
 
   const baseLoopRef = useRef<HTMLAudioElement | null>(null);
   // Use refs for indices to avoid state updates causing re-renders when only sound logic changes
@@ -362,7 +363,10 @@ export const SensitiveBoard = ({
   }, [isActive]);
 
   useEffect(() => {
-    if (router.pathname !== "/being-sensitive" || !lenis) return;
+    const isSensitive = router.pathname === "/being-sensitive";
+    setIsSensitivePage(isSensitive);
+
+    if (!lenis || !isSensitive) return;
 
     if (isActive) {
       lenis.start();
@@ -371,7 +375,7 @@ export const SensitiveBoard = ({
     }
 
     return () => {
-      if (lenis) {
+      if (lenis && isSensitive) {
         lenis.start();
       }
     };
@@ -598,12 +602,18 @@ export const SensitiveBoard = ({
   const { scrollY } = useScroll();
 
   const blur = useTransform(scrollY, [0, 500], ["blur(0px)", "blur(20px)"]);
+  const filterDarkness = useTransform(
+    scrollY,
+    [0, 500],
+    ["brightness(1)", "brightness(0.9)"]
+  );
 
   return (
     <>
       <SensitiveBoardWrapper
         onClick={handleClick}
         className="performance sensitive-board"
+        style={{ filter: isSensitivePage ? filterDarkness : "none" }}
       >
         {isHomePage && (
           <LogoWrapper $isReady={!isActive}>
