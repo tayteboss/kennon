@@ -13,6 +13,7 @@ import {
 } from "../lib/sanityQueries";
 import pxToRem from "../utils/pxToRem";
 import SensitiveBoard from "../components/blocks/SensitiveBoard";
+import { useEffect } from "react";
 
 const PageWrapper = styled(motion.div)`
   padding-top: var(--header-h);
@@ -50,6 +51,10 @@ type Props = {
 
 const Page = (props: Props) => {
   const { data, siteSettings, pageTransitionVariants } = props;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <PageWrapper

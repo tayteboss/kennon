@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 import pxToRem from "../../../utils/pxToRem";
 
 const WorkHeroImageWrapper = styled.section`
-  padding-top: 56.25%;
+  padding-top: 75%;
   width: 100%;
   position: relative;
   overflow: hidden;

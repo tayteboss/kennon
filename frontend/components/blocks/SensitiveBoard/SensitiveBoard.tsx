@@ -90,7 +90,7 @@ const ShaderOuter = styled.div`
   left: 0;
   height: 100vh;
   width: 100%;
-  opacity: 1;
+  opacity: 0.6;
 
   @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
     opacity: 1;
@@ -186,7 +186,7 @@ const ExtendedTextWrapper = styled.section`
 
 const ExtendedText = styled.div`
   * {
-    font-size: ${pxToRem(26)};
+    font-size: ${pxToRem(20)};
     line-height: 1.2;
 
     @media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
