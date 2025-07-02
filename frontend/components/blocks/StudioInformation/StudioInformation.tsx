@@ -28,7 +28,7 @@ const StudioInformation = (props: Props) => {
           useDefaultType
         />
         <InformationColumn
-          title="Associates"
+          title="Associations"
           data={data.associations}
           useDefaultType
         />

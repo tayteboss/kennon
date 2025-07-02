@@ -6,7 +6,7 @@ const formatType = (type: WorkType["_type"], useLowerCase = false) => {
   } else if (type === "privateWork") {
     return useLowerCase ? "private" : "Private";
   } else if (type === "multiResWork") {
-    return useLowerCase ? "multi" : "Multi Residence";
+    return useLowerCase ? "multi" : "Multi Residential";
   } else {
     return "";
   }
