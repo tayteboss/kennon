@@ -13,7 +13,12 @@ export const mediaString = `
 	video {
 		asset-> {
 			playbackId,
-		},
+			data {
+				tracks[] {
+					type
+				}
+			}
+		}
 	},
 `;
 

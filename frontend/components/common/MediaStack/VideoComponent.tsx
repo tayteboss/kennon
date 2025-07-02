@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { MediaType } from "../../../shared/types/types";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
+import MuteTrigger from "../../elements/MuteTrigger";
 
 const VideoComponentWrapper = styled.div`
   position: relative;
@@ -64,13 +66,22 @@ type Props = {
   isPriority: boolean;
   noAnimation?: boolean;
   lazyLoad?: boolean;
+  useSoundTriggers?: boolean;
 };
 
 const VideoComponent = (props: Props) => {
-  const { data, inView, isPriority, noAnimation, lazyLoad } = props;
+  const { data, inView, isPriority, noAnimation, lazyLoad, useSoundTriggers } =
+    props;
+
+  const [isMuted, setIsMuted] = useState(true);
 
   const playbackId = data?.video?.asset?.playbackId;
   const posterUrl = `https://image.mux.com/${data?.video?.asset?.playbackId}/thumbnail.png?width=214&height=121&time=1`;
+
+  // Check if video has audio tracks
+  const hasAudio =
+    data?.video?.asset?.data?.tracks?.some((track) => track.type === "audio") ||
+    false;
 
   return (
     <VideoComponentWrapper className="media-wrapper">
@@ -104,11 +115,18 @@ const VideoComponent = (props: Props) => {
             thumbnailTime={1}
             loading={lazyLoad ? "viewport" : "page"}
             preload="auto"
-            muted
+            muted={useSoundTriggers && hasAudio ? isMuted : true}
             playsInline={true}
             poster={`${posterUrl}`}
             minResolution="2160p"
           />
+          {useSoundTriggers && hasAudio && (
+            <MuteTrigger
+              isActive={false}
+              isMuted={isMuted}
+              setIsMuted={setIsMuted}
+            />
+          )}
         </Inner>
       )}
     </VideoComponentWrapper>

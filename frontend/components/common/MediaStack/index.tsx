@@ -12,6 +12,7 @@ type Props = {
   sizes?: undefined | string;
   alt?: string;
   lazyLoad?: boolean;
+  useSoundTriggers?: boolean;
 };
 
 const MediaStack = (props: Props) => {
@@ -21,6 +22,7 @@ const MediaStack = (props: Props) => {
     sizes = undefined,
     alt,
     lazyLoad = false,
+    useSoundTriggers = false,
   } = props ?? {};
 
   // sizes="(max-width: 768px) 38vw, (max-width: 1024px) 20vw, 15vw"
@@ -41,6 +43,7 @@ const MediaStack = (props: Props) => {
           inView={inView}
           isPriority={isPriority}
           lazyLoad={lazyLoad}
+          useSoundTriggers={useSoundTriggers}
         />
       )}
       {!useVideo && (

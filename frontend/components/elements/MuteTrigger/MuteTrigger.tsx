@@ -125,7 +125,7 @@ const MuteTrigger = (props: Props) => {
           )}
         </AnimatePresence>
       </IconWrapper>{" "}
-      <AnimatePresence mode="wait">
+      {/* <AnimatePresence mode="wait">
         {!isActive && (
           <MuteText
             className="type-small"
@@ -137,7 +137,7 @@ const MuteTrigger = (props: Props) => {
             mute sound
           </MuteText>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </MuteTriggerWrapper>
   );
 };

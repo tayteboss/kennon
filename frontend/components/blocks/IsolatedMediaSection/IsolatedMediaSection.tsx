@@ -41,7 +41,9 @@ const IsolatedMediaSection = (props: any) => {
     >
       <LayoutGrid>
         <Inner className="work-section__isolated-inner">
-          {isolatedMedia?.media && <MediaStack data={isolatedMedia?.media} />}
+          {isolatedMedia?.media && (
+            <MediaStack data={isolatedMedia?.media} useSoundTriggers={true} />
+          )}
         </Inner>
       </LayoutGrid>
     </IsolatedMediaSectionWrapper>

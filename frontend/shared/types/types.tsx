@@ -1,6 +1,15 @@
 export type MediaType = {
   mediaType: "video" | "image";
-  video: { asset: { playbackId: string } };
+  video: {
+    asset: {
+      playbackId: string;
+      data?: {
+        tracks?: Array<{
+          type: string;
+        }>;
+      };
+    };
+  };
   image: { asset: { url: string; metadata: { lqip: string } }; alt: string };
 };
 
