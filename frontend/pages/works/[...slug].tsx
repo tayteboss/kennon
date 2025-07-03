@@ -125,7 +125,7 @@ export async function getStaticProps({ params }: any) {
   }
 
   const allWorkQuery = `
-    *[_type == "${data._type}"] | order(yearCompleted asc) {
+    *[_type == "${data._type}"] | order(orderRank) [0...100] {
       slug,
       title,
       _id,
