@@ -136,8 +136,7 @@ const SenseBlock = (props: SenseBlockType & { number: string }) => {
         )}
         <ContentWrapper>
           <DesktopText>
-            {title || ""}
-            {description && ` — ${description}`}
+            {title || ""} {description && `— ${description}`}
           </DesktopText>
           <MobileText>{title || ""}</MobileText>
         </ContentWrapper>
