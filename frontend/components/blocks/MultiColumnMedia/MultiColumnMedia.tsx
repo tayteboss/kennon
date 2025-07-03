@@ -56,7 +56,11 @@ const MultiColumnMedia = (props: any) => {
               className={`work-section__multi-inner work-section__multi-cols-${multiColumnMedia?.columns?.length}`}
               key={i}
             >
-              <MediaStack data={item} useSoundTriggers={true} />
+              <MediaStack
+                data={item}
+                useSoundTriggers={true}
+                sizes={`(max-width: 1024px) 100vw, ${multiColumnMedia?.columns?.length === 1 ? "100vw" : multiColumnMedia?.columns?.length === 2 ? "50vw" : "33vw"}`}
+              />
             </ImageWrapper>
           ))}
       </LayoutGrid>

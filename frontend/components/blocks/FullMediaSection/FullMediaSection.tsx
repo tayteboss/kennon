@@ -32,7 +32,11 @@ const FullMediaSection = (props: any) => {
     >
       <Inner className="work-section__full-inner">
         {fullMedia?.media && (
-          <MediaStack data={fullMedia?.media} useSoundTriggers={true} />
+          <MediaStack
+            data={fullMedia?.media}
+            useSoundTriggers={true}
+            sizes="100vw"
+          />
         )}
       </Inner>
     </FullMediaSectionWrapper>

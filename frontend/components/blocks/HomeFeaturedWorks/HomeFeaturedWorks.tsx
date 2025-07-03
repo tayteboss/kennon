@@ -51,6 +51,7 @@ const HomeFeaturedWorks = (props: Props) => {
             yearCompleted={item?.yearCompleted}
             type={item?._type}
             comingSoon={item?.comingSoon}
+            isPriority={false}
           />
         ))}
     </HomeFeaturedWorksWrapper>

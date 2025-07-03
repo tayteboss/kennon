@@ -58,7 +58,7 @@ const HomeHero = (props: Props) => {
 
   return (
     <HomeHeroWrapper>
-      <MediaStack data={data} />
+      <MediaStack data={data} sizes="100vw" />
       <LogoWrapper $isReady={isReady}>
         <Logo />
       </LogoWrapper>

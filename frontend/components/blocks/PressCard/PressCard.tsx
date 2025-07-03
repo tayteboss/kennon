@@ -113,6 +113,7 @@ const PressCard = (props: Props) => {
                 objectFit: "cover",
               }}
               loading="lazy"
+              sizes="(max-width: 768px) 100vw, 33vw"
             />
           </ImageWrapper>
         )}
