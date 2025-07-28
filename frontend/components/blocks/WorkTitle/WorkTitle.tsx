@@ -19,7 +19,7 @@ const WorkTitleWrapper = styled(motion.section)`
   text-align: center;
 `;
 
-const Subheading = styled.h2`
+const Subheading = styled.h1`
   text-align: center;
   margin-bottom: ${pxToRem(8)};
 `;

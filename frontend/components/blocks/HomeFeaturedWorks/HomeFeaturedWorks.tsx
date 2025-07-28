@@ -6,7 +6,7 @@ import { useInView } from "react-intersection-observer";
 
 const HomeFeaturedWorksWrapper = styled.section``;
 
-const Title = styled.h2`
+const Title = styled.h1`
   text-align: center;
   padding: ${pxToRem(64)} 0 ${pxToRem(80)};
 
